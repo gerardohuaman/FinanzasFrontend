@@ -1,0 +1,43 @@
+<div class="login-container">
+  <div class="login-box">
+    
+    <div class="logo-section">
+      <div class="shield-icon">
+        <mat-icon>security</mat-icon>
+      </div>
+      <h1>FinanzaAuto Perú</h1>
+      <p>Sistema de Gestión de Créditos</p>
+    </div>
+
+    <form class="login-form" (ngSubmit)="onLogin()">
+      
+      <div class="form-group">
+        <label>CORREO ELECTRÓNICO</label>
+        <mat-form-field appearance="outline" class="full-width">
+          <input matInput type="email" placeholder="admin@finanzaauto.pe" [(ngModel)]="email" name="correo" required>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <label>CONTRASEÑA</label>
+        <mat-form-field appearance="outline" class="full-width">
+          <input matInput type="password" placeholder="********" [(ngModel)]="password" name="contrasena" required>
+        </mat-form-field>
+      </div>
+
+      <div class="error-message" *ngIf="hasError">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-options">
+        <mat-checkbox [(ngModel)]="rememberMe" name="recordarme" color="primary">Recordarme</mat-checkbox>
+        <a href="#" class="forgot-link">¿Olvido su clave?</a>
+      </div>
+
+      <button mat-flat-button class="btn-ingresar" type="submit">
+        Ingresar al sistema
+      </button>
+
+    </form>
+  </div>
+</div>
