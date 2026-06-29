@@ -9,6 +9,8 @@ import { MatInputModule } from "@angular/material/input";
 import { MatCardModule } from "@angular/material/card";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import {VehiculoService} from "../../../core/services/Vehiculo-service";
+import {ClienteDialogComponent} from "../cliente-dialog/cliente-dialog";
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 @Component({
   selector: "app-cliente-vehiculo-list",
@@ -20,7 +22,8 @@ import {VehiculoService} from "../../../core/services/Vehiculo-service";
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+      MatDialogModule
   ],
   templateUrl: "./cliente-vehiculo-list.html",
   styleUrl: "./cliente-vehiculo-list.css",
@@ -40,7 +43,7 @@ export class ClienteListComponent implements OnInit{
   cambiarTab(tab: 'clientes' | 'vehiculos') {
     this.tabActiva = tab;
   }
-  constructor(private clienteService: ClienteService,private vehiculoService: VehiculoService){}
+  constructor(private clienteService: ClienteService,private vehiculoService: VehiculoService, private dialog: MatDialog ){}
   ngOnInit(): void {
     this.cargarClientes();
     this.cargarVehiculos();
@@ -66,7 +69,11 @@ export class ClienteListComponent implements OnInit{
   }
 
   abrirModalNuevoCliente(){
-    console.log("Abrir modal para registrar nuevo cliente")
+    this.dialog.open(ClienteDialogComponent, {
+      data: null
+    }).afterClosed().subscribe(resultado => {
+      if (resultado) console.log('Crear:', resultado);
+    });
   }
 
   //Vehiculos
