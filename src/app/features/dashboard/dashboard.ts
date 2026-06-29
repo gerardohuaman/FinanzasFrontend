@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
       next: (clientes: any[]) => {
         this.totalClientes = clientes.length
       },
-      error: (err) => console.error('Error al recuperar clientes para el dashboard', err)
+      error: (err) => console.error('Error al recuperar clientes-vehiculos para el dashboard', err)
     })
 
     this.vehiculoService.list().subscribe({
