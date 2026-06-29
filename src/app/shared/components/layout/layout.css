@@ -40,8 +40,11 @@
 }
 
 /* Modificando los items de la lista de Material */
-.nav-menu, .footer-menu {
+.nav-menu{
   padding: 0 12px;
+}
+.footer-menu{
+  padding: 200% 12px 0px;
 }
 
 ::ng-deep .mat-mdc-list-item {

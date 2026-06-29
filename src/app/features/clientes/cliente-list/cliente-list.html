@@ -1,5 +1,5 @@
 <div class="page-layout">
-  
+
   <div class="header-section">
     <div>
       <h2>Clientes y Vehículos</h2>
@@ -19,20 +19,15 @@
     <div class="toolbar">
       <mat-form-field appearance="outline" class="search-bar">
         <mat-icon matPrefix>search</mat-icon>
-        <mat-label>Buscar por nombre o DNI...</mat-label>
+        <mat-label>Buscar por nombre</mat-label>
         <input matInput (keyup)="aplicarFiltro($event)" placeholder="Ej. Carlos Ruiz">
       </mat-form-field>
-
-      <div class="toolbar-actions">
-        <button mat-stroked-button><mat-icon>filter_list</mat-icon> Filtrar</button>
-        <button mat-stroked-button><mat-icon>file_download</mat-icon> Exportar</button>
-      </div>
     </div>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
-      
+
       <ng-container matColumnDef="dni">
-        <th mat-header-cell *matHeaderCellDef> ID / RUC </th>
+        <th mat-header-cell *matHeaderCellDef> ID </th>
         <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
       </ng-container>
 
@@ -57,54 +52,30 @@
         <th mat-header-cell *matHeaderCellDef> INGRESOS MENSUALES </th>
         <td mat-cell *matCellDef="let element"> S/ {{element.ingresos_mensuales | number:'1.2-2'}} </td>
       </ng-container>
-
+      <!--
       <ng-container matColumnDef="fecha">
         <th mat-header-cell *matHeaderCellDef> FECHA REGISTRO </th>
         <td mat-cell *matCellDef="let element"> {{element.fechaRegistro}} </td>
       </ng-container>
-
+      -->
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef> ACCIONES </th>
         <td mat-cell *matCellDef="let element">
           <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
-          <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
-        </td>
-      </ng-container>
+            <!--<button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>-->
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="columnasMostradas"></tr>
-      <tr mat-row *matRowDef="let row; columns: columnasMostradas;"></tr>
-      
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell text-center" colspan="7">No se encontraron clientes que coincidan con la búsqueda.</td>
-      </tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="columnasMostradas"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasMostradas;"></tr>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-  </mat-card>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell text-center" colspan="7">No se encontraron clientes que coincidan con la búsqueda.</td>
+        </tr>
+      </table>
 
-  <div class="stats-grid mt-4">
-    <mat-card class="stat-card">
-      <div class="stat-icon green-icon"><mat-icon>trending_up</mat-icon></div>
-      <div class="stat-info">
-        <span class="stat-label">NUEVOS CLIENTES (MES)</span>
-        <span class="stat-value text-success">+24.8%</span>
-      </div>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </mat-card>
 
-    <mat-card class="stat-card">
-      <div class="stat-icon blue-icon"><mat-icon>directions_car</mat-icon></div>
-      <div class="stat-info">
-        <span class="stat-label">STOCK VEHICULAR</span>
-        <span class="stat-value">156 Unid.</span>
-      </div>
-    </mat-card>
 
-    <mat-card class="stat-card">
-      <div class="stat-icon yellow-icon"><mat-icon>star</mat-icon></div>
-      <div class="stat-info">
-        <span class="stat-label">CALIFICACIÓN PROMEDIO</span>
-        <span class="stat-value">A+</span>
-      </div>
-    </mat-card>
   </div>
-</div>

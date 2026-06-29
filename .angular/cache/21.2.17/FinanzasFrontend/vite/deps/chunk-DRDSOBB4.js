@@ -3,8 +3,8 @@ import {
   _setInnerHtml
 } from "./chunk-S73I762L.js";
 import {
-  coerceArray
-} from "./chunk-AIEYJCOW.js";
+  _CdkPrivateStyleLoader
+} from "./chunk-CMHXHNSZ.js";
 import {
   _getEventTarget,
   _getFocusedElementPierceShadowDom,
@@ -12,18 +12,18 @@ import {
   normalizePassiveListenerOptions
 } from "./chunk-ZGMQNX65.js";
 import {
-  DomSanitizer
-} from "./chunk-7QDDKQGJ.js";
+  Platform
+} from "./chunk-VIXON74R.js";
 import {
-  _CdkPrivateStyleLoader
-} from "./chunk-CMHXHNSZ.js";
+  DomSanitizer
+} from "./chunk-UAD5URDX.js";
+import {
+  coerceArray
+} from "./chunk-AIEYJCOW.js";
 import {
   coerceElement,
   coerceNumberProperty
 } from "./chunk-S7X2EWCK.js";
-import {
-  Platform
-} from "./chunk-VIXON74R.js";
 import {
   ANIMATION_MODULE_TYPE,
   APP_ID,
@@ -2629,4 +2629,4 @@ export {
   AriaDescriber,
   _animationsDisabled
 };
-//# sourceMappingURL=chunk-6FQU5UOW.js.map
+//# sourceMappingURL=chunk-DRDSOBB4.js.map

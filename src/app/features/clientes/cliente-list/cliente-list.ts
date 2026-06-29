@@ -25,7 +25,7 @@ import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
   styleUrl: "./cliente-list.css",
 })
 export class ClienteListComponent implements OnInit{
-  columnasMostradas: string[] = ['dni', 'nombreCompleto', 'email', 'telefono', 'ingresos', 'fecha', 'acciones']
+  columnasMostradas: string[] = ['dni', 'nombreCompleto', 'email', 'telefono', 'ingresos', 'acciones']
   dataSource = new MatTableDataSource<Cliente>([])
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
