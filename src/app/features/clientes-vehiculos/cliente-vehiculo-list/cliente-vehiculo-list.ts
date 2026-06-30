@@ -9,8 +9,10 @@ import { MatInputModule } from "@angular/material/input";
 import { MatCardModule } from "@angular/material/card";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import {VehiculoService} from "../../../core/services/Vehiculo-service";
-import {ClienteDialogComponent} from "../cliente-dialog/cliente-dialog";
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+
+import {ClienteDialogComponent} from "../cliente-dialog/cliente-dialog";
+import {VehiculoDialogComponent} from "../vehiculo-dialog/vehiculo-dialog";
 
 @Component({
   selector: "app-cliente-vehiculo-list",
@@ -91,6 +93,10 @@ export class ClienteListComponent implements OnInit{
     this.dataSourceVehiculos.filter = valor.trim().toLowerCase();
   }
   abrirModalNuevoVehiculo() {
-    console.log("Abrir modal para registrar nuevo vehículo")
+    this.dialog.open(VehiculoDialogComponent, {
+      data: null
+    }).afterClosed().subscribe(resultado => {
+      if (resultado) console.log('Crear:', resultado);
+    });
   }
 }

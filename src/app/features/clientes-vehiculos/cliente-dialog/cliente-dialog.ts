@@ -25,7 +25,6 @@ import {NgIf} from "@angular/common";
 })
 
 export class ClienteDialogComponent implements OnInit {
-
     private fb         = inject(FormBuilder);
     private dialogRef  = inject(MatDialogRef<ClienteDialogComponent>);
     public  data       = inject<any>(MAT_DIALOG_DATA);

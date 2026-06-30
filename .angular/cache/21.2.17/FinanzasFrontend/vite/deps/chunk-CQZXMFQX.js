@@ -5,6 +5,9 @@ import {
   normalizePassiveListenerOptions
 } from "./chunk-GWBU7KI5.js";
 import {
+  coerceArray
+} from "./chunk-AIEYJCOW.js";
+import {
   _VisuallyHiddenLoader,
   _setInnerHtml
 } from "./chunk-S73I762L.js";
@@ -17,9 +20,6 @@ import {
 import {
   Platform
 } from "./chunk-VIXON74R.js";
-import {
-  coerceArray
-} from "./chunk-AIEYJCOW.js";
 import {
   coerceElement,
   coerceNumberProperty
@@ -1911,6 +1911,19 @@ var ListKeyManager = class {
   }
 };
 
+// node_modules/@angular/cdk/fesm2022/_activedescendant-key-manager-chunk.mjs
+var ActiveDescendantKeyManager = class extends ListKeyManager {
+  setActiveItem(index) {
+    if (this.activeItem) {
+      this.activeItem.setInactiveStyles();
+    }
+    super.setActiveItem(index);
+    if (this.activeItem) {
+      this.activeItem.setActiveStyles();
+    }
+  }
+};
+
 // node_modules/@angular/cdk/fesm2022/_focus-key-manager-chunk.mjs
 var FocusKeyManager = class extends ListKeyManager {
   _origin = "program";
@@ -1957,19 +1970,6 @@ var _IdGenerator = class __IdGenerator {
     }]
   }], null, null);
 })();
-
-// node_modules/@angular/cdk/fesm2022/_activedescendant-key-manager-chunk.mjs
-var ActiveDescendantKeyManager = class extends ListKeyManager {
-  setActiveItem(index) {
-    if (this.activeItem) {
-      this.activeItem.setInactiveStyles();
-    }
-    super.setActiveItem(index);
-    if (this.activeItem) {
-      this.activeItem.setActiveStyles();
-    }
-  }
-};
 
 // node_modules/@angular/cdk/fesm2022/coercion-private.mjs
 function coerceObservable(data) {
@@ -2627,6 +2627,8 @@ export {
   addAriaReferencedId,
   removeAriaReferencedId,
   AriaDescriber,
+  MATERIAL_ANIMATIONS,
+  _getAnimationsState,
   _animationsDisabled
 };
-//# sourceMappingURL=chunk-K5F62MAQ.js.map
+//# sourceMappingURL=chunk-CQZXMFQX.js.map

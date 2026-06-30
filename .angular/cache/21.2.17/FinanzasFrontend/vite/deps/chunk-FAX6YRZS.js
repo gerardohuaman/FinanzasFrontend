@@ -2,7 +2,7 @@ import {
   _animationsDisabled,
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader
-} from "./chunk-K5F62MAQ.js";
+} from "./chunk-CQZXMFQX.js";
 import {
   _getEventTarget,
   normalizePassiveListenerOptions
@@ -584,6 +584,8 @@ var MatRippleModule = class _MatRippleModule {
 })();
 
 export {
+  RippleState,
+  RippleRef,
   defaultRippleAnimationConfig,
   RippleRenderer,
   MAT_RIPPLE_GLOBAL_OPTIONS,
@@ -591,4 +593,4 @@ export {
   _StructuralStylesLoader,
   MatRippleModule
 };
-//# sourceMappingURL=chunk-LYKHYU7L.js.map
+//# sourceMappingURL=chunk-FAX6YRZS.js.map

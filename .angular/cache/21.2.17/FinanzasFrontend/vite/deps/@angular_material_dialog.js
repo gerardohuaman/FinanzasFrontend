@@ -11,7 +11,7 @@ import {
   createBlockScrollStrategy,
   createGlobalPositionStrategy,
   createOverlayRef
-} from "./chunk-WJXUPPZ2.js";
+} from "./chunk-7IXB7QKF.js";
 import {
   A11yModule,
   ESCAPE,
@@ -21,10 +21,11 @@ import {
   _IdGenerator,
   _animationsDisabled,
   hasModifierKey
-} from "./chunk-K5F62MAQ.js";
+} from "./chunk-CQZXMFQX.js";
 import {
   _getFocusedElementPierceShadowDom
 } from "./chunk-GWBU7KI5.js";
+import "./chunk-AIEYJCOW.js";
 import "./chunk-S73I762L.js";
 import "./chunk-7QDDKQGJ.js";
 import "./chunk-ESMX5BUJ.js";
@@ -37,13 +38,12 @@ import "./chunk-CMHXHNSZ.js";
 import {
   Platform
 } from "./chunk-VIXON74R.js";
-import "./chunk-JUE652Y2.js";
-import "./chunk-XP6RRIDO.js";
-import "./chunk-HOVQHAQJ.js";
-import "./chunk-AIEYJCOW.js";
 import {
   coerceNumberProperty
 } from "./chunk-S7X2EWCK.js";
+import "./chunk-JUE652Y2.js";
+import "./chunk-XP6RRIDO.js";
+import "./chunk-HOVQHAQJ.js";
 import {
   BidiModule,
   Directionality

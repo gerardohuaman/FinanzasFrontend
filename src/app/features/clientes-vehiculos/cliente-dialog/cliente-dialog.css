@@ -56,9 +56,3 @@
     color: white !important;
     padding: 0 24px;
 }
-/* Esto afecta al fondo que bloquea la pantalla detrás del modal */
-.cdk-overlay-backdrop.cdk-overlay-dark-backdrop {
-    background: rgba(15, 23, 42, 0.45) !important; /* El color oscuro con opacidad */
-    backdrop-filter: blur(4px) !important;          /* El efecto de desenfoque */
-    -webkit-backdrop-filter: blur(4px) !important;  /* Compatibilidad con Safari */
-}
