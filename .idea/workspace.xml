@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee073db1-d864-455f-b41a-04e36aba139b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/.tsbuildinfo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_button.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_button.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_form-field.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_form-field.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_input.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_input.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_paginator.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_paginator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_sidenav.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_sidenav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/_metadata.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-dialog/cliente-dialog.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-dialog/cliente-dialog.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-dialog/cliente-dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-dialog/cliente-dialog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-dialog/cliente-dialog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-dialog/cliente-dialog.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-vehiculo-list/cliente-vehiculo-list.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-vehiculo-list/cliente-vehiculo-list.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/vehiculo-dialog/vehiculo-dialog.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/vehiculo-dialog/vehiculo-dialog.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/vehiculo-dialog/vehiculo-dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/vehiculo-dialog/vehiculo-dialog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/vehiculo-dialog/vehiculo-dialog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/vehiculo-dialog/vehiculo-dialog.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +165,9 @@
       <workItem from="1782691622162" duration="2739000" />
       <workItem from="1782698735931" duration="6291000" />
       <workItem from="1782752091844" duration="5997000" />
-      <workItem from="1782785273321" duration="6543000" />
+      <workItem from="1782785273321" duration="8734000" />
+      <workItem from="1782850190792" duration="38000" />
+      <workItem from="1782855990755" duration="756000" />
     </task>
     <servers />
   </component>
