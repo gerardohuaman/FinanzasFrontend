@@ -54,6 +54,7 @@ export class SimuladorConfigComponent {
   ){}
 
   ngOnInit(): void {
+    console.log("Ultimo cambio");
     this.clienteService.list().subscribe(data => this.clientes = data)
     this.vehiculoService.list().subscribe(data => this.vehiculos = data)
 
