@@ -5,21 +5,21 @@ import {
   normalizePassiveListenerOptions
 } from "./chunk-GWBU7KI5.js";
 import {
+  coerceArray
+} from "./chunk-AIEYJCOW.js";
+import {
   _VisuallyHiddenLoader,
   _setInnerHtml
 } from "./chunk-S73I762L.js";
 import {
   DomSanitizer
-} from "./chunk-7QDDKQGJ.js";
+} from "./chunk-UAD5URDX.js";
 import {
   _CdkPrivateStyleLoader
 } from "./chunk-CMHXHNSZ.js";
 import {
   Platform
 } from "./chunk-VIXON74R.js";
-import {
-  coerceArray
-} from "./chunk-AIEYJCOW.js";
 import {
   coerceElement,
   coerceNumberProperty
@@ -2631,4 +2631,4 @@ export {
   _getAnimationsState,
   _animationsDisabled
 };
-//# sourceMappingURL=chunk-GDGNCV3F.js.map
+//# sourceMappingURL=chunk-MRTHAPM5.js.map

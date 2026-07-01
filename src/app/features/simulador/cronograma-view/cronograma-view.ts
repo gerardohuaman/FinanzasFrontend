@@ -19,7 +19,7 @@ import { CronogramaPagosDTO } from "../../../models/CronogramaPagosDTO";
   templateUrl: "./cronograma-view.html",
   styleUrl: "./cronograma-view.css",
 })
-export class CronogramaView {
+export class CronogramaViewComponent {
   @Input() simulacionData!: SimulacionResponseDTO
 
   columnasMostradas: string[] = [

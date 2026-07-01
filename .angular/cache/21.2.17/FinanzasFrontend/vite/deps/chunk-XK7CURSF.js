@@ -225,6 +225,7 @@ var _DisposeViewRepeaterStrategy = class {
 
 export {
   SelectionModel,
+  UniqueSelectionDispatcher,
   _DisposeViewRepeaterStrategy
 };
-//# sourceMappingURL=chunk-HY2Z63Z3.js.map
+//# sourceMappingURL=chunk-XK7CURSF.js.map
