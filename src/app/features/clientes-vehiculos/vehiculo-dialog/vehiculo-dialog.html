@@ -24,21 +24,17 @@
             <div class="form-row">
                 <mat-form-field appearance="outline" class="half">
                     <mat-label>Moneda</mat-label>
-                    <mat-select formControlName="moneda" [compareWith]="compararMoneda">
-                        <mat-option *ngFor="let m of monedas" [value]="m">
-                            {{ m.codigo_iso }} — {{ m.nombre }}
+                    <mat-select formControlName="id_moneda">
+                        <mat-option *ngFor="let m of monedas" [value]="m.id_moneda">
+                            {{ m.codigo_iso }}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="form.get('moneda')?.hasError('required')">Requerido</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="half">
-                    <mat-label>Versión</mat-label>
-                    <input matInput formControlName="version" placeholder="SRV 4x4 AT">
+                    <mat-error *ngIf="form.get('id_moneda')?.hasError('required')">Requerido</mat-error>
                 </mat-form-field>
             </div>
             <mat-form-field appearance="outline" class="full">
                 <mat-label>Precio</mat-label>
-                <input matInput type="number" formControlName="precio" placeholder="45000.00">
+                <input matInput type="number" formControlName="precio_venta" placeholder="45000.00">
                 <mat-error *ngIf="form.get('precio')?.hasError('required')">Requerido</mat-error>
             </mat-form-field>
         </div>

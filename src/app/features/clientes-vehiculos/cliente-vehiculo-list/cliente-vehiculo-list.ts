@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {Component, inject, OnInit, ViewChild} from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
@@ -13,6 +13,8 @@ import {VehiculoService} from "../../../core/services/Vehiculo-service";
 import { ClienteService } from "../../../core/services/Cliente-service";
 import {ClienteDialogComponent} from "../cliente-dialog/cliente-dialog";
 import {VehiculoDialogComponent} from "../vehiculo-dialog/vehiculo-dialog";
+import {MonedaService} from "../../../core/services/Moneda-service";
+import {Moneda} from "../../../models/Moneda";
 
 
 @Component({
@@ -37,10 +39,13 @@ export class ClienteListComponent implements OnInit{
   dataSourceClientes = new MatTableDataSource<Cliente>([])
   @ViewChild('paginatorClientes') paginatorClientes!: MatPaginator
   //Vehiculos
-  columnasVehiculos = ['codigo', 'marca', 'modelo', 'precio', 'moneda', 'acciones'];
+  columnasVehiculos = ['id_vehiculo', 'marca', 'modelo', 'precio_venta', 'id_moneda', 'acciones'];
   dataSourceVehiculos = new MatTableDataSource<any>([]);
   @ViewChild('paginatorVehiculos') paginatorVehiculos!: MatPaginator;
 
+  //Moneda
+  private monedaService = inject(MonedaService);
+  monedas: any[] = [];
   tabActiva: 'clientes' | 'vehiculos' = 'clientes';
 
   cambiarTab(tab: 'clientes' | 'vehiculos') {
@@ -50,25 +55,33 @@ export class ClienteListComponent implements OnInit{
   ngOnInit(): void {
     this.cargarClientes();
     this.cargarVehiculos();
+    this.cargarMonedas();
   }
   ngAfterViewInit(): void {
     this.dataSourceClientes.paginator = this.paginatorClientes;
     this.dataSourceVehiculos.paginator = this.paginatorVehiculos;
   }
+
+  //Monedas
+  cargarMonedas(): void {
+    this.monedaService.list().subscribe({
+      next: (data) => this.monedas = data,
+      error: (err) => console.error('Error al cargar monedas', err)
+    });
+  }
+  obtenerCodigoMoneda(id_moneda: number): string {
+    console.log('buscando id_moneda:', id_moneda, 'en:', this.monedas);
+    return this.monedas.find(m => m.id_moneda === id_moneda)?.codigo_iso ?? '';
+  }
   //Clientes
   cargarClientes(){
-    this.dataSourceClientes.data = [
-      {id_cliente:1,dni: '45892012', nombreCompleto: 'Carlos', telefono: '987 654 321',   email: 'c.ruiz@email.com',ingresos_mensuales: 4500.00 },
-      {id_cliente:2,dni: '72103445', nombreCompleto: 'Mariana', telefono: '955 123 098',  email: 'm.santos_88@gmail.com', ingresos_mensuales: 6200.00 },
-    ];
-    //Para backend
-    /*    this.clienteService.list().subscribe({
+    this.clienteService.list().subscribe({
       next: (data) => {
         this.dataSourceClientes.data = data;
         this.dataSourceClientes.paginator = this.paginatorClientes;
       },
       error: (err) => console.error('Error al cargar clientes', err)
-    });*/
+    });
   }
 
   aplicarFiltroCliente(event: Event){
@@ -80,16 +93,17 @@ export class ClienteListComponent implements OnInit{
     this.dialog.open(ClienteDialogComponent, {
       data: null
     }).afterClosed().subscribe(resultado => {
-      if (!resultado) console.log('Crear:', resultado);
+      if (!resultado) return;
 
       const nuevoCliente: Cliente = {
-        id_cliente: 0, //No se usa para backend
+        id_cliente: 0,
         dni: resultado.dni,
         nombreCompleto: resultado.nombreCompleto,
         telefono: resultado.telefono,
         email: resultado.email,
         ingresos_mensuales: resultado.ingresos_mensuales
       };
+
       this.clienteService.insert(nuevoCliente).subscribe({
         next: () => this.cargarClientes(),
         error: (err) => console.error('Error al registrar cliente', err)
@@ -143,14 +157,13 @@ export class ClienteListComponent implements OnInit{
         marca: resultado.marca,
         modelo: resultado.modelo,
         precio_venta: resultado.precio_venta,
-        moneda: resultado.moneda
+        id_moneda: resultado.id_moneda
       };
 
       this.vehiculoService.insert(nuevoVehiculo).subscribe({
         next: () => this.cargarVehiculos(),
         error: (err) => console.error('Error al registrar vehículo', err)
       });
-
     });
   }
   abrirModalEditarVehiculo(vehiculo: any){
@@ -164,7 +177,7 @@ export class ClienteListComponent implements OnInit{
         marca: resultado.marca,
         modelo: resultado.modelo,
         precio_venta: resultado.precio_venta,
-        moneda: resultado.moneda
+        id_moneda: resultado.id_moneda
       };
 
       this.vehiculoService.update(vehiculoActualizado).subscribe({

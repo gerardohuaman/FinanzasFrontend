@@ -5,5 +5,5 @@ export class Vehiculo {
     marca: string = ''
     modelo: string = ''
     precio_venta: number = 0
-    moneda: Moneda = new Moneda()
+    id_moneda: number = 0
 }

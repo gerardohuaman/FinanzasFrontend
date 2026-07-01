@@ -46,33 +46,19 @@ export class VehiculoDialogComponent implements OnInit {
         this.form = this.fb.group({
             marca:   [this.data?.marca   ?? '',   Validators.required],
             modelo:  [this.data?.modelo  ?? '',   Validators.required],
-            moneda:  [this.data?.moneda  ?? '',   Validators.required],
-            version: [this.data?.version ?? '',   Validators.required],
-            precio:  [this.data?.precio  ?? null, [Validators.required, Validators.min(1000)]]
+            id_moneda:  [this.data?.id_moneda  ?? '',   Validators.required],
+            precio_venta:  [this.data?.precio_venta  ?? null, [Validators.required, Validators.min(1000)]]
         });
-
         this.cargarMonedas();
     }
 
     private cargarMonedas(): void {
         this.monedaService.list().subscribe({
-            next: (lista) => {
-                this.monedas = lista;
-                if (this.modoEdicion && this.data?.moneda) {
-                    const monedaEncontrada = lista.find(
-                        m => m.id_moneda === this.data.moneda.id_moneda
-                    );
-                    if (monedaEncontrada) {
-                        this.form.patchValue({ moneda: monedaEncontrada });
-                    }
-                }
-            },
+            next: (data) => this.monedas = data,
             error: (err) => console.error('Error al cargar monedas', err)
         });
     }
-    compararMoneda(m1: Moneda, m2: Moneda): boolean {
-        return m1 && m2 ? m1.id_moneda === m2.id_moneda : m1 === m2;
-    }
+
     confirmar(): void {
         if (this.form.valid) {
             const resultado = {
