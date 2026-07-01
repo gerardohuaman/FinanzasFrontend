@@ -2,7 +2,7 @@ import {
   _animationsDisabled,
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader
-} from "./chunk-CQZXMFQX.js";
+} from "./chunk-GDGNCV3F.js";
 import {
   _getEventTarget,
   normalizePassiveListenerOptions
@@ -17,9 +17,6 @@ import {
   coerceElement
 } from "./chunk-S7X2EWCK.js";
 import {
-  BidiModule
-} from "./chunk-YE7CSKV4.js";
-import {
   ChangeDetectionStrategy,
   Component,
   Directive,
@@ -27,20 +24,47 @@ import {
   InjectionToken,
   Injector,
   Input,
-  NgModule,
   NgZone,
   ViewEncapsulation,
   inject,
   setClassMetadata,
   ɵɵclassProp,
   ɵɵdefineComponent,
-  ɵɵdefineDirective,
-  ɵɵdefineInjector,
-  ɵɵdefineNgModule
+  ɵɵdefineDirective
 } from "./chunk-53KSJKWV.js";
 import {
   __spreadValues
 } from "./chunk-H2SRQSE4.js";
+
+// node_modules/@angular/material/fesm2022/_structural-styles-chunk.mjs
+var _StructuralStylesLoader = class __StructuralStylesLoader {
+  static ɵfac = function _StructuralStylesLoader_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || __StructuralStylesLoader)();
+  };
+  static ɵcmp = ɵɵdefineComponent({
+    type: __StructuralStylesLoader,
+    selectors: [["structural-styles"]],
+    decls: 0,
+    vars: 0,
+    template: function _StructuralStylesLoader_Template(rf, ctx) {
+    },
+    styles: ['.mat-focus-indicator {\n  position: relative;\n}\n.mat-focus-indicator::before {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute;\n  box-sizing: border-box;\n  pointer-events: none;\n  display: var(--mat-focus-indicator-display, none);\n  border-width: var(--mat-focus-indicator-border-width, 3px);\n  border-style: var(--mat-focus-indicator-border-style, solid);\n  border-color: var(--mat-focus-indicator-border-color, transparent);\n  border-radius: var(--mat-focus-indicator-border-radius, 4px);\n}\n.mat-focus-indicator:focus-visible::before {\n  content: "";\n}\n\n@media (forced-colors: active) {\n  html {\n    --mat-focus-indicator-display: block;\n  }\n}\n'],
+    encapsulation: 2,
+    changeDetection: 0
+  });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_StructuralStylesLoader, [{
+    type: Component,
+    args: [{
+      selector: "structural-styles",
+      encapsulation: ViewEncapsulation.None,
+      template: "",
+      changeDetection: ChangeDetectionStrategy.OnPush,
+      styles: ['.mat-focus-indicator {\n  position: relative;\n}\n.mat-focus-indicator::before {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute;\n  box-sizing: border-box;\n  pointer-events: none;\n  display: var(--mat-focus-indicator-display, none);\n  border-width: var(--mat-focus-indicator-border-width, 3px);\n  border-style: var(--mat-focus-indicator-border-style, solid);\n  border-color: var(--mat-focus-indicator-border-color, transparent);\n  border-radius: var(--mat-focus-indicator-border-radius, 4px);\n}\n.mat-focus-indicator:focus-visible::before {\n  content: "";\n}\n\n@media (forced-colors: active) {\n  html {\n    --mat-focus-indicator-display: block;\n  }\n}\n']
+    }]
+  }], null, null);
+})();
 
 // node_modules/@angular/material/fesm2022/_ripple-chunk.mjs
 var RippleState;
@@ -529,68 +553,13 @@ var MatRipple = class _MatRipple {
   });
 })();
 
-// node_modules/@angular/material/fesm2022/_structural-styles-chunk.mjs
-var _StructuralStylesLoader = class __StructuralStylesLoader {
-  static ɵfac = function _StructuralStylesLoader_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || __StructuralStylesLoader)();
-  };
-  static ɵcmp = ɵɵdefineComponent({
-    type: __StructuralStylesLoader,
-    selectors: [["structural-styles"]],
-    decls: 0,
-    vars: 0,
-    template: function _StructuralStylesLoader_Template(rf, ctx) {
-    },
-    styles: ['.mat-focus-indicator {\n  position: relative;\n}\n.mat-focus-indicator::before {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute;\n  box-sizing: border-box;\n  pointer-events: none;\n  display: var(--mat-focus-indicator-display, none);\n  border-width: var(--mat-focus-indicator-border-width, 3px);\n  border-style: var(--mat-focus-indicator-border-style, solid);\n  border-color: var(--mat-focus-indicator-border-color, transparent);\n  border-radius: var(--mat-focus-indicator-border-radius, 4px);\n}\n.mat-focus-indicator:focus-visible::before {\n  content: "";\n}\n\n@media (forced-colors: active) {\n  html {\n    --mat-focus-indicator-display: block;\n  }\n}\n'],
-    encapsulation: 2,
-    changeDetection: 0
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(_StructuralStylesLoader, [{
-    type: Component,
-    args: [{
-      selector: "structural-styles",
-      encapsulation: ViewEncapsulation.None,
-      template: "",
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      styles: ['.mat-focus-indicator {\n  position: relative;\n}\n.mat-focus-indicator::before {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute;\n  box-sizing: border-box;\n  pointer-events: none;\n  display: var(--mat-focus-indicator-display, none);\n  border-width: var(--mat-focus-indicator-border-width, 3px);\n  border-style: var(--mat-focus-indicator-border-style, solid);\n  border-color: var(--mat-focus-indicator-border-color, transparent);\n  border-radius: var(--mat-focus-indicator-border-radius, 4px);\n}\n.mat-focus-indicator:focus-visible::before {\n  content: "";\n}\n\n@media (forced-colors: active) {\n  html {\n    --mat-focus-indicator-display: block;\n  }\n}\n']
-    }]
-  }], null, null);
-})();
-
-// node_modules/@angular/material/fesm2022/_ripple-module-chunk.mjs
-var MatRippleModule = class _MatRippleModule {
-  static ɵfac = function MatRippleModule_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _MatRippleModule)();
-  };
-  static ɵmod = ɵɵdefineNgModule({
-    type: _MatRippleModule,
-    imports: [MatRipple],
-    exports: [MatRipple, BidiModule]
-  });
-  static ɵinj = ɵɵdefineInjector({
-    imports: [BidiModule]
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatRippleModule, [{
-    type: NgModule,
-    args: [{
-      imports: [MatRipple],
-      exports: [MatRipple, BidiModule]
-    }]
-  }], null, null);
-})();
-
 export {
+  _StructuralStylesLoader,
   RippleState,
   RippleRef,
   defaultRippleAnimationConfig,
   RippleRenderer,
   MAT_RIPPLE_GLOBAL_OPTIONS,
-  MatRipple,
-  _StructuralStylesLoader,
-  MatRippleModule
+  MatRipple
 };
-//# sourceMappingURL=chunk-FAX6YRZS.js.map
+//# sourceMappingURL=chunk-T2O355VG.js.map

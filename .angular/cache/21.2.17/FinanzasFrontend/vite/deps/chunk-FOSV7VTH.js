@@ -1,6 +1,6 @@
 import {
   _animationsDisabled
-} from "./chunk-CQZXMFQX.js";
+} from "./chunk-GDGNCV3F.js";
 import {
   BidiModule
 } from "./chunk-YE7CSKV4.js";
@@ -112,4 +112,4 @@ export {
   MatPseudoCheckbox,
   MatPseudoCheckboxModule
 };
-//# sourceMappingURL=chunk-VHXCHPBS.js.map
+//# sourceMappingURL=chunk-FOSV7VTH.js.map

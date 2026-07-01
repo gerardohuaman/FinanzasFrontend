@@ -8,6 +8,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
+import {MatCheckbox} from "@angular/material/checkbox";
 
 @Component({
   selector: "app-login",
@@ -19,13 +20,14 @@ import { MatIconModule } from "@angular/material/icon";
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckbox
   ],
   templateUrl: "./login.html",
   styleUrl: "./login.css",
 })
 export class LoginComponent {
-  email: string = ''
+  username: string = ''
   password: string = ''
   rememberMe: boolean = false
   hasError: boolean = false
@@ -39,13 +41,13 @@ export class LoginComponent {
   onLogin(){
     this.hasError = false
 
-    if(!this.email || !this.password){
+    if(!this.username || !this.password){
       this.hasError = true
       this.errorMessage = 'Por favor, completa todos los campos'
       return
     }
 
-    const credentials = {username: this.email, password: this.password}
+    const credentials = {username: this.username, password: this.password}
 
     this.authService.login(credentials).subscribe({
       next: (response) => {

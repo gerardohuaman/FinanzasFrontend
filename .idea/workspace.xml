@@ -5,7 +5,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee073db1-d864-455f-b41a-04e36aba139b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/.tsbuildinfo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_cdk_scrolling.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_cdk_scrolling.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_cdk_text-field.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_cdk_text-field.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_button.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_button.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_core.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_core.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_core.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_core.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_dialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_form-field.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_form-field.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_input.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_input.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_list.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_list.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_list.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_paginator.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_paginator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_paginator.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_paginator.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_select.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_select.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_sidenav.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_sidenav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_table.js" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/@angular_material_table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/_metadata.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-74TQM6BF.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-74TQM6BF.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-7IXB7QKF.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-7IXB7QKF.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-CQZXMFQX.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-CQZXMFQX.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-FAX6YRZS.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-FAX6YRZS.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-MXEGXIJ2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-MXEGXIJ2.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-P4DAJOIO.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-P4DAJOIO.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-SNQT3DCT.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-SNQT3DCT.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-VHXCHPBS.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-VHXCHPBS.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-YII6ZCFF.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.angular/cache/21.2.17/FinanzasFrontend/vite/deps/chunk-YII6ZCFF.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/features/auth/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/auth/login/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/features/auth/login/login.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/auth/login/login.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-dialog/cliente-dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-dialog/cliente-dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-dialog/cliente-dialog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-dialog/cliente-dialog.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-vehiculo-list/cliente-vehiculo-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-vehiculo-list/cliente-vehiculo-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-vehiculo-list/cliente-vehiculo-list.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/cliente-vehiculo-list/cliente-vehiculo-list.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/vehiculo-dialog/vehiculo-dialog.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/vehiculo-dialog/vehiculo-dialog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/vehiculo-dialog/vehiculo-dialog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/clientes-vehiculos/vehiculo-dialog/vehiculo-dialog.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/features/simulador/simulador-config/simulador-config.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/features/simulador/simulador-config/simulador-config.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/Cliente.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/Cliente.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,61 +81,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000000002297047" />
-      <entry key="S5" value="1.0001394930598084" />
-      <entry key="S10" value="1.0120411998307317" />
-      <entry key="S30" value="1.3254752165150363" />
-      <entry key="S60" value="1.9994170506539404" />
-      <entry key="M2" value="3.8643508475748107" />
-      <entry key="M5" value="10.017312483711676" />
-      <entry key="M10" value="15.739869520480939" />
-      <entry key="M15" value="19.06211327741165" />
-      <entry key="M30" value="29.046537275545013" />
-      <entry key="H1" value="58.677942590282235" />
-      <entry key="H2" value="115.90033660149015" />
-      <entry key="H4" value="180.35399765892254" />
-      <entry key="D1" value="273.7239861717251" />
-      <entry key="W1" value="295.2231056354068" />
+      <entry key="MS100" value="0.002595089480657249" />
+      <entry key="MS500" value="0.30396982079577434" />
+      <entry key="S2" value="0.7426579630525129" />
+      <entry key="S5" value="0.9564764152570655" />
+      <entry key="S10" value="1.5845850674184587" />
+      <entry key="S30" value="4.074830528708383" />
+      <entry key="S60" value="5.6466005920613" />
+      <entry key="M2" value="6.9346627472093445" />
+      <entry key="M5" value="8.753043256222" />
+      <entry key="M10" value="10.07021376501631" />
+      <entry key="M15" value="10.749316890292619" />
+      <entry key="M30" value="12.672273254886177" />
+      <entry key="H1" value="23.531449484984392" />
+      <entry key="H2" value="63.9442570835596" />
+      <entry key="H4" value="137.19308484594546" />
+      <entry key="D1" value="291.1312269171925" />
+      <entry key="W1" value="334.15737533210495" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="1.3435002506968394E-217" />
-      <entry key="S10" value="3.665378903601698E-109" />
-      <entry key="S30" value="7.156592549399444E-37" />
-      <entry key="S60" value="8.459664620656931E-19" />
-      <entry key="M2" value="9.197643514261427E-10" />
-      <entry key="M5" value="2.429781229141998E-4" />
-      <entry key="M10" value="0.01624579610639079" />
-      <entry key="M15" value="0.07921161188042879" />
-      <entry key="M30" value="0.7532412346966122" />
-      <entry key="H1" value="3.6096561076033895" />
-      <entry key="H2" value="8.815017633068006" />
-      <entry key="H4" value="14.125325180788638" />
-      <entry key="D1" value="21.181904771101877" />
-      <entry key="W1" value="22.730413581039944" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000000046176" />
+      <entry key="S2" value="1.0014658975561663" />
+      <entry key="S5" value="1.0735260860770848" />
+      <entry key="S10" value="1.2711569399390044" />
+      <entry key="S30" value="1.6472522587971004" />
+      <entry key="S60" value="1.804519893350749" />
+      <entry key="M2" value="1.8969503293665424" />
+      <entry key="M5" value="1.9574307191991922" />
+      <entry key="M10" value="1.9785171298670559" />
+      <entry key="M15" value="1.9869204236182774" />
+      <entry key="M30" value="2.0544556451101625" />
+      <entry key="H1" value="2.7458559653403958" />
+      <entry key="H2" value="5.840397246702385" />
+      <entry key="H4" value="11.562668947015158" />
+      <entry key="D1" value="23.23795921431018" />
+      <entry key="W1" value="26.422677672292515" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.04802734941525037" />
-      <entry key="MS500" value="0.5448760561066641" />
-      <entry key="S2" value="0.8591607549768077" />
-      <entry key="S5" value="0.9411484899953458" />
-      <entry key="S10" value="0.9781617179470665" />
-      <entry key="S30" value="1.2854024124980938" />
-      <entry key="S60" value="1.960605583377534" />
-      <entry key="M2" value="3.834994181439098" />
-      <entry key="M5" value="9.998447850404604" />
-      <entry key="M10" value="15.742543926919362" />
-      <entry key="M15" value="19.130447375338804" />
-      <entry key="M30" value="29.79117751054048" />
-      <entry key="H1" value="62.27817232910855" />
-      <entry key="H2" value="124.70596635349972" />
-      <entry key="H4" value="194.47218079525516" />
-      <entry key="D1" value="294.90414477745816" />
-      <entry key="W1" value="317.95325208913937" />
+      <entry key="MS100" value="0.0031062329673431" />
+      <entry key="MS500" value="0.4297127497045733" />
+      <entry key="S2" value="1.3321493276190743" />
+      <entry key="S5" value="1.8109700917152411" />
+      <entry key="S10" value="2.6754352990627517" />
+      <entry key="S30" value="5.587675462220811" />
+      <entry key="S60" value="7.362423009202476" />
+      <entry key="M2" value="8.779454535720273" />
+      <entry key="M5" value="10.686298655476728" />
+      <entry key="M10" value="12.035663877090832" />
+      <entry key="M15" value="12.727227426922832" />
+      <entry key="M30" value="14.721708069933088" />
+      <entry key="H1" value="26.273041866688256" />
+      <entry key="H2" value="69.77923527017535" />
+      <entry key="H4" value="148.75017038060682" />
+      <entry key="D1" value="314.3672933459388" />
+      <entry key="W1" value="360.57974518692" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{

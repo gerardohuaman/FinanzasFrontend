@@ -2,16 +2,16 @@ import {
   ObserversModule,
   _IdGenerator,
   _animationsDisabled
-} from "./chunk-CQZXMFQX.js";
-import {
-  coerceBooleanProperty
-} from "./chunk-AIEYJCOW.js";
+} from "./chunk-GDGNCV3F.js";
 import {
   Platform
 } from "./chunk-VIXON74R.js";
 import {
   NgTemplateOutlet
 } from "./chunk-JUE652Y2.js";
+import {
+  coerceBooleanProperty
+} from "./chunk-AIEYJCOW.js";
 import {
   BidiModule,
   Directionality
@@ -1531,4 +1531,4 @@ export {
   MatFormField,
   MatFormFieldModule
 };
-//# sourceMappingURL=chunk-74TQM6BF.js.map
+//# sourceMappingURL=chunk-64M5GU74.js.map

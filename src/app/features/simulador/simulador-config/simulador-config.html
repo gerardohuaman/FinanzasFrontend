@@ -16,7 +16,7 @@
           <mat-form-field appearance="outline">
             <mat-label>Buscar cliente por nombre o DNI...</mat-label>
             <mat-select>
-              <mat-option *ngFor="let c of clientes" [value]="c.id_cliente">{{c.nombres}}</mat-option>
+              <mat-option *ngFor="let c of clientes" [value]="c.id_cliente">{{c.nombreCompleto}}</mat-option>
             </mat-select>
             <mat-icon matPrefix>person</mat-icon>
           </mat-form-field>

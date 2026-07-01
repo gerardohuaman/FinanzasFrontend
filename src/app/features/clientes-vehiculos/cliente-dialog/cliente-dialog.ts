@@ -36,12 +36,8 @@ export class ClienteDialogComponent implements OnInit {
         this.modoEdicion = !!this.data;
 
         this.form = this.fb.group({
-            nombre: [
-                this.data?.nombre ?? '',
-                Validators.required
-            ],
-            apellido: [
-                this.data?.apellido ?? '',
+            nombreCompleto: [
+                this.data?.nombreCompleto ?? '',
                 Validators.required
             ],
             dni: [

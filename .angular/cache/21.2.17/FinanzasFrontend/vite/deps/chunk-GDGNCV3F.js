@@ -5,9 +5,6 @@ import {
   normalizePassiveListenerOptions
 } from "./chunk-GWBU7KI5.js";
 import {
-  coerceArray
-} from "./chunk-AIEYJCOW.js";
-import {
   _VisuallyHiddenLoader,
   _setInnerHtml
 } from "./chunk-S73I762L.js";
@@ -20,6 +17,9 @@ import {
 import {
   Platform
 } from "./chunk-VIXON74R.js";
+import {
+  coerceArray
+} from "./chunk-AIEYJCOW.js";
 import {
   coerceElement,
   coerceNumberProperty
@@ -2631,4 +2631,4 @@ export {
   _getAnimationsState,
   _animationsDisabled
 };
-//# sourceMappingURL=chunk-CQZXMFQX.js.map
+//# sourceMappingURL=chunk-GDGNCV3F.js.map

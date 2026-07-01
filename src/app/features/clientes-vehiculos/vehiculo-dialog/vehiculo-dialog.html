@@ -24,9 +24,10 @@
             <div class="form-row">
                 <mat-form-field appearance="outline" class="half">
                     <mat-label>Moneda</mat-label>
-                    <mat-select formControlName="moneda">
-                        <mat-option *ngIf="cargandoMonedas" disabled>Cargando...</mat-option>
-                        <mat-option *ngFor="let mon of monedas" [value]="mon">{{ mon }}</mat-option>
+                    <mat-select formControlName="moneda" [compareWith]="compararMoneda">
+                        <mat-option *ngFor="let m of monedas" [value]="m">
+                            {{ m.codigo_iso }} — {{ m.nombre }}
+                        </mat-option>
                     </mat-select>
                     <mat-error *ngIf="form.get('moneda')?.hasError('required')">Requerido</mat-error>
                 </mat-form-field>

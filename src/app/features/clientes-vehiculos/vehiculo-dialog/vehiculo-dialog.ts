@@ -8,6 +8,8 @@ import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { NgIf, NgFor } from '@angular/common';
+import {Moneda} from "../../../models/Moneda";
+import {MonedaService} from "../../../core/services/Moneda-service";
 
 @Component({
     selector: 'app-vehiculo-dialog',
@@ -31,16 +33,13 @@ export class VehiculoDialogComponent implements OnInit {
 
     private fb            = inject(FormBuilder);
     private dialogRef     = inject(MatDialogRef<VehiculoDialogComponent>);
-    /*private monedaService = inject(MonedaService);*/
+    private monedaService = inject(MonedaService);
     public  data          = inject<any>(MAT_DIALOG_DATA);
 
     form!: FormGroup;
     modoEdicion!: boolean;
 
-    marcas: string[] = ['Toyota', 'Kia', 'Hyundai', 'Nissan', 'Chevrolet', 'Ford', 'Honda', 'Mazda'];
-    monedas: string[] = [];
-    cargandoMonedas = true;
-
+    monedas: Moneda[] = [];
     ngOnInit(): void {
         this.modoEdicion = !!this.data;
 
@@ -56,18 +55,24 @@ export class VehiculoDialogComponent implements OnInit {
     }
 
     private cargarMonedas(): void {
-        /*this.monedaService.obtenerMonedas().subscribe({
+        this.monedaService.list().subscribe({
             next: (lista) => {
                 this.monedas = lista;
-                this.cargandoMonedas = false;
+                if (this.modoEdicion && this.data?.moneda) {
+                    const monedaEncontrada = lista.find(
+                        m => m.id_moneda === this.data.moneda.id_moneda
+                    );
+                    if (monedaEncontrada) {
+                        this.form.patchValue({ moneda: monedaEncontrada });
+                    }
+                }
             },
-            error: (err) => {
-                console.error('Error al cargar monedas', err);
-                this.cargandoMonedas = false;
-            }
-        });*/
+            error: (err) => console.error('Error al cargar monedas', err)
+        });
     }
-
+    compararMoneda(m1: Moneda, m2: Moneda): boolean {
+        return m1 && m2 ? m1.id_moneda === m2.id_moneda : m1 === m2;
+    }
     confirmar(): void {
         if (this.form.valid) {
             const resultado = {
