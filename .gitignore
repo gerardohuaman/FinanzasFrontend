@@ -1,0 +1,30 @@
+# Dependencias
+/node_modules
+
+# Compilación y caché de Angular (AQUÍ ESTÁN LOS CHUNKS)
+/dist
+/tmp
+/out-tsc
+/bazel-out
+/.angular
+
+# Entornos de desarrollo y editores de código
+.idea/
+.project
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Logs y archivos de depuración
+npm-debug.log
+yarn-error.log
+*~
+*.swp
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db

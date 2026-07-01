@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+/*Para el blur de los dialogos*/
+.cdk-overlay-backdrop,
+.cdk-overlay-dark-backdrop,
+.mat-mdc-dialog-backdrop {
+    background-color: rgba(15, 23, 42, 0.45) !important;
+    backdrop-filter: blur(1.5px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+}

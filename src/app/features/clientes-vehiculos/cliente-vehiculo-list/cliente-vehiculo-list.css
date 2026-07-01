@@ -1,0 +1,94 @@
+.page-layout {
+  padding: 24px;
+  background-color: #f5f6fa;
+  min-height: 100vh;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header-section h2 { margin: 0; font-size: 24px; font-weight: 700; color: #111827; }
+.text-muted { color: #6b7280; margin-top: 4px; font-size: 14px; }
+.btn-primary { background-color: #1a56db !important; }
+
+/* Navegación de Pestañas */
+.tabs-container {
+  display: flex;
+  gap: 32px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.tab {
+  padding-bottom: 12px;
+  color: #6b7280;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+
+.tab.active {
+  color: #1a56db;
+  border-bottom-color: #1a56db;
+}
+
+/* Tabla y Toolbar */
+.table-card { border-radius: 12px; padding: 0; overflow: hidden; }
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.search-bar { width: 100%; margin-bottom: -1.25em; } /* Compensa el espacio del hint en material */
+
+.toolbar-actions { display: flex; gap: 12px; }
+
+table { width: 100%; }
+th.mat-header-cell {
+  background-color: #f9fafb;
+  color: #4b5563;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+td.mat-cell { color: #374151; padding: 16px !important; }
+.font-weight-bold { font-weight: 600; color: #111827 !important; }
+.text-center { text-align: center; padding: 32px !important; color: #6b7280; }
+
+/* Estadísticas Inferiores */
+.mt-4 { margin-top: 24px; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+.stat-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 24px;
+  border-radius: 12px;
+  gap: 16px;
+}
+
+.stat-icon {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex; justify-content: center; align-items: center;
+}
+
+.stat-icon mat-icon { font-size: 24px; height: 24px; width: 24px; }
+
+.green-icon { background-color: #dcfce7; color: #15803d; }
+.blue-icon { background-color: #dbeafe; color: #1d4ed8; }
+.yellow-icon { background-color: #fef9c3; color: #a16207; }
+
+.stat-info { display: flex; flex-direction: column; }
+.stat-label { font-size: 11px; font-weight: 600; color: #6b7280; letter-spacing: 0.5px; margin-bottom: 4px; }
+.stat-value { font-size: 24px; font-weight: 700; color: #111827; }
+.text-success { color: #15803d; }

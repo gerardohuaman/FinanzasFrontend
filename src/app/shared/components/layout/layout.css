@@ -1,0 +1,129 @@
+/* Contenedor principal a pantalla completa */
+.dashboard-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: #F7F9FB; /* Fondo gris claro de Figma */
+}
+
+/* === SIDEBAR (Material) === */
+.sidebar {
+  width: 256px;
+  background-color: #FFFFFF;
+  border-right: 1px solid #E2E8F0;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-section {
+  padding: 32px 24px;
+}
+
+.logo-section h2 {
+  font-family: 'Public Sans', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  color: #0F172A;
+  margin: 0;
+  line-height: 28px;
+}
+
+.logo-section span {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 1.1px;
+}
+
+/* Flexbox utilitario para empujar elementos al fondo */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Modificando los items de la lista de Material */
+.nav-menu{
+  padding: 0 12px;
+}
+.footer-menu{
+  padding: 200% 12px 0px;
+}
+
+::ng-deep .mat-mdc-list-item {
+  color: #64748B !important;
+  border-radius: 4px !important;
+  margin-bottom: 4px !important;
+  border-right: 4px solid transparent !important;
+}
+
+::ng-deep .mat-mdc-list-item:hover {
+  background-color: #F8FAFC !important;
+}
+
+::ng-deep .mat-mdc-list-item-icon {
+  color: #64748B !important;
+}
+
+/* ESTADO ACTIVO (Pantalla actual) */
+::ng-deep .active-link {
+  background-color: #F1F5F9 !important;
+  border-right: 4px solid #0F172A !important;
+}
+
+::ng-deep .active-link .mdc-list-item__primary-text {
+  color: #0F172A !important;
+  font-weight: 600 !important;
+}
+
+::ng-deep .active-link .mat-mdc-list-item-icon {
+  color: #0F172A !important;
+}
+
+/* Estilo para el botón de cerrar sesión */
+.logout-btn {
+  cursor: pointer;
+  margin-top: 8px !important;
+}
+
+.logout-btn:hover .mdc-list-item__primary-text,
+.logout-btn:hover .mat-mdc-list-item-icon {
+  color: #EF4444 !important; /* Rojo al hacer hover */
+}
+
+/* === MAIN CONTENT === */
+.main-content {
+  background-color: #F7F9FB;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === TOOLBAR (Header Superior) === */
+.top-header {
+  height: 64px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 0 24px;
+}
+
+.header-title h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* === ÁREA DE CONTENIDO === */
+.content-area {
+  padding: 24px;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  box-sizing: border-box;
+}

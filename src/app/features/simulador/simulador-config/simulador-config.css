@@ -1,0 +1,250 @@
+.simulador-layout {
+  padding: 24px;
+  background-color: #f5f6fa;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+}
+
+.header-section h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #031635;
+}
+
+.header-section p {
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 4px;
+  margin-bottom: 24px;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.section-card {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+}
+
+.section-card mat-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #031635;
+}
+
+.section-card mat-card-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.mt-3 {
+  margin-top: 16px;
+}
+
+/* Grillas Internas */
+.grid-2-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.grid-3-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.currency-prefix {
+  margin-right: 8px;
+  color: #6b7280;
+}
+
+/* Toggle Botones para Moneda (PEN/USD) */
+.moneda-toggle {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-label {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.toggle-buttons {
+  display: flex;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.toggle-buttons button {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
+.toggle-buttons button.active {
+  background-color: #ffffff;
+  color: #1a1e29;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Amortización Radio Buttons */
+.amortizacion-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.amort-option {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.amort-title {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.amort-desc {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 4px;
+  white-space: normal;
+}
+
+/* Columna Derecha (Resumen Estimado) */
+.summary-card {
+  position: sticky;
+  top: 24px;
+  border-radius: 12px;
+  color: #8293B8;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1) !important;
+  border-top: 4px solid #1a56db;
+  background-color: #031635;
+}
+
+.summary-highlight {
+  background-color: #031635;
+  border-bottom: 1px solid #7EFF72;
+  border-radius: 4px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/*label prestamo*/
+.summary-highlight .label {
+  font-size: 12px;
+  color: #7EFF72;
+  font-weight: 600;
+}
+/*Valor de prestamo*/
+.summary-highlight .value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #7EFF72;
+  margin-top: 4px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-item .label {
+  font-size: 11px;
+  color: #8293B8;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+/*Interes VAn y TIR*/
+.summary-item .value {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  margin-top: 4px;
+}
+/*Cuota mensual*/
+.summary-item .main-value {
+  font-size: 16px;
+  color: white;
+}
+
+.summary-item .highlight-blue {
+  color: white;
+  font-weight: 700;
+}
+
+.info-note {
+  display: flex;
+  gap: 8px;
+  background-color: #eff6ff;
+  padding: 12px;
+  border-radius: 8px;
+  color: #1e40af;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.info-note mat-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+}
+
+.summary-actions {
+  padding: 16px;
+  background-color: #031635;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.btn-generar {
+  width: 100%;
+  padding: 24px 0 !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: black !important;
+  background-color: #7EFF72 !important;
+  border-radius: 8px !important;
+}
+
+@media (max-width: 1024px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-2-cols, .grid-3-cols {
+    grid-template-columns: 1fr;
+  }
+}
