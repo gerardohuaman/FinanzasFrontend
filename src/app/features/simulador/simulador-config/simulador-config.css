@@ -44,7 +44,7 @@
 }
 
 .mt-3 {
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 /* Grillas Internas */
@@ -141,13 +141,13 @@ mat-form-field {
   border-radius: 12px;
   color: #8293B8;
   box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1) !important;
-  border-top: 4px solid #1a56db;
+  border-top: 4px solid #8293B8;
   background-color: #031635;
 }
 
 .summary-highlight {
   background-color: #031635;
-  border-bottom: 1px solid #7EFF72;
+  border-bottom: 1px solid white;
   border-radius: 4px;
   padding: 16px;
   display: flex;
@@ -156,7 +156,7 @@ mat-form-field {
 }
 /*label prestamo*/
 .summary-highlight .label {
-  font-size: 12px;
+  font-size: 16px;
   color: #7EFF72;
   font-weight: 600;
 }
@@ -164,8 +164,8 @@ mat-form-field {
 .summary-highlight .value {
   font-size: 24px;
   font-weight: 700;
-  color: #7EFF72;
-  margin-top: 4px;
+  color: white;
+  margin-top: 6px;
 }
 
 .summary-grid {
@@ -178,23 +178,22 @@ mat-form-field {
   display: flex;
   flex-direction: column;
 }
-
+/*Todos los label*/
 .summary-item .label {
-  font-size: 11px;
+  font-size: 18px;
   color: #8293B8;
   font-weight: 600;
-  text-transform: uppercase;
 }
 /*Interes VAn y TIR*/
 .summary-item .value {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: white;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 /*Cuota mensual*/
 .summary-item .main-value {
-  font-size: 16px;
+  font-size: 18px;
   color: white;
 }
 
@@ -233,7 +232,7 @@ mat-form-field {
   font-size: 16px !important;
   font-weight: 600 !important;
   color: black !important;
-  background-color: #7EFF72 !important;
+  background-color: rgb(86 255 62 / 0.83) !important;
   border-radius: 8px !important;
 }
 

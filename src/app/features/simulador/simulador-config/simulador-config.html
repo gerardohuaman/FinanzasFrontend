@@ -6,7 +6,7 @@
 
   <div class="main-grid">
     <div class="form-column">
-      
+
       <mat-card class="section-card">
         <mat-card-header>
           <mat-card-title>Cliente y Vehículo</mat-card-title>
@@ -14,7 +14,7 @@
         </mat-card-header>
         <mat-card-content class="grid-2-cols mt-3">
           <mat-form-field appearance="outline">
-            <mat-label>Buscar cliente por nombre o DNI...</mat-label>
+            <mat-label>Buscar cliente por nombre</mat-label>
             <mat-select>
               <mat-option *ngFor="let c of clientes" [value]="c.id_cliente">{{c.nombreCompleto}}</mat-option>
             </mat-select>
@@ -22,7 +22,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>Buscar Vehículo por nombre o código</mat-label>
+            <mat-label>Buscar Vehículo por marca</mat-label>
             <mat-select>
               <mat-option *ngFor="let v of vehiculos" [value]="v.id_vehiculo">{{v.marca}} {{v.modelo}}</mat-option>
             </mat-select>
@@ -39,7 +39,6 @@
           <mat-form-field appearance="outline">
             <mat-label>Precio Vehículo</mat-label>
             <input matInput type="number" [(ngModel)]="precioVehiculo">
-            <span matPrefix class="currency-prefix">$</span>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
@@ -63,13 +62,11 @@
           <mat-form-field appearance="outline">
             <mat-label>Tasa S. desgravamen</mat-label>
             <input matInput type="number" [(ngModel)]="inputDTO.tasa_desgravamen">
-            <span matSuffix>%</span>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Tasa S. vehicular</mat-label>
             <input matInput type="number" [(ngModel)]="inputDTO.tasa_vehicular">
-            <span matSuffix>%</span>
           </mat-form-field>
         </mat-card-content>
       </mat-card>
@@ -116,8 +113,8 @@
             <mat-label>Periodo Gracia</mat-label>
             <mat-select value="sin_gracia">
               <mat-option value="sin_gracia">Sin periodo de gracia</mat-option>
-              <mat-option value="total">Gracia Total</mat-option>
-              <mat-option value="parcial">Gracia Parcial</mat-option>
+              <mat-option value="TOTAL">Periodo de gracia Total</mat-option>
+              <mat-option value="PARCIAL">Periodo de gracia Parcial</mat-option>
             </mat-select>
           </mat-form-field>
 
@@ -154,7 +151,7 @@
           <mat-card-title>Resumen Estimado</mat-card-title>
         </mat-card-header>
         <mat-card-content class="mt-3">
-          
+
           <div class="summary-highlight">
             <span class="label">Monto a Financiar</span>
             <span class="value">S/ {{montoFinanciar | number:'1.2-2'}}</span>
@@ -162,11 +159,11 @@
 
           <div class="summary-grid mt-3">
             <div class="summary-item">
-              <span class="label">CUOTA MENSUAL</span>
+              <span class="label">Cuota mensual</span>
               <span class="value main-value">S/ {{cuotaMensual | number:'1.2-2'}}</span>
             </div>
             <div class="summary-item">
-              <span class="label">INTERÉS TOTAL</span>
+              <span class="label">Interés total</span>
               <span class="value">S/ {{interesTotal | number:'1.2-2'}}</span>
             </div>
             <div class="summary-item">
@@ -187,7 +184,16 @@
             <mat-icon>info</mat-icon>
             <span>* Se aplican seguros de desgravamen y vehicular. Los valores mostrados son referenciales y están sujetos a evaluación crediticia.</span>
           </div>
-
+            <div class="summary-grid mt-3">
+                <div class="summary-item">
+                    <span class="label">Tasa S. desgravamen</span>
+                    <span class="value main-value">{{tcea}}%</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Tasa S. vehicular</span>
+                    <span class="value">{{tcea}}%</span>
+                </div>
+            </div>
         </mat-card-content>
         <mat-card-actions class="summary-actions">
           <button mat-flat-button color="primary" class="btn-generar" (click)="calcular()">Generar Cronograma de Pagos</button>
