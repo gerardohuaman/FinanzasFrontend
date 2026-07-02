@@ -107,6 +107,7 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
     this.inputDTO.tasa_vehicular = 0.03
     this.inputDTO.plazo_meses = 48
     this.inputDTO.valor_tasa = 12.50
+    this.inputDTO.cok = 1.0;
 
     this.sub = this.inputSubject.pipe(
       debounceTime(500)
@@ -157,6 +158,7 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
       next: (res: any) => {
         this.previewData = res;
         this.cdr.detectChanges(); //
+        console.log('Preview response completo:', res); // ← dime qué sale aquí
       },
       error: (err: any) => console.log('Faltan parametros para la proyeccion matematica', err)
     });
@@ -204,6 +206,13 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
     });
   }
 
+  onTipoGraciaChange(valor: string): void {
+    this.inputDTO.tipo_gracia = valor;
+    if (valor === 'SIN_GRACIA') {
+      this.inputDTO.meses_gracia = 0;
+    }
+    this.onCambioDatos();
+  }
   seleccionarCliente(cliente: Cliente): void {
     this.clienteSeleccionado  = cliente;
     this.busquedaCliente      = `${cliente.nombreCompleto} - ${cliente.dni}`;
@@ -265,10 +274,10 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
   }
 
   get tir(): number {
-    return this.previewData ? this.previewData.tir : 0;
+    return this.previewData ? this.previewData.tir * 100 : 0;
   }
 
   get tcea(): number {
-    return this.previewData ? this.previewData.tcea : 0;
+    return this.previewData ? this.previewData.tcea * 100 : 0;
   }
 }

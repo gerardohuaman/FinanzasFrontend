@@ -184,6 +184,26 @@ mat-form-field {
   margin-top: 4px;
   white-space: normal;
 }
+/* Para los campos desabilidatso */
+.field-disabled .mat-mdc-text-field-wrapper {
+  background-color: #f5f6f8 !important;
+  opacity: 1 !important;
+}
+.field-disabled input:disabled,
+.field-disabled .mat-mdc-select-disabled .mat-mdc-select-value {
+  color: #6b7280 !important;       /* gris medio, legible */
+  -webkit-text-fill-color: #6b7280 !important;
+  opacity: 1 !important;
+}
+.field-disabled .mdc-notched-outline__leading,
+.field-disabled .mdc-notched-outline__notch,
+.field-disabled .mdc-notched-outline__trailing {
+  border-color: #d1d5db !important;
+}
+.field-disabled mat-label {
+  color: #9ca3af !important;
+}
+
 
 .summary-card {
   position: sticky;
