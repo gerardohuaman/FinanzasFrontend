@@ -23,7 +23,7 @@
                         <input matInput
                                [(ngModel)]="busquedaCliente"
                                (ngModelChange)="onBuscarCliente($event)"
-                               placeholder="Buscar por nombre">
+                               placeholder="Buscar por nombre o DNI">
                     </mat-form-field>
                     <div class="autocomplete-dropdown" *ngIf="clientesFiltrados.length > 0">
                         <div class="autocomplete-item"
@@ -42,7 +42,7 @@
                         <input matInput
                                [(ngModel)]="busquedaVehiculo"
                                (ngModelChange)="onBuscarVehiculo($event)"
-                               placeholder="Buscar por marca">
+                               placeholder="Buscar por marca o modelo">
                     </mat-form-field>
                     <div class="autocomplete-dropdown" *ngIf="vehiculosFiltrados.length > 0">
                         <div class="autocomplete-item"
@@ -105,7 +105,6 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Cuota Balón (Moneda)</mat-label>
-                    <span matPrefix>&nbsp;</span>
                     <input matInput
                            [value]="cuotaBalonMoneda | number:'1.2-2'"
                            readonly>

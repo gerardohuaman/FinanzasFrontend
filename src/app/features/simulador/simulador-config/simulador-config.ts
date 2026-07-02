@@ -119,7 +119,7 @@ export class SimuladorConfigComponent {
   // ── SELECCIÓN ────────────────────────────────────
   seleccionarCliente(cliente: Cliente): void {
     this.clienteSeleccionado  = cliente;
-    this.busquedaCliente      = cliente.nombreCompleto;
+    this.busquedaCliente      = `${cliente.nombreCompleto} ${cliente.dni}`;
     this.inputDTO.id_cliente  = cliente.id_cliente;
     this.clientesFiltrados    = []; // cerrar dropdown
   }
