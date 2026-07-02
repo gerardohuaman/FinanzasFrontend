@@ -29,7 +29,7 @@
     <div class="toolbar">
       <mat-form-field appearance="outline" class="search-bar">
         <mat-icon matPrefix>search</mat-icon>
-        <mat-label>Buscar por nombre</mat-label>
+        <mat-label>Buscar por nombre o DNI</mat-label>
         <input matInput (keyup)="aplicarFiltroCliente($event)" placeholder="Ej. Carlos Ruiz">
       </mat-form-field>
     </div>
@@ -91,7 +91,7 @@
         <div class="toolbar">
             <mat-form-field appearance="outline" class="search-bar">
                 <mat-icon matPrefix>search</mat-icon>
-                <mat-label>Buscar por marca</mat-label>
+                <mat-label>Buscar por marca o modelo</mat-label>
                 <input matInput (keyup)="aplicarFiltroVehiculos($event)" placeholder="Ej. Toyota">
             </mat-form-field>
         </div>
