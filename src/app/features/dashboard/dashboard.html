@@ -1,85 +1,81 @@
 <div class="page-layout">
   <div class="header-section">
-    <div>
-      <h2>Resumen Ejecutivo</h2>
-      <p class="text-muted">Monitoreo de cartera y colocaciones en tiempo real desde el sistema central.</p>
-    </div>
+    <h1 class="main-title">Resumen Ejecutivo</h1>
+    <p class="subtitle">Monitoreo de cartera y colocaciones en tiempo real.</p>
   </div>
 
-  <div class="kpi-banner">
-    <div class="kpi-grid">
-      <div class="kpi-item">
-        <span class="kpi-label">CLIENTES TOTALES</span>
-        <span class="kpi-value">{{ totalClientes }}</span>
+  <div class="kpi-grid mt-4">
+    <div class="kpi-card">
+      <div class="kpi-card-header">
+        <div class="kpi-icon-box">
+          <mat-icon>person_add</mat-icon>
+        </div>
+        <div class="kpi-placeholder"></div>
       </div>
-      <div class="kpi-item">
-        <span class="kpi-label">UNIDADES EN STOCK</span>
-        <span class="kpi-value">{{ totalVehiculos }}</span>
-      </div>
-      <div class="kpi-item">
-        <span class="kpi-label">VALOR DE FLOTA ESTIMADO</span>
-        <span class="kpi-value">$ {{ valorFlotaUSD | number:'1.2-2' }} USD</span>
+      <div class="kpi-label">CLIENTES TOTALES</div>
+      <div class="kpi-value">{{ totalClientes }}</div>
+      <div class="kpi-progress">
+        <div class="kpi-progress-fill" style="width: 75%;"></div>
       </div>
     </div>
-  </div>
-
-  <mat-card class="dashboard-card mt-4">
-    <mat-card-header class="card-header-spaced">
-      <div class="header-title-container">
-        <mat-card-title>Actividad Reciente</mat-card-title>
-        <mat-card-subtitle>Últimos planes de pago sincronizados con la base de datos</mat-card-subtitle>
+  </div> <div class="table-card mt-4">
+    <div class="table-header">
+      <div class="header-titles">
+        <h3>Actividad Reciente</h3>
+        <p>Últimos 5 planes de pago generados</p>
       </div>
-      <button mat-button color="primary" class="btn-ver-todos" routerLink="/simulaciones">Ver historial completo</button>
-    </mat-card-header>
+      <a routerLink="/simulador" class="btn-text">Ver todos</a>
+    </div>
 
-    <mat-card-content class="p-0">
-      <table mat-table [dataSource]="actividadReciente" class="mat-elevation-z0 w-100">
-        
-        <ng-container matColumnDef="cliente">
-          <th mat-header-cell *matHeaderCellDef> CLIENTE </th>
-          <td mat-cell *matCellDef="let element">
-            <div class="avatar-cell">
-              <div class="avatar">{{ element.cliente?.nombre?.charAt(0) || 'C' }}</div>
-              <div class="info">
-                <span class="name">{{ element.cliente?.nombre }} {{ element.cliente?.apellido }}</span>
-                <span class="dni text-muted">DNI: {{ element.cliente?.dni }}</span>
-              </div>
+    <table mat-table [dataSource]="actividadReciente" class="custom-table w-100">
+      
+      <ng-container matColumnDef="cliente">
+        <th mat-header-cell *matHeaderCellDef> CLIENTE </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="client-cell">
+            <div class="client-avatar">{{ getInitials(element.cliente?.nombreCompleto) }}</div>
+            <div class="client-info">
+              <span class="client-name">{{ element.cliente?.nombreCompleto || 'Cliente Nuevo' }}</span>
+              <span class="client-dni">DNI {{ maskDni(element.cliente?.dni) }}</span>
             </div>
-          </td>
-        </ng-container>
+          </div>
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="vehiculo">
-          <th mat-header-cell *matHeaderCellDef> VEHÍCULO </th>
-          <td mat-cell *matCellDef="let element" class="font-weight-bold"> 
-            {{ element.vehiculo?.marca }} {{ element.vehiculo?.modelo }} 
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="vehiculo">
+        <th mat-header-cell *matHeaderCellDef> VEHÍCULO </th>
+        <td mat-cell *matCellDef="let element" class="vehicle-name">
+          {{ element.vehiculo?.marca }} {{ element.vehiculo?.modelo }}
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="monto">
-          <th mat-header-cell *matHeaderCellDef> MONTO FINANCIADO </th>
-          <td mat-cell *matCellDef="let element"> 
-            {{ element.moneda?.simbolo || 'S/' }} {{ element.monto_financiar | number:'1.2-2' }} 
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="monto">
+        <th mat-header-cell *matHeaderCellDef class="text-right"> MONTO </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="monto-stack">
+            <span class="monto-symbol">{{ element.vehiculo?.moneda?.simbolo || 'S/' }}</span>
+            <span class="monto-amount">{{ element.monto_financiado | number:'1.0-0' }}</span>
+          </div>
+        </td>
+      </ng-container>
 
-        <ng-container matColumnDef="cronograma">
-          <th mat-header-cell *matHeaderCellDef> CRONOGRAMA </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-stroked-button color="primary" (click)="irAlCronograma(element.id)">
-              <mat-icon>visibility</mat-icon> Ver
-            </button>
-          </td>
-        </ng-container>
+      <ng-container matColumnDef="cronograma">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> CRONOGRAMA </th>
+        <td mat-cell *matCellDef="let element" class="text-center">
+          <button class="btn-ver" (click)="irAlCronograma(element.id_simulacion)">
+            Ver
+          </button>
+        </td>
+      </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="columnasRecientes"></tr>
-        <tr mat-row *matRowDef="let row; columns: columnasRecientes;"></tr>
-        
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell text-center" colspan="4">
-            No se han generado propuestas de créditos vehiculares en el sistema.
-          </td>
-        </tr>
-      </table>
-    </mat-card-content>
-  </mat-card>
+      <tr mat-header-row *matHeaderRowDef="columnasRecientes"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnasRecientes;"></tr>
+      
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center empty-state" colspan="4">
+          No se han generado propuestas de créditos vehiculares en el sistema.
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>

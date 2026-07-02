@@ -18,6 +18,7 @@ export const routes: Routes = [
             {path: 'dashboard', component: DashboardComponent},
             {path: 'clientes', component: ClienteListComponent},
             {path: 'simulador', component: SimuladorConfigComponent},
+            {path: 'cronograma/:id', component: CronogramaViewComponent},
             {path: 'cronograma',component: CronogramaViewComponent},
             {path: '', redirectTo: 'clientes', pathMatch: 'full'}
 

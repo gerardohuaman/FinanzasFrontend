@@ -1,3 +1,4 @@
+
 .simulador-layout {
   padding: 24px;
   background-color: #f5f6fa;
@@ -91,7 +92,6 @@
 }
 
 
-/* Grillas Internas */
 .grid-2-cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -113,7 +113,6 @@ mat-form-field {
   color: #6b7280;
 }
 
-/* Toggle Botones para Moneda (PEN/USD) */
 .moneda-toggle {
   display: flex;
   flex-direction: column;
@@ -151,7 +150,6 @@ mat-form-field {
   box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
-/* Amortización Radio Buttons */
 .amortizacion-group {
   display: flex;
   flex-direction: column;
@@ -178,7 +176,6 @@ mat-form-field {
   white-space: normal;
 }
 
-/* Columna Derecha (Resumen Estimado) */
 .summary-card {
   position: sticky;
   top: 24px;
@@ -198,13 +195,13 @@ mat-form-field {
   flex-direction: column;
   align-items: center;
 }
-/*label prestamo*/
+
 .summary-highlight .label {
   font-size: 16px;
   color: #7EFF72;
   font-weight: 600;
 }
-/*Valor de prestamo*/
+
 .summary-highlight .value {
   font-size: 24px;
   font-weight: 700;
@@ -228,14 +225,14 @@ mat-form-field {
   color: #8293B8;
   font-weight: 600;
 }
-/*Interes VAn y TIR*/
+
 .summary-item .value {
   font-size: 18px;
   font-weight: 600;
   color: white;
   margin-top: 6px;
 }
-/*Cuota mensual*/
+
 .summary-item .main-value {
   font-size: 18px;
   color: white;
