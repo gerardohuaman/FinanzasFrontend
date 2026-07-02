@@ -16,8 +16,6 @@
 /* Cabecera */
 .header-actions { display: flex; justify-content: space-between; align-items: flex-start; }
 .main-title { margin: 0; font-size: 26px; font-weight: 800; color: #0b192c; letter-spacing: -0.5px; }
-.text-muted { color: #8fa0b4; font-size: 15px; margin-top: 4px; font-weight: 500; }
-
 .btn-exportar {
   background-color: #0B192C !important;
   color: #ffffff;
@@ -40,7 +38,7 @@
 .kpi-title { font-size: 12px; font-weight: 600; color: #8fa0b4; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
 .kpi-title .icon-small { font-size: 14px; width: 14px; height: 14px; }
 .kpi-value { font-size: 28px; font-weight: 800; color: #0b192c; margin-bottom: 8px; }
-.kpi-subtitle { font-size: 13px; color: #8fa0b4; line-height: 1.4; }
+.kpi-subtitle { font-size: 13px; color: #8fa0b4; line-height: 1.4; margin-top: 5%}
 .badge-light { display: inline-block; background-color: #f1f5f9; color: #64748b; font-size: 11px; font-weight: 700; padding: 6px 10px; border-radius: 6px; letter-spacing: 0.5px; }
 
 /* Banner Cliente (Medio) */
@@ -68,9 +66,9 @@
 .r-label { font-size: 11px; font-weight: 600; color: #8fa0b4; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
 .r-value { font-size: 15px; font-weight: 700; color: #0b192c; }
 
-.resumen-dark-box { background-color: #0b192c; border-radius: 12px; padding: 24px; display: flex; gap: 32px; align-items: center; }
+.resumen-dark-box { background-color: #0b192c; border-radius: 12px; margin: 100px 10px;padding: 20px 50px; display: flex; gap: 5px 32px; align-items: center; }
 .d-item { display: flex; flex-direction: column; }
-.d-label { font-size: 11px; font-weight: 600; color: #8fa0b4; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+.d-label { text-align: center;font-size: 11px; font-weight: 600; color: #8fa0b4; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
 .d-value { font-size: 20px; font-weight: 700; color: #ffffff; }
 
 /* Tabla del Cronograma */

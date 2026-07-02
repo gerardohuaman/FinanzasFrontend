@@ -105,7 +105,7 @@ export class CronogramaViewComponent implements OnInit{
   }
 
   get nombreMoneda(): string {
-    return this.simboloMoneda === '$' ? 'Dólares (USD)' : 'Soles (PEN)';
+    return this.simboloMoneda === '$' ? 'USD' : 'PEN';
   }
 
   get plazoMeses(): number {
