@@ -55,40 +55,50 @@
 
 .autocomplete-dropdown {
   position: absolute;
-  top: 72%;
+  top: 100%;
   left: 0;
   right: 0;
-  background: white;
-  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  z-index: 1000;
-  max-height: 220px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 9999; /* Esto fuerza a que flote sobre las demás tarjetas */
+  max-height: 250px;
   overflow-y: auto;
+  margin-top: 4px;
 }
 
 .autocomplete-item {
+  padding: 12px 16px;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  padding: 15px 16px;
-  cursor: pointer;
-  transition: background 0.15s;
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.2s;
+}
+
+.autocomplete-item:last-child {
+  border-bottom: none;
 }
 
 .autocomplete-item:hover {
-  background: #f5f7fa;
+  background-color: #f8fafc;
 }
 
 .item-nombre {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #1a2744;
+  font-weight: 700;
+  color: #0b192c;
+  font-size: 14px;
 }
 
 .item-sub {
-  font-size: 0.75rem;
-  color: #505F76;
+  font-size: 12px;
+  color: #64748b;
   margin-top: 2px;
+}
+
+.full-width {
+  width: 100%;
 }
 
 
@@ -109,7 +119,8 @@ mat-form-field {
 }
 
 .currency-prefix {
-  margin-right: 8px;
+  margin-right: 0;
+  padding-left: 5px;
   color: #6b7280;
 }
 

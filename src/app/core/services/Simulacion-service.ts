@@ -23,4 +23,8 @@ export class SimulacionService {
     list(): Observable<any[]> {
         return this.http.get<any[]>(this.url)
     }
+
+    previewSimulation(data: SimulacionInputDTO): Observable<SimulacionResponseDTO> {
+        return this.http.post<SimulacionResponseDTO>(`${this.url}/preview`, data)
+    }
 }
