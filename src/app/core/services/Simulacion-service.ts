@@ -17,7 +17,7 @@ export class SimulacionService {
     constructor(private http: HttpClient){}
 
     createSimulation(inputDTO: SimulacionInputDTO): Observable<SimulacionResponseDTO> {
-        return this.http.post<SimulacionResponseDTO>(`${this.url}/calcular`, inputDTO)
+        return this.http.post<SimulacionResponseDTO>(`${this.url}/crear`, inputDTO)
     }
 
     list(): Observable<any[]> {

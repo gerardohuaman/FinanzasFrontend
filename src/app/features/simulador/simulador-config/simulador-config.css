@@ -23,7 +23,7 @@
 .main-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 24px;
+  gap: 20px;
   align-items: start;
 }
 
@@ -47,6 +47,50 @@
 .mt-3 {
   margin-top: 12px;
 }
+/* Filtrado de busquedaa */
+.autocomplete-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  top: 72%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 1000;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.autocomplete-item {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.autocomplete-item:hover {
+  background: #f5f7fa;
+}
+
+.item-nombre {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #1a2744;
+}
+
+.item-sub {
+  font-size: 0.75rem;
+  color: #505F76;
+  margin-top: 2px;
+}
+
 
 .grid-2-cols {
   display: grid;
