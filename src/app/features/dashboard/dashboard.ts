@@ -25,7 +25,6 @@ import { Router, RouterLink } from "@angular/router";
 })
 export class DashboardComponent implements OnInit {
   columnasRecientes: string[] = ['cliente', 'vehiculo', 'monto', 'cronograma']
-
   totalClientes: number = 0
   totalVehiculos: number = 0
   valorFlotaUSD: number = 0
@@ -70,5 +69,19 @@ export class DashboardComponent implements OnInit {
 
   irAlCronograma(simulacionId: number): void{
     this.router.navigate(['/cronograma', simulacionId])
+  }
+
+  getInitials(nombreCompleto: string): string {
+    if (!nombreCompleto) return 'C';
+    const parts = nombreCompleto.trim().split(' ');
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return parts[0].substring(0, 2).toUpperCase();
+  }
+
+  maskDni(dni: string): string {
+    if (!dni || dni.length < 6) return dni || 'No reg.';
+    return dni.substring(0, 2) + '***' + dni.substring(dni.length - 3);
   }
 }

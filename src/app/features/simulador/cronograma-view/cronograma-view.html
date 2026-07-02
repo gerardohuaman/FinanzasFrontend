@@ -2,86 +2,154 @@
   
   <div class="header-actions">
     <div>
-      <h2>Cronograma de Pagos Detallado</h2>
-      <p class="text-muted">Crédito Vehicular | Cliente: Roberto García Belaunde</p>
+      <h1 class="main-title">Cronograma de Pagos Detallado</h1>
+      <p class="text-muted">Crédito Vehicular N° CV-2024-{{ idCredito }} | Cliente: {{ clienteNombre }}</p>
     </div>
-    <button mat-flat-button color="primary" class="btn-exportar" (click)="exportarPDF()">
-      <mat-icon>picture_as_pdf</mat-icon>
-      Exportar a PDF
+    <button class="btn-exportar" (click)="exportarPDF()">
+      <mat-icon>picture_as_pdf</mat-icon> Exportar a PDF
     </button>
   </div>
 
-  <!-- Tarjetas de Indicadores Financieros -->
-  <div class="indicators-grid">
-    <mat-card class="indicator-card">
-      <mat-card-subtitle>VAN (VALOR ACTUAL NETO)</mat-card-subtitle>
-      <mat-card-title class="text-danger">S/ -42,550.20</mat-card-title>
-      <p class="indicator-note">COK utilizado: TEM 1.00%</p>
-    </mat-card>
+  <div class="kpi-grid mt-4">
+    <div class="kpi-card">
+      <div class="kpi-title">
+        VAN (VALOR ACTUAL NETO) <mat-icon class="icon-small">info_outline</mat-icon>
+      </div>
+      <div class="kpi-value">{{ simboloMoneda }} {{ (simulacionData?.van || -42550.20) | number:'1.2-2' }}</div>
+      <div class="kpi-subtitle">COK utilizado: TEM =1.00%</div>
+      <div class="badge-light mt-3">PROYECCION A {{ plazoMeses }} MESES</div>
+    </div>
 
-    <mat-card class="indicator-card">
-      <mat-card-subtitle>TIR (TASA INTERNA DE RETORNO)</mat-card-subtitle>
-      <mat-card-title class="text-primary">12.40% Anual</mat-card-title>
-      <p class="indicator-note">Costo real del crédito para el cliente</p>
-    </mat-card>
+    <div class="kpi-card">
+      <div class="kpi-title">TIR (TASA INTERNA DE RETORNO)</div>
+      <div class="kpi-value">Anual: {{ (simulacionData?.tir || 12.40) | number:'1.2-2' }}%</div>
+      <div class="kpi-subtitle">Costo real del crédito para el cliente</div>
+    </div>
 
-    <mat-card class="indicator-card highlight-card">
-      <mat-card-subtitle>COSTO TOTAL DEL CRÉDITO</mat-card-subtitle>
-      <mat-card-title>S/ 61,609.48</mat-card-title>
-      <p class="indicator-note">Capital: S/ 50,000 | Intereses: S/ 8,068.49</p>
-    </mat-card>
+    <div class="kpi-card">
+      <div class="kpi-title">COSTO TOTAL DEL CREDITO</div>
+      <div class="kpi-value">{{ simboloMoneda }} {{ totalCuota | number:'1.2-2' }}</div>
+      <div class="kpi-subtitle">
+        Capital: {{ simboloMoneda }} {{ montoFinanciado | number:'1.0-0' }} <br>
+        Intereses: {{ simboloMoneda }} {{ interesTotal | number:'1.2-2' }}
+      </div>
+    </div>
   </div>
 
-  <!-- Tabla de Cronograma -->
-  <mat-card class="table-card mt-4">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+  <div class="client-banner mt-4">
+    <div class="banner-section banner-client">
+      <div class="avatar">{{ clienteIniciales }}</div>
+      <div class="info">
+        <span class="name">{{ clienteNombre }}</span>
+        <span class="dni">DNI: {{ clienteDniMask }}</span>
+      </div>
+    </div>
+
+    <div class="banner-section banner-car">
+      <mat-icon>directions_car</mat-icon>
+      <span class="car-name">{{ vehiculoNombre }}</span>
+    </div>
+
+    <div class="banner-section banner-tags">
+      <div class="tag-dark">FRANCÉS<br>ESTÁNDAR</div>
+      <div class="tag-dark">SIN PERÍODO DE<br>GRACIA</div>
+      <div class="tag-dark">{{ plazoMeses }}<br>MESES</div>
+    </div>
+  </div>
+
+  <div class="resumen-card mt-4">
+    <h3 class="resumen-title">Resumen del Crédito</h3>
+    
+    <div class="resumen-content">
+      <div class="resumen-grid">
+        <div class="r-item">
+          <span class="r-label">MONEDA</span>
+          <span class="r-value">{{ nombreMoneda }}</span>
+        </div>
+        <div class="r-item">
+          <span class="r-label">CUOTA TOTAL FIJA (POR MES)</span>
+          <span class="r-value">{{ cuotaMensualFija | number:'1.2-2' }}</span>
+        </div>
+        <div class="r-item">
+          <span class="r-label">PERÍODO DE GRACIA</span>
+          <span class="r-value">Sin gracia</span>
+        </div>
+        <div class="r-item">
+          <span class="r-label">ULTIMA CUOTA DEL CRONOGRAMA</span>
+          <span class="r-value">{{ ultimaCuota | number:'1.2-2' }}</span>
+        </div>
+        <div class="r-item">
+          <span class="r-label">MESES DE GRACIA</span>
+          <span class="r-value">Sin gracia</span>
+        </div>
+        <div></div> <div class="r-item">
+          <span class="r-label">PLAZO TOTAL</span>
+          <span class="r-value">{{ plazoMeses }}</span>
+        </div>
+      </div>
+
+      <div class="resumen-dark-box">
+        <div class="d-item">
+          <span class="d-label">MONTO DEL<br>PRÉSTAMO</span>
+          <span class="d-value">{{ simboloMoneda }} {{ montoFinanciado | number:'1.2-2' }}</span>
+        </div>
+        <div class="d-item">
+          <span class="d-label">TEM</span>
+          <span class="d-value">{{ temAprox | number:'1.4-4' }}%</span>
+        </div>
+        <div class="d-item">
+          <span class="d-label">TOTAL CUOTA</span>
+          <span class="d-value">{{ simboloMoneda }} {{ totalCuota | number:'1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-card mt-4">
+    <div class="table-header">
+      <h3>Tabla del cronograma</h3>
+    </div>
+    
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0 w-100 dark-header-table">
       
-      <!-- N° Cuota Column -->
       <ng-container matColumnDef="numero_mes">
         <th mat-header-cell *matHeaderCellDef> N° CUOTA </th>
-        <td mat-cell *matCellDef="let element"> {{element.numero_mes}} </td>
+        <td mat-cell *matCellDef="let element" class="text-center"> {{element.numero_mes}} </td>
       </ng-container>
 
-      <!-- Saldo Inicial Column -->
       <ng-container matColumnDef="saldo_inicial">
-        <th mat-header-cell *matHeaderCellDef> SALDO INICIAL </th>
-        <td mat-cell *matCellDef="let element"> {{element.saldo_inicial | number:'1.2-2'}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-right"> SALDO INICIAL </th>
+        <td mat-cell *matCellDef="let element" class="text-right"> {{element.saldo_inicial | number:'1.2-2'}} </td>
       </ng-container>
 
-      <!-- Amortización Column -->
       <ng-container matColumnDef="amortizacion">
-        <th mat-header-cell *matHeaderCellDef> AMORTIZACIÓN (S/) </th>
-        <td mat-cell *matCellDef="let element"> {{element.amortizacion | number:'1.2-2'}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-right"> AMORTIZACION (S/) </th>
+        <td mat-cell *matCellDef="let element" class="text-right"> {{element.amortizacion | number:'1.2-2'}} </td>
       </ng-container>
 
-      <!-- Interés Column -->
       <ng-container matColumnDef="interes">
-        <th mat-header-cell *matHeaderCellDef> INTERÉS (S/) </th>
-        <td mat-cell *matCellDef="let element"> {{element.interes | number:'1.2-2'}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-right"> INTERES (S/) </th>
+        <td mat-cell *matCellDef="let element" class="text-right"> {{element.interes | number:'1.2-2'}} </td>
       </ng-container>
 
-      <!-- Seguro Vehicular Column -->
       <ng-container matColumnDef="seguro_vehicular">
-        <th mat-header-cell *matHeaderCellDef> SEG. VEHICULAR (S/) </th>
-        <td mat-cell *matCellDef="let element"> {{element.seguro_vehicular | number:'1.2-2'}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-right"> SEG. VEHICULAR (S/) </th>
+        <td mat-cell *matCellDef="let element" class="text-right"> {{element.seguro_vehicular | number:'1.2-2'}} </td>
       </ng-container>
 
-      <!-- Seguro Desgravamen Column -->
       <ng-container matColumnDef="seguro_desgravamen">
-        <th mat-header-cell *matHeaderCellDef> SEG. DESGRAVAMEN (S/) </th>
-        <td mat-cell *matCellDef="let element"> {{element.seguro_desgravamen | number:'1.2-2'}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-right"> SEG. DESGRAVAMEN (S/) </th>
+        <td mat-cell *matCellDef="let element" class="text-right"> {{element.seguro_desgravamen | number:'1.2-2'}} </td>
       </ng-container>
 
-      <!-- Cuota Total Column -->
       <ng-container matColumnDef="cuota_total">
-        <th mat-header-cell *matHeaderCellDef> CUOTA TOTAL (S/) </th>
-        <td mat-cell *matCellDef="let element" class="font-weight-bold"> {{element.cuota_total | number:'1.2-2'}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-right"> CUOTA TOTAL (S/) </th>
+        <td mat-cell *matCellDef="let element" class="text-right font-weight-bold"> {{element.cuota_total | number:'1.2-2'}} </td>
       </ng-container>
 
-      <!-- Saldo Final Column -->
       <ng-container matColumnDef="saldo_final">
-        <th mat-header-cell *matHeaderCellDef> SALDO FINAL </th>
-        <td mat-cell *matCellDef="let element"> {{element.saldo_final | number:'1.2-2'}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-right"> SALDO FINAL </th>
+        <td mat-cell *matCellDef="let element" class="text-right"> {{element.saldo_final | number:'1.2-2'}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="columnasMostradas"></tr>
@@ -89,8 +157,8 @@
     </table>
     
     <div class="view-more-container">
-      <button mat-button color="primary">Ver las cuotas restantes</button>
+      <span class="view-more-text">Ver las cuotas restantes</span>
     </div>
-  </mat-card>
+  </div>
 
 </div>
