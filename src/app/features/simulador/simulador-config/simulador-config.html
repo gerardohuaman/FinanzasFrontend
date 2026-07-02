@@ -6,124 +6,180 @@
 
   <div class="main-grid">
     <div class="form-column">
+        <!-- CLIENTE Y VEHÍCULO -->
+        <mat-card class="section-card">
+            <mat-card-header>
+                <mat-card-title>
+                    <mat-icon>person</mat-icon> Cliente y Vehículo
+                </mat-card-title>
+                <mat-card-subtitle>Seleccione el cliente y el vehículo para esta simulación.</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content class="grid-2-cols mt-3">
 
-      <mat-card class="section-card">
-        <mat-card-header>
-          <mat-card-title>Cliente y Vehículo</mat-card-title>
-          <mat-card-subtitle>Seleccione el cliente y el vehículo para esta simulación.</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content class="grid-2-cols mt-3">
-          <mat-form-field appearance="outline">
-            <mat-label>Buscar cliente por nombre</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let c of clientes" [value]="c.id_cliente">{{c.nombreCompleto}}</mat-option>
-            </mat-select>
-            <mat-icon matPrefix>person</mat-icon>
-          </mat-form-field>
+                <div class="autocomplete-wrapper">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Cliente</mat-label>
+                        <mat-icon matPrefix>person</mat-icon>
+                        <input matInput
+                               [(ngModel)]="busquedaCliente"
+                               (ngModelChange)="onBuscarCliente($event)"
+                               placeholder="Buscar por nombre">
+                    </mat-form-field>
+                    <div class="autocomplete-dropdown" *ngIf="clientesFiltrados.length > 0">
+                        <div class="autocomplete-item"
+                             *ngFor="let c of clientesFiltrados"
+                             (click)="seleccionarCliente(c)">
+                            <span class="item-nombre">{{ c.nombreCompleto }}</span>
+                            <span class="item-sub">DNI: {{ c.dni }}</span>
+                        </div>
+                    </div>
+                </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Buscar Vehículo por marca</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let v of vehiculos" [value]="v.id_vehiculo">{{v.marca}} {{v.modelo}}</mat-option>
-            </mat-select>
-            <mat-icon matPrefix>directions_car</mat-icon>
-          </mat-form-field>
-        </mat-card-content>
-      </mat-card>
+                <div class="autocomplete-wrapper">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Vehículo</mat-label>
+                        <mat-icon matPrefix>directions_car</mat-icon>
+                        <input matInput
+                               [(ngModel)]="busquedaVehiculo"
+                               (ngModelChange)="onBuscarVehiculo($event)"
+                               placeholder="Buscar por marca">
+                    </mat-form-field>
+                    <div class="autocomplete-dropdown" *ngIf="vehiculosFiltrados.length > 0">
+                        <div class="autocomplete-item"
+                             *ngFor="let v of vehiculosFiltrados"
+                             (click)="seleccionarVehiculo(v)">
+                            <span class="item-nombre">{{ v.marca }} {{ v.modelo }}</span>
+                            <span class="item-sub">{{ v.precio_venta | number:'1.2-2' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
 
-      <mat-card class="section-card">
-        <mat-card-header>
-          <mat-card-title>Datos del Préstamo</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="grid-3-cols mt-3">
-          <mat-form-field appearance="outline">
-            <mat-label>Precio Vehículo</mat-label>
-            <input matInput type="number" [(ngModel)]="precioVehiculo">
-          </mat-form-field>
+        <!-- DATOS DEL PRÉSTAMO -->
+        <mat-card class="section-card">
+            <mat-card-header>
+                <mat-card-title>
+                    <mat-icon>directions_car</mat-icon> Datos del Préstamo
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="grid-3-cols mt-3">
 
-          <mat-form-field appearance="outline">
-            <mat-label>Cuota Inicial (%)</mat-label>
-            <input matInput type="number" [(ngModel)]="inputDTO.porcentaje_inicial">
-          </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Precio Vehículo</mat-label>
+                    <input matInput type="number"
+                           [value]="vehiculoSeleccionado?.precio_venta ?? 0"
+                           readonly>
+                </mat-form-field>
 
-          <div class="moneda-toggle">
-            <label class="toggle-label">MONEDA</label>
-            <div class="toggle-buttons">
-              <button [class.active]="monedaSeleccionada === 'USD'" (click)="setMoneda('USD')">USD</button>
-              <button [class.active]="monedaSeleccionada === 'PEN'" (click)="setMoneda('PEN')">PEN</button>
-            </div>
-          </div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Cuota Inicial (%)</mat-label>
+                    <input matInput type="number"
+                           [(ngModel)]="inputDTO.porcentaje_inicial"
+                           (ngModelChange)="recalcularMontos()">
+                </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Cuota Balón (%)</mat-label>
-            <input matInput type="number" value="30.00">
-          </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Cuota Balón (%)</mat-label>
+                    <input matInput type="number"
+                           [(ngModel)]="inputDTO.porcentaje_balon"
+                           (ngModelChange)="recalcularMontos()">
+                </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Tasa S. desgravamen</mat-label>
-            <input matInput type="number" [(ngModel)]="inputDTO.tasa_desgravamen">
-          </mat-form-field>
+                <!-- Toggle Moneda -->
+                <div class="moneda-toggle">
+                    <label class="toggle-label">MONEDA</label>
+                    <div class="toggle-buttons">
+                        <button [class.active]="monedaSeleccionada === 'USD'"
+                                (click)="setMoneda('USD')">USD</button>
+                        <button [class.active]="monedaSeleccionada === 'PEN'"
+                                (click)="setMoneda('PEN')">PEN</button>
+                    </div>
+                </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Tasa S. vehicular</mat-label>
-            <input matInput type="number" [(ngModel)]="inputDTO.tasa_vehicular">
-          </mat-form-field>
-        </mat-card-content>
-      </mat-card>
+                <!-- Cuota Inicial en moneda (solo lectura) -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Cuota Inicial (Moneda)</mat-label>
+                    <input matInput
+                           [value]="cuotaInicialMoneda | number:'1.2-2'"
+                           readonly>
+                </mat-form-field>
 
-      <mat-card class="section-card">
-        <mat-card-header>
-          <mat-card-title>Configuración de Tasas</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="grid-3-cols mt-3">
-          <mat-form-field appearance="outline">
-            <mat-label>Tipo de Tasa</mat-label>
-            <mat-select [(ngModel)]="inputDTO.tipo_tasa">
-              <mat-option value="TEA">TEA (Efectiva Anual)</mat-option>
-              <mat-option value="TNA">TNA (Nominal Anual)</mat-option>
-            </mat-select>
-          </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Cuota Balón (Moneda)</mat-label>
+                    <span matPrefix>&nbsp;</span>
+                    <input matInput
+                           [value]="cuotaBalonMoneda | number:'1.2-2'"
+                           readonly>
+                </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Capitalización</mat-label>
-            <mat-select value="Mensual">
-              <mat-option value="Mensual">Mensual</mat-option>
-              <mat-option value="Diaria">Diaria</mat-option>
-            </mat-select>
-          </mat-form-field>
+            </mat-card-content>
+        </mat-card>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Valor Tasa (%)</mat-label>
-            <input matInput type="number" [(ngModel)]="inputDTO.valor_tasa">
-          </mat-form-field>
-        </mat-card-content>
-      </mat-card>
+        <mat-card class="section-card">
+            <mat-card-header>
+                <mat-card-title>
+                    <mat-icon>percent</mat-icon> Configuración de Tasas
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="grid-3-cols mt-3">
 
-      <mat-card class="section-card">
-        <mat-card-header>
-          <mat-card-title>Plazos y Periodos</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="grid-3-cols mt-3">
-          <mat-form-field appearance="outline">
-            <mat-label>Plazo (Meses)</mat-label>
-            <input matInput type="number" [(ngModel)]="inputDTO.plazo_meses">
-          </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo de Tasa</mat-label>
+                    <mat-select [(ngModel)]="inputDTO.tipo_tasa">
+                        <mat-option value="TEA">TEA (Efectiva Anual)</mat-option>
+                        <mat-option value="TNA">TNA (Nominal Anual)</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Periodo Gracia</mat-label>
-            <mat-select value="sin_gracia">
-              <mat-option value="sin_gracia">Sin periodo de gracia</mat-option>
-              <mat-option value="TOTAL">Periodo de gracia Total</mat-option>
-              <mat-option value="PARCIAL">Periodo de gracia Parcial</mat-option>
-            </mat-select>
-          </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Capitalización</mat-label>
+                    <mat-select [(ngModel)]="inputDTO.capitalizacion">
+                        <mat-option value="MENSUAL">Mensual</mat-option>
+                        <mat-option value="DIARIA">Diaria</mat-option>
+                        <mat-option value="TRIMESTRAL">Trimestral</mat-option>
+                        <mat-option value="SEMESTRAL">Semestral</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Meses de Gracia</mat-label>
-            <input matInput type="number" [(ngModel)]="inputDTO.meses_gracia">
-          </mat-form-field>
-        </mat-card-content>
-      </mat-card>
+                <mat-form-field appearance="outline">
+                    <mat-label>Valor Tasa (%)</mat-label>
+                    <input matInput type="number" [(ngModel)]="inputDTO.valor_tasa">
+                </mat-form-field>
+
+            </mat-card-content>
+        </mat-card>
+
+        <!-- PLAZOS Y PERIODOS -->
+        <mat-card class="section-card">
+            <mat-card-header>
+                <mat-card-title>
+                    <mat-icon>schedule</mat-icon> Plazos y Periodos
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="grid-3-cols mt-3">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Plazo (Meses)</mat-label>
+                    <input matInput type="number" [(ngModel)]="inputDTO.plazo_meses">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Periodo Gracia</mat-label>
+                    <mat-select [(ngModel)]="inputDTO.tipo_gracia">
+                        <mat-option value="SIN_GRACIA">Sin periodo de gracia</mat-option>
+                        <mat-option value="TOTAL">Periodo de gracia Total</mat-option>
+                        <mat-option value="PARCIAL">Periodo de gracia Parcial</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Meses de Gracia</mat-label>
+                    <input matInput type="number" [(ngModel)]="inputDTO.meses_gracia">
+                </mat-form-field>
+
+            </mat-card-content>
+        </mat-card>
 
       <mat-card class="section-card">
         <mat-card-header>
@@ -154,25 +210,25 @@
 
           <div class="summary-highlight">
             <span class="label">Monto a Financiar</span>
-            <span class="value">S/ {{montoFinanciar | number:'1.2-2'}}</span>
+            <span class="value">{{montoFinanciar | number:'1.2-2'}}</span>
           </div>
 
           <div class="summary-grid mt-3">
             <div class="summary-item">
               <span class="label">Cuota mensual</span>
-              <span class="value main-value">S/ {{cuotaMensual | number:'1.2-2'}}</span>
+              <span class="value main-value">{{cuotaMensual | number:'1.2-2'}}</span>
             </div>
             <div class="summary-item">
               <span class="label">Interés total</span>
-              <span class="value">S/ {{interesTotal | number:'1.2-2'}}</span>
+              <span class="value">{{interesTotal | number:'1.2-2'}}</span>
             </div>
             <div class="summary-item">
               <span class="label">VAN</span>
-              <span class="value">S/ {{van | number:'1.2-2'}}</span>
+              <span class="value">{{van | number:'1.2-2'}}</span>
             </div>
             <div class="summary-item">
               <span class="label">TIR</span>
-              <span class="value">{{tir}}%</span>
+              <span class="value">{{tir}}%  </span>
             </div>
             <div class="summary-item">
               <span class="label">TCEA Estimada</span>
