@@ -55,7 +55,7 @@
 
 .autocomplete-dropdown {
   position: absolute;
-  top: 100%;
+  top: 67%;
   left: 0;
   right: 0;
   background-color: #ffffff;
@@ -82,7 +82,7 @@
 }
 
 .autocomplete-item:hover {
-  background-color: #f8fafc;
+  background-color: #ededed;
 }
 
 .item-nombre {

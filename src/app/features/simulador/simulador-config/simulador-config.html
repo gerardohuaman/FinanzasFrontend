@@ -22,15 +22,15 @@
                         <input matInput
                                [(ngModel)]="busquedaCliente"
                                (ngModelChange)="onBuscarCliente($event)"
-                               placeholder="Buscar por nombre">
+                               placeholder="Buscar por nombre o DNI">
                     </mat-form-field>
                     <div class="autocomplete-dropdown" *ngIf="clientesFiltrados.length > 0">
                         <div class="autocomplete-item"
                             *ngFor="let c of clientesFiltrados"
                             (click)="seleccionarCliente(c)">
-                            
+
                             <span class="item-nombre">{{ c.nombreCompleto }}</span>
-                            
+
                             <span class="item-sub">DNI: {{ c.dni }}</span>
                         </div>
                     </div>
@@ -43,14 +43,17 @@
                         <input matInput
                                [(ngModel)]="busquedaVehiculo"
                                (ngModelChange)="onBuscarVehiculo($event)"
-                               placeholder="Buscar por marca">
+                               placeholder="Buscar por marca o modelo">
                     </mat-form-field>
                     <div class="autocomplete-dropdown" *ngIf="vehiculosFiltrados.length > 0">
                         <div class="autocomplete-item"
                              *ngFor="let v of vehiculosFiltrados"
                              (click)="seleccionarVehiculo(v)">
                             <span class="item-nombre">{{ v.marca }} {{ v.modelo }}</span>
-                            <span class="item-sub">{{ v.precio_venta | number:'1.2-2' }}</span>
+                            <div>
+                                <span matPrefix class="currency-prefix">{{ v.id_moneda === 2 ? '$ ' : 'S/' }}&nbsp;</span>
+                                <span class="item-sub">{{ v.precio_venta | number:'1.2-2' }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,7 +70,7 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Precio Vehículo</mat-label>
-                    <span matPrefix class="currency-prefix">{{ monedaSeleccionada === 'USD' ? '$' : 'S/' }}&nbsp;</span>
+                    <span matPrefix class="currency-prefix">{{ vehiculoSeleccionado?.id_moneda === 2 ? '$ ' : 'S/' }}&nbsp;</span>
                     <input matInput type="number"
                            [value]="vehiculoSeleccionado?.precio_venta ?? 0"
                            readonly>
@@ -99,7 +102,7 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Cuota Inicial (Moneda)</mat-label>
-                    <span matPrefix class="currency-prefix">{{ monedaSeleccionada === 'USD' ? '$' : 'S/' }}&nbsp;</span>
+                    <span matPrefix class="currency-prefix">{{ monedaSeleccionada === 'USD' ? '$ ' : 'S/' }}&nbsp;</span>
                     <input matInput
                            [value]="cuotaInicialMoneda | number:'1.2-2'"
                            readonly>
@@ -107,7 +110,7 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Cuota Balón (Moneda)</mat-label>
-                    <span matPrefix class="currency-prefix">{{ monedaSeleccionada === 'USD' ? '$' : 'S/' }}&nbsp;</span>
+                    <span matPrefix class="currency-prefix">{{ monedaSeleccionada === 'USD' ? '$ ' : 'S/' }}&nbsp;</span>
                     <input matInput
                            [value]="cuotaBalonMoneda | number:'1.2-2'"
                            readonly>
@@ -189,25 +192,6 @@
 
             </mat-card-content>
         </mat-card>
-
-        <mat-card class="section-card">
-        <mat-card-header>
-          <mat-card-title>Método de Amortización</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="mt-3">
-          <mat-radio-group [(ngModel)]="metodoAmortizacion" (ngModelChange)="onCambioDatos()" class="amortizacion-group">
-            <mat-radio-button value="frances" class="amort-option">
-              <div class="amort-title">Francés Estándar</div>
-              <div class="amort-desc">Cuotas fijas mensuales durante todo el periodo del crédito.</div>
-            </mat-radio-button>
-            <mat-radio-button value="inteligente" class="amort-option">
-              <div class="amort-title">Compra Inteligente</div>
-              <div class="amort-desc">Cuotas más bajas con una cuota final de hasta el 50% del valor.</div>
-            </mat-radio-button>
-          </mat-radio-group>
-        </mat-card-content>
-      </mat-card>
-
     </div>
 
     <div class="summary-column">
@@ -219,21 +203,21 @@
 
           <div class="summary-highlight">
             <span class="label">Monto a Financiar</span>
-            <span class="value">{{monedaSeleccionada === 'USD' ? '$' : 'S/'}} {{montoFinanciar | number:'1.2-2'}}</span>
+            <span class="value">{{monedaSeleccionada === 'USD' ? '$ ' : 'S/'}} {{montoFinanciar | number:'1.2-2'}}</span>
           </div>
 
           <div class="summary-grid mt-3">
             <div class="summary-item">
               <span class="label">Cuota mensual</span>
-              <span class="value main-value">{{monedaSeleccionada === 'USD' ? '$' : 'S/'}} {{cuotaMensual | number:'1.2-2'}}</span>
+              <span class="value main-value">{{monedaSeleccionada === 'USD' ? '$ ' : 'S/'}} {{cuotaMensual | number:'1.2-2'}}</span>
             </div>
             <div class="summary-item">
               <span class="label">Interés total</span>
-              <span class="value">{{monedaSeleccionada === 'USD' ? '$' : 'S/'}} {{interesTotal | number:'1.2-2'}}</span>
+              <span class="value">{{monedaSeleccionada === 'USD' ? '$ ' : 'S/'}} {{interesTotal | number:'1.2-2'}}</span>
             </div>
             <div class="summary-item">
               <span class="label">VAN</span>
-              <span class="value">{{monedaSeleccionada === 'USD' ? '$' : 'S/'}} {{van | number:'1.2-2'}}</span>
+              <span class="value">{{monedaSeleccionada === 'USD' ? '$ ' : 'S/'}} {{van | number:'1.2-2'}}</span>
             </div>
             <div class="summary-item">
               <span class="label">TIR</span>

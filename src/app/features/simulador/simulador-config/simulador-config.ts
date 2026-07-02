@@ -204,10 +204,9 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
     });
   }
 
-  // ── SELECCIÓN ────────────────────────────────────
   seleccionarCliente(cliente: Cliente): void {
     this.clienteSeleccionado  = cliente;
-    this.busquedaCliente      = cliente.nombreCompleto; // Volvemos a lo simple
+    this.busquedaCliente      = `${cliente.nombreCompleto} ${cliente.dni}`;
     this.inputDTO.id_cliente  = cliente.id_cliente;
     this.clientesFiltrados    = []; 
 
