@@ -70,7 +70,7 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Precio Vehículo</mat-label>
-                    <span matPrefix class="currency-prefix">{{ vehiculoSeleccionado?.id_moneda === 2 ? '$ ' : 'S/' }}&nbsp;</span>
+                    <span matPrefix class="currency-prefix">{{ monedaSeleccionada === 'USD' ? '$ ' : 'S/' }}&nbsp;</span>
                     <input matInput type="number"
                            [value]="vehiculoSeleccionado?.precio_venta ?? 0"
                            readonly>

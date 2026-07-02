@@ -206,7 +206,7 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
 
   seleccionarCliente(cliente: Cliente): void {
     this.clienteSeleccionado  = cliente;
-    this.busquedaCliente      = `${cliente.nombreCompleto} ${cliente.dni}`;
+    this.busquedaCliente      = `${cliente.nombreCompleto} - ${cliente.dni}`;
     this.inputDTO.id_cliente  = cliente.id_cliente;
     this.clientesFiltrados    = []; 
 
@@ -215,7 +215,7 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
 
   seleccionarVehiculo(vehiculo: Vehiculo): void {
     this.vehiculoSeleccionado  = vehiculo;
-    this.busquedaVehiculo      = `${vehiculo.marca} ${vehiculo.modelo}`;
+    this.busquedaVehiculo      = `${vehiculo.marca} - ${vehiculo.modelo} - ${vehiculo.id_moneda == 2 ? '$ ' : 'S/'} ${vehiculo.precio_venta}`;
     this.inputDTO.id_vehiculo  = vehiculo.id_vehiculo;
     this.precioVehiculoSeleccionado = vehiculo.precio_venta; 
     this.vehiculosFiltrados    = [];
