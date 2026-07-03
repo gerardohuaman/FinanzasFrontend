@@ -1,13 +1,12 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, Input, OnInit } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
-import { SimulacionResponseDTO } from "../../../models/SimulacionResponseDTO";
-import { CronogramaPagosDTO } from "../../../models/CronogramaPagosDTO";
-import { ActivatedRoute } from "@angular/router";
-import { SimulacionService } from "../../../core/services/Simulacion-service";
+import { ActivatedRoute, Router } from "@angular/router";
+import {CronogramaService} from "../../../core/services/Cronograma-service";
+
 
 @Component({
   selector: "app-cronograma-view",
@@ -21,66 +20,63 @@ import { SimulacionService } from "../../../core/services/Simulacion-service";
   templateUrl: "./cronograma-view.html",
   styleUrl: "./cronograma-view.css",
 })
-export class CronogramaViewComponent implements OnInit{
-  @Input() simulacionData!: any
+export class CronogramaViewComponent implements OnInit {
 
   columnasMostradas: string[] = [
-    'numero_mes',
-    'saldo_inicial',
-    'amortizacion',
-    'interes',
-    'seguro_vehicular',
-    'seguro_desgravamen',
-    'cuota_total',
-    'saldo_final'
-  ]
+    'numero_mes', 'saldo_inicial', 'amortizacion', 'interes',
+    'seguro_vehicular', 'seguro_desgravamen', 'cuota_total', 'saldo_final'
+  ];
 
-  dataSource: any[] = []
+  dataSource: any[] = [];
 
-  private route = inject(ActivatedRoute)
-  private simulacionService = inject(SimulacionService)
+  // Para mi estimada el STATE
+  simulacionData: any = null;
+  clienteData:    any = null;
+  vehiculoData:   any = null;
+  inputDTOData:   any = null;
+
+  private route             = inject(ActivatedRoute);
+  private router            = inject(Router);
+  private cronogramaService = inject(CronogramaService);
+
+  constructor() {
+    const nav = this.router.getCurrentNavigation();
+    if (nav?.extras?.state) {
+      this.simulacionData = nav.extras.state['simulacion'];
+      this.clienteData    = nav.extras.state['cliente'];
+      this.vehiculoData   = nav.extras.state['vehiculo'];
+      this.inputDTOData   = nav.extras.state['inputDTO'];
+      if (this.simulacionData?.cronograma) {
+        this.dataSource = this.simulacionData.cronograma;
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const idStr = params.get('id')
-      if(idStr){
-        this.cargarDatos(Number(idStr))
-      } else if(this.simulacionData){
-        this.dataSource = this.simulacionData.cronograma || []
-      } else {
-        this.simulacionData = null
+      const idStr = params.get('id');
+      if (idStr && !this.simulacionData) {
+        this.cargarCronograma(Number(idStr));
       }
-    })
+    });
   }
 
-  cargarDatos(id: number) {
-    this.simulacionData.list().subscribe({
-      next: (simulaciones: any[]) => {
-        const encontrada = simulaciones.find(s => s.id_simulacion === id || s.id === id)
-        if(encontrada){
-          this.simulacionData = encontrada
-          this.dataSource = encontrada.cronograma || []
-        }
-      },
-      error: (err: any) => console.error('Error al cargar la simulacion:', err)
-    })
+  cargarCronograma(id: number): void {
+    this.cronogramaService.obtenerPorSimulacion(id).subscribe({
+      next: (cuotas: any[]) => this.dataSource = cuotas,
+      error: (err: any) => console.error('Error al cargar el cronograma:', err)
+    });
   }
 
-  exportarPDF(){
-    window.print()
-    //console.log("Iniciando exportacion a PDF segun la US07")
+  exportarPDF(): void {
+    window.print();
   }
 
-  // ==========================================
-  // GETTERS DINÁMICOS PARA EVITAR HARDCODEO
-  // ==========================================
-  
-  get idCredito(): string {
-    return this.simulacionData?.id_simulacion || '8842';
-  }
 
   get clienteNombre(): string {
-    return this.simulacionData?.cliente?.nombreCompleto || 'Cliente Referencial';
+    return this.clienteData?.nombreCompleto
+        || this.simulacionData?.cliente?.nombreCompleto
+        || 'Cliente';
   }
 
   get clienteIniciales(): string {
@@ -90,18 +86,20 @@ export class CronogramaViewComponent implements OnInit{
   }
 
   get clienteDniMask(): string {
-    const dni = this.simulacionData?.cliente?.dni;
-    if (!dni) return '09***411';
+    const dni = this.clienteData?.dni || this.simulacionData?.cliente?.dni;
+    if (!dni) return '*****';
     return dni.substring(0, 2) + '***' + dni.substring(dni.length - 3);
   }
 
   get vehiculoNombre(): string {
-    if (!this.simulacionData?.vehiculo) return 'Vehículo Estándar 2024';
-    return `${this.simulacionData.vehiculo.marca} ${this.simulacionData.vehiculo.modelo}`;
+    const v = this.vehiculoData || this.simulacionData?.vehiculo;
+    if (!v) return 'Vehículo';
+    return `${v.marca} ${v.modelo}`;
   }
 
   get simboloMoneda(): string {
-    return (this.simulacionData?.moneda_simulacion === 'USD' || this.simulacionData?.vehiculo?.moneda?.codigo_iso === 'USD') ? '$' : 'S/';
+    return (this.simulacionData?.moneda_simulacion === 'USD'
+        || this.vehiculoData?.id_moneda === 2) ? '$' : 'S/';
   }
 
   get nombreMoneda(): string {
@@ -109,38 +107,63 @@ export class CronogramaViewComponent implements OnInit{
   }
 
   get plazoMeses(): number {
-    return this.simulacionData?.plazo_meses || (this.dataSource.length ? this.dataSource.length : 48);
+    return this.inputDTOData?.plazo_meses
+        || this.simulacionData?.plazo_meses
+        || this.dataSource.length;
   }
 
   get montoFinanciado(): number {
-    return this.simulacionData?.monto_financiado || 50000;
+    return this.simulacionData?.monto_financiado || 0;
   }
 
   get totalCuota(): number {
-    if (!this.dataSource || this.dataSource.length === 0) return 61609.48;
+    if (this.simulacionData?.total_cuota_final) return this.simulacionData.total_cuota_final;
     return this.dataSource.reduce((acc, c) => acc + (c.cuota_total || 0), 0);
   }
 
   get interesTotal(): number {
     if (this.simulacionData?.total_intereses) return this.simulacionData.total_intereses;
-    if (!this.dataSource || this.dataSource.length === 0) return 8068.49;
     return this.dataSource.reduce((acc, c) => acc + (c.interes || 0), 0);
   }
 
   get cuotaMensualFija(): number {
-    if (!this.dataSource || this.dataSource.length === 0) return 1310.84;
+    if (!this.dataSource?.length) return 0;
     return this.dataSource[0].cuota_total;
   }
 
   get ultimaCuota(): number {
-    if (!this.dataSource || this.dataSource.length === 0) return 10589.65;
+    if (!this.dataSource?.length) return 0;
     return this.dataSource[this.dataSource.length - 1].cuota_total;
   }
 
   get temAprox(): number {
-    if (this.simulacionData?.valor_tasa) {
-      return (Math.pow(1 + (this.simulacionData.valor_tasa / 100), 1/12) - 1) * 100;
+    const valorTasa = this.inputDTOData?.valor_tasa || this.simulacionData?.valor_tasa;
+    if (!valorTasa) return 0;
+    return (Math.pow(1 + (valorTasa / 100), 1/12) - 1) * 100;
+  }
+//Las realaes mañas
+
+  get tipoPeriodoGracia(): string {
+    const tipo = this.inputDTOData?.tipo_gracia || this.simulacionData?.tipo_gracia || 'SIN_GRACIA';
+    switch (tipo) {
+      case 'TOTAL':   return 'TOTAL';
+      case 'PARCIAL': return 'PARCIAL';
+      default:        return 'SIN';
     }
-    return 0.9864; // Fallback visual
+  }
+
+  get tipoPeriodoGraciaTexto(): string {
+    const tipo = this.inputDTOData?.tipo_gracia || this.simulacionData?.tipo_gracia || 'SIN_GRACIA';
+    switch (tipo) {
+      case 'TOTAL':   return 'Periodo de gracia Total';
+      case 'PARCIAL': return 'Periodo de gracia Parcial';
+      default:        return 'Sin gracia';
+    }
+  }
+
+  get mesesGraciaTexto(): string {
+    const meses = this.inputDTOData?.meses_gracia || this.simulacionData?.meses_gracia || 0;
+    return meses > 0 ? `${meses} meses` : 'Sin gracia';
   }
 }
+

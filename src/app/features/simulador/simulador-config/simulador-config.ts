@@ -62,7 +62,6 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
   //Entradas de datos para simulacro
   inputDTO: SimulacionInputDTO = new SimulacionInputDTO();
   monedaSeleccionada: string = 'PEN';
-  metodoAmortizacion: string = 'frances';
 
   cuotaInicialMoneda: number = 0;
   cuotaBalonMoneda:   number = 0;
@@ -83,10 +82,10 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
   private cdr = inject(ChangeDetectorRef)
 
   ngOnInit(): void {
+    this.inputDTO.id_tipo_cambio = 1;
     this.clienteService.list().subscribe(data => this.clientes = data)
     this.vehiculoService.list().subscribe(data => this.vehiculos = data)
     this.monedaService.list().subscribe(data => this.monedas = data)
-
     this.inputDTO.porcentaje_inicial = 20.0
     this.inputDTO.porcentaje_balon = 30.0
     this.inputDTO.tipo_tasa = 'TEA'
@@ -230,8 +229,15 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
   }
   setMoneda(moneda: string): void {
     this.monedaSeleccionada = moneda;
+
+    if (moneda === 'PEN') {
+      this.inputDTO.id_tipo_cambio = 1;
+    } else if (moneda === 'USD') {
+      this.inputDTO.id_tipo_cambio = 2;
+    }
+
     this.recalcularMontos();
-    this.onCambioDatos()
+    this.onCambioDatos();
   }
   solicitarPreview(): void {
     if(!this.inputDTO.id_vehiculo || !this.inputDTO.plazo_meses) return;
@@ -250,11 +256,17 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
       alert('Completa todos los campos requeridos correctamente antes de continuar.');
       return;
     }
-
     this.simulacionService.createSimulation(this.inputDTO).subscribe({
       next: (response: SimulacionResponseDTO) => {
         this.respuestaSimulacion = response;
-        this.router.navigate(['/cronograma', response.id_simulacion]);
+        this.router.navigate(['/cronograma', response.id_simulacion], {
+          state: {
+            simulacion: response,
+            cliente: this.clienteSeleccionado,
+            vehiculo: this.vehiculoSeleccionado,
+            inputDTO: this.inputDTO
+          }
+        });
       },
       error: (err: any) => {
         alert("Error al procesar y guardar la simulacion");
@@ -311,7 +323,7 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
   }
 
   get errorMesesGracia(): string | null {
-    if (this.inputDTO.tipo_gracia === 'SIN_GRACIA') return null; // no aplica
+    if (this.inputDTO.tipo_gracia === 'SIN_GRACIA') return null;
     if (this.inputDTO.meses_gracia < 1 || this.inputDTO.meses_gracia > 6) {
       return 'Los meses de gracia deben estar entre 1 y 6';
     }
