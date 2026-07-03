@@ -259,8 +259,14 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
     this.simulacionService.createSimulation(this.inputDTO).subscribe({
       next: (response: SimulacionResponseDTO) => {
         this.respuestaSimulacion = response;
-        console.log("REsultado para simu", response)
-        this.router.navigate(['/cronograma', response.id_simulacion]);
+        this.router.navigate(['/cronograma', response.id_simulacion], {
+          state: {
+            simulacion: response,
+            cliente: this.clienteSeleccionado,
+            vehiculo: this.vehiculoSeleccionado,
+            inputDTO: this.inputDTO
+          }
+        });
       },
       error: (err: any) => {
         alert("Error al procesar y guardar la simulacion");

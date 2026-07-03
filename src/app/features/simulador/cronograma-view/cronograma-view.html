@@ -14,25 +14,22 @@
       <div class="kpi-title">
         VAN (VALOR ACTUAL NETO) <mat-icon class="icon-small">info_outline</mat-icon>
       </div>
-      <div class="kpi-value">{{ simboloMoneda }} {{ (simulacionData?.van || -42550.20) | number:'1.2-2' }}</div>
+      <div class="kpi-value">{{ simboloMoneda }} {{ (simulacionData?.van || 0.0) | number:'1.2-2' }}</div>
       <div class="kpi-subtitle">COK utilizado: TEM =1.00%</div>
       <div class="badge-light mt-3">PROYECCION A {{ plazoMeses }} MESES</div>
     </div>
 
     <div class="kpi-card">
       <div class="kpi-title">TIR (TASA INTERNA DE RETORNO)</div>
-      <div class="kpi-value">Anual: {{ (simulacionData?.tir || 12.40) | number:'1.2-2' }}%</div>
+      <div class="kpi-value">{{ (simulacionData?.tir || 0.0000) | number:'1.4-4' }}%</div>
       <div class="kpi-subtitle">Costo real del crédito para el cliente</div>
     </div>
 
-    <div class="kpi-card">
-      <div class="kpi-title">COSTO TOTAL DEL CREDITO</div>
-      <div class="kpi-value">{{ simboloMoneda }} {{ totalCuota | number:'1.2-2' }}</div>
-      <div class="kpi-subtitle">
-        Capital: {{ simboloMoneda }} {{ montoFinanciado | number:'1.0-0' }} <br>
-        Intereses: {{ simboloMoneda }} {{ interesTotal | number:'1.2-2' }}
+      <div class="kpi-card">
+          <div class="kpi-title">TCEA (TASA DE COSTO EFECTIVO ANUAL)</div>
+          <div class="kpi-value">{{ (simulacionData?.tcea * 100 || 0.0000) | number:'1.4-4' }}%</div>
+          <div class="kpi-subtitle">Costo efectivo anual del crédito</div>
       </div>
-    </div>
   </div>
 
   <div class="client-banner mt-4">
@@ -49,11 +46,11 @@
       <span class="car-name">{{ vehiculoNombre }}</span>
     </div>
 
-    <div class="banner-section banner-tags">
-      <div class="tag-dark">FRANCÉS<br>ESTÁNDAR</div>
-      <div class="tag-dark">SIN PERÍODO DE<br>GRACIA</div>
-      <div class="tag-dark">{{ plazoMeses }}<br>MESES</div>
-    </div>
+      <div class="banner-section banner-tags">
+          <div class="tag-dark">Francesa<br>COMPRA INTELIGENTE</div>
+          <div class="tag-dark">{{ tipoPeriodoGracia }}<br>GRACIA</div>
+          <div class="tag-dark">{{ plazoMeses }}<br>MESES</div>
+      </div>
   </div>
 
   <div class="resumen-card mt-4">
@@ -69,22 +66,22 @@
           <span class="r-label">CUOTA TOTAL FIJA (POR MES)</span>
           <span class="r-value">{{ cuotaMensualFija | number:'1.2-2' }}</span>
         </div>
-        <div class="r-item">
-          <span class="r-label">PERÍODO DE GRACIA</span>
-          <span class="r-value">Sin gracia</span>
-        </div>
+          <div class="r-item">
+              <span class="r-label">PERÍODO DE GRACIA</span>
+              <span class="r-value">{{ tipoPeriodoGraciaTexto }}</span>
+          </div>
         <div class="r-item">
           <span class="r-label">ULTIMA CUOTA DEL CRONOGRAMA</span>
           <span class="r-value">{{ ultimaCuota | number:'1.2-2' }}</span>
         </div>
-        <div class="r-item">
-          <span class="r-label">MESES DE GRACIA</span>
-          <span class="r-value">Sin gracia</span>
-        </div>
-        <div></div> <div class="r-item">
+          <div class="r-item">
+              <span class="r-label">MESES DE GRACIA</span>
+              <span class="r-value">{{ mesesGraciaTexto }}</span>
+          </div>
+          <div></div> <div class="r-item">
           <span class="r-label">PLAZO TOTAL</span>
           <span class="r-value">{{ plazoMeses }}</span>
-        </div>
+      </div>
       </div>
 
       <div class="resumen-dark-box">

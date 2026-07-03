@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 const base_url = environment.base;
 
 @Injectable({ providedIn: 'root' })
-export class CronogramaPagosService {
+export class CronogramaService {
     private url = `${base_url}/cronograma`;
     private http = inject(HttpClient);
 
