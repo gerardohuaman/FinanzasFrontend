@@ -4,30 +4,28 @@
     <p class="subtitle">Monitoreo de cartera y colocaciones en tiempo real.</p>
   </div>
 
-  <div class="kpi-grid mt-4">
-    <div class="kpi-card">
+  <div class="kpi-container mt-4">
+    <div class="kpi-card single-kpi">
       <div class="kpi-card-header">
-        <div class="kpi-icon-box">
-          <mat-icon>person_add</mat-icon>
-        </div>
-        <div class="kpi-placeholder"></div>
+        <div class="kpi-icon-box kpi-blue"><mat-icon>people</mat-icon></div>
       </div>
-      <div class="kpi-label">CLIENTES TOTALES</div>
+      <div class="kpi-label">CLIENTES REGISTRADOS</div>
       <div class="kpi-value">{{ totalClientes }}</div>
       <div class="kpi-progress">
-        <div class="kpi-progress-fill" style="width: 75%;"></div>
+        <div class="kpi-progress-fill bg-blue" style="width: 100%;"></div>
       </div>
     </div>
-  </div> <div class="table-card mt-4">
+  </div>
+
+  <div class="table-card mt-4">
     <div class="table-header">
       <div class="header-titles">
-        <h3>Actividad Reciente</h3>
-        <p>Últimos 5 planes de pago generados</p>
+        <h3>Historial de Planes Generados</h3>
+        <p>Haga clic en ver para visualizar el cronograma de pago detallado</p>
       </div>
-      <a routerLink="/simulador" class="btn-text">Ver todos</a>
     </div>
 
-    <table mat-table [dataSource]="actividadReciente" class="custom-table w-100">
+    <table mat-table [dataSource]="dataSource" class="custom-table w-100">
       
       <ng-container matColumnDef="cliente">
         <th mat-header-cell *matHeaderCellDef> CLIENTE </th>
@@ -53,8 +51,8 @@
         <th mat-header-cell *matHeaderCellDef class="text-right"> MONTO </th>
         <td mat-cell *matCellDef="let element">
           <div class="monto-stack">
-            <span class="monto-symbol">{{ element.vehiculo?.moneda?.simbolo || 'S/' }}</span>
-            <span class="monto-amount">{{ element.monto_financiado | number:'1.0-0' }}</span>
+            <span class="monto-symbol">{{ getSimboloMoneda(element.vehiculo?.id_moneda) }}</span>
+            <span class="monto-amount">{{ calcularMontoFinanciado(element) | number:'1.2-2' }}</span>
           </div>
         </td>
       </ng-container>
@@ -77,5 +75,8 @@
         </td>
       </tr>
     </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
   </div>
 </div>
