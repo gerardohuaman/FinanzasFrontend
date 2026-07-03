@@ -72,17 +72,20 @@
             <mat-card-content class="grid-3-cols mt-3">
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Precio Vehículo</mat-label>
+                    <mat-label>
+                        Precio Vehículo
+                        <mat-icon class="info-icon" matTooltip="Precio de venta del vehículo seleccionado, en la moneda original registrada.">info</mat-icon>
+                    </mat-label>
                     <span matPrefix class="currency-prefix">{{ monedaSeleccionada === 'USD' ? '$ ' : 'S/' }}&nbsp;</span>
-                    <input matInput type="number"
-                           [value]="vehiculoSeleccionado?.precio_venta ?? 0"
-                           readonly>
+                    <input matInput type="number" [value]="vehiculoSeleccionado?.precio_venta ?? 0" readonly>
                 </mat-form-field>
-
 
                 <div class="field-wrapper">
                     <mat-form-field appearance="outline">
-                        <mat-label>Cuota Inicial (%)</mat-label>
+                        <mat-label>
+                            Cuota Inicial (%)
+                            <mat-icon class="info-icon" matTooltip="Porcentaje del precio del vehículo que el cliente paga como adelanto. Debe estar entre 10% y 40%.">info</mat-icon>
+                        </mat-label>
                         <input matInput type="number" step="0.0001"
                                [(ngModel)]="inputDTO.porcentaje_inicial"
                                (ngModelChange)="recalcularMontos(); onCambioDatos()">
@@ -92,7 +95,10 @@
 
                 <div class="field-wrapper">
                     <mat-form-field appearance="outline">
-                        <mat-label>Cuota Balón (%)</mat-label>
+                        <mat-label>
+                            Cuota Balón (%)
+                            <mat-icon class="info-icon" matTooltip="Pago final más grande al término del crédito, reduciendo las cuotas mensuales regulares. Debe estar entre 10% y 40%.">info</mat-icon>
+                        </mat-label>
                         <input matInput type="number" step="0.0001"
                                [(ngModel)]="inputDTO.porcentaje_balon"
                                (ngModelChange)="recalcularMontos(); onCambioDatos()">
@@ -100,39 +106,42 @@
                     <small class="error-text" *ngIf="errorPorcentajeBalon">{{ errorPorcentajeBalon }}</small>
                 </div>
 
-
                 <div class="moneda-toggle">
-                    <label class="toggle-label">MONEDA</label>
+                    <label class="toggle-label">
+                        MONEDA
+                        <mat-icon class="info-icon" matTooltip="Moneda en la que se calculará y pagará el crédito.">info</mat-icon>
+                    </label>
                     <div class="toggle-buttons">
-                        <button [class.active]="monedaSeleccionada === 'USD'"
-                                (click)="setMoneda('USD'); onCambioDatos()">USD</button>
-                        <button [class.active]="monedaSeleccionada === 'PEN'"
-                                (click)="setMoneda('PEN'); onCambioDatos()">PEN</button>
+                        <button [class.active]="monedaSeleccionada === 'USD'" (click)="setMoneda('USD'); onCambioDatos()">USD</button>
+                        <button [class.active]="monedaSeleccionada === 'PEN'" (click)="setMoneda('PEN'); onCambioDatos()">PEN</button>
                     </div>
                 </div>
 
-                <!-- Cuota Inicial (Moneda) -->
                 <mat-form-field appearance="outline" [class.field-disabled]="true">
-                    <mat-label>Cuota Inicial (Moneda)</mat-label>
+                    <mat-label>
+                        Cuota Inicial (Moneda)
+                        <mat-icon class="info-icon" matTooltip="Monto equivalente de la cuota inicial en la moneda seleccionada. Solo referencial, no editable.">info</mat-icon>
+                    </mat-label>
                     <span matPrefix class="currency-prefix">{{ monedaSeleccionada === 'USD' ? '$ ' : 'S/' }}&nbsp;</span>
-                    <input matInput
-                           [value]="cuotaInicialMoneda | number:'1.2-2'"
-                           disabled>
+                    <input matInput [value]="cuotaInicialMoneda | number:'1.2-2'" disabled>
                 </mat-form-field>
 
-                <!-- Cuota Balón (Moneda) -->
                 <mat-form-field appearance="outline" [class.field-disabled]="true">
-                    <mat-label>Cuota Balón (Moneda)</mat-label>
+                    <mat-label>
+                        Cuota Balón (Moneda)
+                        <mat-icon class="info-icon" matTooltip="Monto equivalente de la cuota balón en la moneda seleccionada. Solo referencial, no editable.">info</mat-icon>
+                    </mat-label>
                     <span matPrefix class="currency-prefix">{{ monedaSeleccionada === 'USD' ? '$ ' : 'S/' }}&nbsp;</span>
-                    <input matInput
-                           [value]="cuotaBalonMoneda | number:'1.2-2'"
-                           disabled>
+                    <input matInput [value]="cuotaBalonMoneda | number:'1.2-2'" disabled>
                 </mat-form-field>
+
                 <div class="field-wrapper">
                     <mat-form-field appearance="outline">
-                        <mat-label>Tasa S. desgravamen (%)</mat-label>
-                        <input matInput type="number"
-                               step="0.0001"
+                        <mat-label>
+                            Tasa S. desgravamen (%)
+                            <mat-icon class="info-icon" matTooltip="Seguro que cubre la deuda pendiente en caso de fallecimiento o invalidez del titular. Rango permitido: 0% a 1%.">info</mat-icon>
+                        </mat-label>
+                        <input matInput type="number" step="0.0001"
                                [(ngModel)]="inputDTO.tasa_desgravamen"
                                (ngModelChange)="onCambioDatos()">
                     </mat-form-field>
@@ -141,9 +150,11 @@
 
                 <div class="field-wrapper">
                     <mat-form-field appearance="outline">
-                        <mat-label>Tasa S. vehicular (%)</mat-label>
-                        <input matInput type="number"
-                               step="0.0001"
+                        <mat-label>
+                            Tasa S. vehicular (%)
+                            <mat-icon class="info-icon" matTooltip="Seguro que protege el vehículo ante robo, choque o pérdida total. Rango permitido: 0% a 1%.">info</mat-icon>
+                        </mat-label>
+                        <input matInput type="number" step="0.0001"
                                [(ngModel)]="inputDTO.tasa_vehicular"
                                (ngModelChange)="onCambioDatos()">
                     </mat-form-field>
@@ -160,8 +171,12 @@
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content class="grid-3-cols mt-3">
+
                 <mat-form-field appearance="outline">
-                    <mat-label>Tipo de Tasa</mat-label>
+                    <mat-label>
+                        Tipo de Tasa
+                        <mat-icon class="info-icon" matTooltip="TEA: tasa efectiva anual, ya incluye la capitalización. TNA: tasa nominal anual, requiere indicar la capitalización para convertirla.">info</mat-icon>
+                    </mat-label>
                     <mat-select [(ngModel)]="inputDTO.tipo_tasa" (ngModelChange)="onCambioDatos()">
                         <mat-option value="TEA">TEA (Efectiva Anual)</mat-option>
                         <mat-option value="TNA">TNA (Nominal Anual)</mat-option>
@@ -169,7 +184,10 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" [class.field-disabled]="inputDTO.tipo_tasa === 'TEA'">
-                    <mat-label>Capitalización</mat-label>
+                    <mat-label>
+                        Capitalización
+                        <mat-icon class="info-icon" matTooltip="Frecuencia con la que se capitalizan los intereses. Solo aplica si el tipo de tasa es TNA.">info</mat-icon>
+                    </mat-label>
                     <mat-select [(ngModel)]="inputDTO.capitalizacion"
                                 [disabled]="inputDTO.tipo_tasa === 'TEA'"
                                 (ngModelChange)="onCambioDatos()">
@@ -179,9 +197,13 @@
                         <mat-option value="SEMESTRAL">Semestral</mat-option>
                     </mat-select>
                 </mat-form-field>
+
                 <div class="field-wrapper">
                     <mat-form-field appearance="outline">
-                        <mat-label>Valor Tasa (%)</mat-label>
+                        <mat-label>
+                            Valor Tasa (%)
+                            <mat-icon class="info-icon" matTooltip="Valor de la tasa de interés anual pactada con el cliente. No puede superar 113.16% según límite SBS.">info</mat-icon>
+                        </mat-label>
                         <input matInput type="number" step="0.0001"
                                [(ngModel)]="inputDTO.valor_tasa"
                                (ngModelChange)="onCambioDatos()">
@@ -200,23 +222,37 @@
             </mat-card-header>
             <mat-card-content class="grid-3-cols mt-3">
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Plazo (Meses)</mat-label>
-                    <input matInput type="number" [(ngModel)]="inputDTO.plazo_meses" (ngModelChange)="onCambioDatos()">
-                </mat-form-field>
-                <small class="error-text" *ngIf="errorPlazoMeses">{{ errorPlazoMeses }}</small>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Plazo (Meses)
+                            <mat-icon class="info-icon" matTooltip="Duración total del crédito en meses. Mínimo 12 meses.">info</mat-icon>
+                        </mat-label>
+                        <input matInput type="number"
+                               [(ngModel)]="inputDTO.plazo_meses"
+                               (ngModelChange)="onCambioDatos()">
+                    </mat-form-field>
+                    <small class="error-text" *ngIf="errorPlazoMeses">{{ errorPlazoMeses }}</small>
+                </div>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Periodo Gracia</mat-label>
+                    <mat-label>
+                        Periodo Gracia
+                        <mat-icon class="info-icon" matTooltip="Total: no se paga capital ni interés durante el periodo (el interés se capitaliza). Parcial: solo se paga el interés, sin amortizar capital.">info</mat-icon>
+                    </mat-label>
                     <mat-select [(ngModel)]="inputDTO.tipo_gracia" (ngModelChange)="onTipoGraciaChange($event)">
                         <mat-option value="SIN_GRACIA">Sin periodo de gracia</mat-option>
                         <mat-option value="TOTAL">Periodo de gracia Total</mat-option>
                         <mat-option value="PARCIAL">Periodo de gracia Parcial</mat-option>
                     </mat-select>
                 </mat-form-field>
+
                 <div class="field-wrapper">
                     <mat-form-field appearance="outline" [class.field-disabled]="inputDTO.tipo_gracia === 'SIN_GRACIA'">
-                        <mat-label>Meses de Gracia</mat-label>
+                        <mat-label>
+                            Meses de Gracia
+                            <mat-icon class="info-icon" matTooltip="Cantidad de meses del periodo de gracia. Debe estar entre 1 y 6 meses.">info</mat-icon>
+                        </mat-label>
                         <input matInput type="number"
                                [(ngModel)]="inputDTO.meses_gracia"
                                [disabled]="inputDTO.tipo_gracia === 'SIN_GRACIA'"
@@ -224,6 +260,7 @@
                     </mat-form-field>
                     <small class="error-text" *ngIf="errorMesesGracia">{{ errorMesesGracia }}</small>
                 </div>
+
             </mat-card-content>
         </mat-card>
     </div>

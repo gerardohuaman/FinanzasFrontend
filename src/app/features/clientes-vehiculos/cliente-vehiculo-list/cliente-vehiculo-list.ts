@@ -70,6 +70,7 @@ export class ClienteListComponent implements OnInit{
     });
   }
   obtenerCodigoMoneda(id_moneda: number): string {
+    console.log('id_moneda recibido:', id_moneda, '| monedas cargadas:', this.monedas);
     return this.monedas.find(m => m.id_moneda === id_moneda)?.codigo_iso ?? '';
   }
   //Clientes

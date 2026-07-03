@@ -19,6 +19,7 @@ import { debounceTime, Subject, Subscription } from "rxjs";
 import { MonedaService } from "../../../core/services/Moneda-service";
 import { Router } from "@angular/router";
 import { Moneda } from "../../../models/Moneda";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @Component({
   selector: "app-simulador-config",
@@ -31,7 +32,8 @@ import { Moneda } from "../../../models/Moneda";
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTooltipModule
   ],
   templateUrl: "./simulador-config.html",
   styleUrl: "./simulador-config.css",
@@ -302,8 +304,8 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
   }
 
   get errorPlazoMeses(): string | null {
-    if (this.inputDTO.plazo_meses < 12) {
-      return 'El plazo mínimo es 12 meses';
+    if (this.inputDTO.plazo_meses < 12 || this.inputDTO.plazo_meses > 72) {
+      return 'El plazo deben estar entre 12 y 72 meses';
     }
     return null;
   }
