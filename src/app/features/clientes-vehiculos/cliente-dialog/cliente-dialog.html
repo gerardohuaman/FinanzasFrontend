@@ -26,7 +26,8 @@
             <div class="form-row">
                 <mat-form-field appearance="outline" class="half">
                     <mat-label>Teléfono</mat-label>
-                    <input matInput formControlName="telefono" placeholder="987654321">
+                    <input matInput formControlName="telefono" placeholder="987654321" maxlength="9">
+                    <mat-error *ngIf="form.get('telefono')?.hasError('pattern')">Debe tener 9 dígitos y empezar con 9</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="half">
                     <mat-label>Email</mat-label>
@@ -37,7 +38,8 @@
             <div class="form-row">
                 <mat-form-field appearance="outline" class="half">
                     <mat-label>Teléfono Secundario (opcional)</mat-label>
-                    <input matInput formControlName="telefonoSecundario" placeholder="912345678">
+                    <input matInput formControlName="telefonoSecundario" placeholder="912345678" maxlength="9">
+                    <mat-error *ngIf="form.get('telefonoSecundario')?.hasError('pattern')">Debe tener 9 dígitos y empezar con 9</mat-error>
                 </mat-form-field>
 
                 <mat-checkbox formControlName="aceptaTratamientoDatos" color="primary" class="half">
@@ -45,11 +47,13 @@
                 </mat-checkbox>
 
             </div>
-
             <mat-form-field appearance="outline" class="full">
                 <mat-label>Ingresos Mensuales</mat-label>
                 <span matPrefix>S/&nbsp;</span>
                 <input matInput type="number" formControlName="ingresos_mensuales" placeholder="4500.00">
+                <mat-error *ngIf="form.get('ingresos_mensuales')?.hasError('min')">
+                    El ingreso mínimo debe ser S/ 2,500.00
+                </mat-error>
             </mat-form-field>
 
         </div>

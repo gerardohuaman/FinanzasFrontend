@@ -48,9 +48,12 @@ export class ClienteDialogComponent implements OnInit {
             ],
             telefono: [
                 this.data?.telefono ?? '',
-                Validators.required
+                [Validators.required, Validators.pattern(/^9\d{8}$/)]
             ],
-            telefonoSecundario:      [this.data?.telefonoSecundario ?? ''],
+            telefonoSecundario: [
+                this.data?.telefonoSecundario ?? '',
+                [Validators.pattern(/^9\d{8}$/)]
+            ],
             aceptaTratamientoDatos:  [this.data?.aceptaTratamientoDatos ?? false, Validators.requiredTrue],
             email: [
                 this.data?.email ?? '',
@@ -58,7 +61,7 @@ export class ClienteDialogComponent implements OnInit {
             ],
             ingresos_mensuales: [
                 this.data?.ingresos_mensuales ?? null,
-                [Validators.required, Validators.min(0)]
+                [Validators.required, Validators.min(2500)]
             ]
         });
     }

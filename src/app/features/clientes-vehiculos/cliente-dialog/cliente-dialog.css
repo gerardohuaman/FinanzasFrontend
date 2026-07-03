@@ -58,7 +58,7 @@ mat-checkbox.mat-mdc-checkbox-checked ::ng-deep .mdc-checkbox__background {
 }
 
 ::ng-deep .mdc-checkbox__checkmark {
-    color: white !important;                                                
+    color: white !important;
 }
 
 mat-checkbox {
