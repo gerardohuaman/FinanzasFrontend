@@ -47,6 +47,25 @@
     padding-top: 16px;
     border-top: 2px solid #e2e8f0;
 }
+
+mat-checkbox.mat-mdc-checkbox-checked ::ng-deep .mdc-checkbox__background {
+    background-color: #1a2744 !important;
+    border-color: #1a2744 !important;
+}
+
+::ng-deep .mdc-checkbox__background {
+    border-color: #dc2626 !important;
+}
+
+::ng-deep .mdc-checkbox__checkmark {
+    color: white !important;                                                
+}
+
+mat-checkbox {
+    font-size: 0.82rem;
+    color: #0f172a;
+}
+
 .btn-cancelar {
     border: #0f172a solid 1.5px;
     border-radius: 7px ;

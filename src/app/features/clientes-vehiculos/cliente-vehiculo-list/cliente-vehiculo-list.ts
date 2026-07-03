@@ -15,6 +15,8 @@ import {ClienteDialogComponent} from "../cliente-dialog/cliente-dialog";
 import {VehiculoDialogComponent} from "../vehiculo-dialog/vehiculo-dialog";
 import {MonedaService} from "../../../core/services/Moneda-service";
 import {Moneda} from "../../../models/Moneda";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatTooltip} from "@angular/material/tooltip";
 
 
 @Component({
@@ -28,14 +30,16 @@ import {Moneda} from "../../../models/Moneda";
     MatButtonModule,
     MatCardModule,
     MatPaginatorModule,
-      MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule,
+    MatTooltip
   ],
   templateUrl: "./cliente-vehiculo-list.html",
   styleUrl: "./cliente-vehiculo-list.css",
 })
 export class ClienteListComponent implements OnInit{
   //Clientes
-  columnasClientes: string[] = ['dni', 'nombreCompleto', 'email', 'telefono', 'ingresos', 'acciones']
+  columnasClientes: string[] = ['dni', 'nombreCompleto', 'email', 'telefono', 'telefonoSecundario', 'aceptaTratamientoDatos', 'ingresos', 'acciones']
   dataSourceClientes = new MatTableDataSource<Cliente>([])
   @ViewChild('paginatorClientes') paginatorClientes!: MatPaginator
   //Vehiculos
@@ -90,9 +94,7 @@ export class ClienteListComponent implements OnInit{
   }
 
   abrirModalNuevoCliente(){
-    this.dialog.open(ClienteDialogComponent, {
-      data: null
-    }).afterClosed().subscribe(resultado => {
+    this.dialog.open(ClienteDialogComponent, { data: null }).afterClosed().subscribe(resultado => {
       if (!resultado) return;
 
       const nuevoCliente: Cliente = {
@@ -100,8 +102,10 @@ export class ClienteListComponent implements OnInit{
         dni: resultado.dni,
         nombreCompleto: resultado.nombreCompleto,
         telefono: resultado.telefono,
+        telefonoSecundario: resultado.telefonoSecundario,
         email: resultado.email,
-        ingresos_mensuales: resultado.ingresos_mensuales
+        ingresos_mensuales: resultado.ingresos_mensuales,
+        aceptaTratamientoDatos: resultado.aceptaTratamientoDatos
       };
 
       this.clienteService.insert(nuevoCliente).subscribe({
@@ -111,9 +115,7 @@ export class ClienteListComponent implements OnInit{
     });
   }
   abrirModalEditarCliente(cliente: any){
-    this.dialog.open(ClienteDialogComponent, {
-      data: cliente
-    }).afterClosed().subscribe(resultado => {
+    this.dialog.open(ClienteDialogComponent, { data: cliente }).afterClosed().subscribe(resultado => {
       if (!resultado) return;
 
       const clienteActualizado: Cliente = {
@@ -121,8 +123,10 @@ export class ClienteListComponent implements OnInit{
         dni: resultado.dni,
         nombreCompleto: resultado.nombreCompleto,
         telefono: resultado.telefono,
+        telefonoSecundario: resultado.telefonoSecundario,   // ← agregar
         email: resultado.email,
-        ingresos_mensuales: resultado.ingresos_mensuales
+        ingresos_mensuales: resultado.ingresos_mensuales,
+        aceptaTratamientoDatos: resultado.aceptaTratamientoDatos  // ← agregar
       };
 
       this.clienteService.update(clienteActualizado).subscribe({

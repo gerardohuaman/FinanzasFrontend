@@ -5,6 +5,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatError, MatFormField, MatHint, MatInput, MatLabel} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {NgIf} from "@angular/common";
+import {MatCheckbox} from "@angular/material/checkbox";
 
 @Component({
     selector: 'app-cliente-dialog',
@@ -19,7 +20,8 @@ import {NgIf} from "@angular/common";
         MatInput,
         MatButton,
         MatHint,
-        NgIf
+        NgIf,
+        MatCheckbox
     ],
     styleUrls: ['./cliente-dialog.css']
 })
@@ -48,6 +50,8 @@ export class ClienteDialogComponent implements OnInit {
                 this.data?.telefono ?? '',
                 Validators.required
             ],
+            telefonoSecundario:      [this.data?.telefonoSecundario ?? ''],
+            aceptaTratamientoDatos:  [this.data?.aceptaTratamientoDatos ?? false, Validators.requiredTrue],
             email: [
                 this.data?.email ?? '',
                 [Validators.required, Validators.email]

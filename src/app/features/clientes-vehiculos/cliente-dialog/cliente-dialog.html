@@ -28,12 +28,22 @@
                     <mat-label>Teléfono</mat-label>
                     <input matInput formControlName="telefono" placeholder="987654321">
                 </mat-form-field>
-
                 <mat-form-field appearance="outline" class="half">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email" placeholder="cliente@email.com">
                     <mat-error *ngIf="form.get('email')?.hasError('email')">Email inválido</mat-error>
                 </mat-form-field>
+            </div>
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="half">
+                    <mat-label>Teléfono Secundario (opcional)</mat-label>
+                    <input matInput formControlName="telefonoSecundario" placeholder="912345678">
+                </mat-form-field>
+
+                <mat-checkbox formControlName="aceptaTratamientoDatos" color="primary" class="half">
+                    Autorizo el tratamiento de mis datos personales conforme a la Ley N° 29733.
+                </mat-checkbox>
+
             </div>
 
             <mat-form-field appearance="outline" class="full">
