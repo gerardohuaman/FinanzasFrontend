@@ -57,27 +57,15 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
 
   clienteSeleccionado:  Cliente  | null = null;
   vehiculoSeleccionado: Vehiculo | null = null;
-  // ── FORMULARIO ───────────────────────────────────
+  //Entradas de datos para simulacro
   inputDTO: SimulacionInputDTO = new SimulacionInputDTO();
   monedaSeleccionada: string = 'PEN';
   metodoAmortizacion: string = 'frances';
 
-  // ── VALORES CALCULADOS VISUALMENTE ───────────────
-  //montoFinanciar:    number = 0;
   cuotaInicialMoneda: number = 0;
   cuotaBalonMoneda:   number = 0;
-
-  // ── TIPO DE CAMBIO ───────────────────────────────
   tipoCambio: any = null;
 
-  // ── RESULTADOS DEL BACKEND ───────────────────────
-  /*
-  cuotaMensual: number = 0;
-  interesTotal: number = 0;
-  van:  number = 0;
-  tir:  number = 0;
-  tcea: number = 0;
-  */
 
   respuestaSimulacion: SimulacionResponseDTO | null = null
   previewData: SimulacionResponseDTO | null = null
@@ -138,7 +126,18 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
   }
 
   onCambioDatos(): void {
-    this.inputSubject.next()
+    //Para los decimales, solo 4
+    this.inputDTO.tasa_desgravamen   = this.redondear4(this.inputDTO.tasa_desgravamen);
+    this.inputDTO.tasa_vehicular     = this.redondear4(this.inputDTO.tasa_vehicular);
+    this.inputDTO.valor_tasa         = this.redondear4(this.inputDTO.valor_tasa);
+    this.inputDTO.porcentaje_inicial = this.redondear4(this.inputDTO.porcentaje_inicial);
+    this.inputDTO.porcentaje_balon   = this.redondear4(this.inputDTO.porcentaje_balon);
+
+    this.inputSubject.next();
+  }
+
+  private redondear4(valor: number): number {
+    return Math.round(valor * 10000) / 10000;
   }
 
   onVehiculoChange(vehiculoId: number): void {
@@ -149,19 +148,6 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
       this.monedaSeleccionada = monedaVehiculo ? monedaVehiculo.codigo_iso : 'PEN'
       this.onCambioDatos()
     }
-  }
-
-  solicitarPreview(): void {
-    if(!this.inputDTO.id_vehiculo || !this.inputDTO.plazo_meses) return;
-
-    this.simulacionService.previewSimulation(this.inputDTO).subscribe({
-      next: (res: any) => {
-        this.previewData = res;
-        this.cdr.detectChanges(); //
-        console.log('Preview response completo:', res); // ← dime qué sale aquí
-      },
-      error: (err: any) => console.log('Faltan parametros para la proyeccion matematica', err)
-    });
   }
 
   verCronograma(): void {
@@ -179,31 +165,36 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
 
   // Para el filtro
   onBuscarCliente(q: string): void {
+    this.clienteSeleccionado = null;
+    this.inputDTO.id_cliente = 0;
     q = (q || '').trim().toLowerCase();
-    if (q.length < 2) { 
-      this.clientesFiltrados = []; 
-      return; 
+    if (q.length < 2) {
+      this.clientesFiltrados = [];
+      return;
     }
     this.clientesFiltrados = this.todosLosClientes.filter(c => {
       const nombreFormateado = c.nombreCompleto ? c.nombreCompleto.toLowerCase() : '';
       const dniStr = c.dni ? c.dni.toString().toLowerCase() : '';
-      
       return nombreFormateado.includes(q) || dniStr.includes(q);
     });
+    this.onCambioDatos();
   }
 
   onBuscarVehiculo(q: string): void {
+    this.vehiculoSeleccionado = null;
+    this.inputDTO.id_vehiculo = 0;
+
     q = (q || '').trim().toLowerCase();
-    if (q.length < 2) { 
-      this.vehiculosFiltrados = []; 
-      return; 
+    if (q.length < 2) {
+      this.vehiculosFiltrados = [];
+      return;
     }
     this.vehiculosFiltrados = this.todosLosVehiculos.filter(v => {
       const marca = v.marca ? v.marca.toLowerCase() : '';
       const modelo = v.modelo ? v.modelo.toLowerCase() : '';
-      
       return marca.includes(q) || modelo.includes(q);
     });
+    this.onCambioDatos();
   }
 
   onTipoGraciaChange(valor: string): void {
@@ -240,20 +231,34 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
     this.recalcularMontos();
     this.onCambioDatos()
   }
-  
+  solicitarPreview(): void {
+    if(!this.inputDTO.id_vehiculo || !this.inputDTO.plazo_meses) return;
+
+    this.simulacionService.previewSimulation(this.inputDTO).subscribe({
+      next: (res: any) => {
+        this.previewData = res;
+        this.cdr.detectChanges(); //
+        console.log('Preview response completo:', res);
+      },
+      error: (err: any) => console.log('Faltan parametros para la proyeccion matematica', err)
+    });
+  }
   calcular(){
+    if (!this.formularioValido) {
+      alert('Completa todos los campos requeridos correctamente antes de continuar.');
+      return;
+    }
+
     this.simulacionService.createSimulation(this.inputDTO).subscribe({
       next: (response: SimulacionResponseDTO) => {
-        this.respuestaSimulacion = response
-        this.router.navigate(['/cronograma', response.id_simulacion])
+        this.respuestaSimulacion = response;
+        this.router.navigate(['/cronograma', response.id_simulacion]);
       },
       error: (err: any) => {
-        alert("Error al procesar y guardar la simulacion")
+        alert("Error al procesar y guardar la simulacion");
       }
-    })
+    });
   }
-  
-
   get montoFinanciar(): number {
     return this.previewData ? this.previewData.monto_financiado : 0;
   }
@@ -274,10 +279,103 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
   }
 
   get tir(): number {
-    return this.previewData ? this.previewData.tir * 100 : 0;
+    return this.previewData ? this.redondear4(this.previewData.tir * 100) : 0;
   }
 
   get tcea(): number {
-    return this.previewData ? this.previewData.tcea * 100 : 0;
+    return this.previewData ? this.redondear4(this.previewData.tcea * 100) : 0;
+  }
+
+
+
+  //VAlidaciones
+  // ── VALIDACIONES ──────────────────────────────────
+
+  get errorValorTasa(): string | null {
+    if (this.inputDTO.valor_tasa > 113.16) {
+      return 'La tasa no puede superar 113.16% (límite SBS)';
+    }
+    if (this.inputDTO.valor_tasa <= 0) {
+      return 'La tasa debe ser mayor a 0';
+    }
+    return null;
+  }
+
+  get errorPlazoMeses(): string | null {
+    if (this.inputDTO.plazo_meses < 12) {
+      return 'El plazo mínimo es 12 meses';
+    }
+    return null;
+  }
+
+  get errorMesesGracia(): string | null {
+    if (this.inputDTO.tipo_gracia === 'SIN_GRACIA') return null; // no aplica
+    if (this.inputDTO.meses_gracia < 1 || this.inputDTO.meses_gracia > 6) {
+      return 'Los meses de gracia deben estar entre 1 y 6';
+    }
+    return null;
+  }
+
+  get errorPorcentajeInicial(): string | null {
+    if (this.inputDTO.porcentaje_inicial < 10 || this.inputDTO.porcentaje_inicial > 40) {
+      return 'La cuota inicial debe estar entre 10% y 40%';
+    }
+    return null;
+  }
+
+  get errorPorcentajeBalon(): string | null {
+    if (this.inputDTO.porcentaje_balon < 10 || this.inputDTO.porcentaje_balon > 40) {
+      return 'La cuota balón debe estar entre 10% y 40%';
+    }
+    return null;
+  }
+
+  get errorClienteVehiculo(): string | null {
+    if (!this.clienteSeleccionado) return 'Selecciona un cliente';
+    if (!this.vehiculoSeleccionado) return 'Selecciona un vehículo';
+    return null;
+  }
+  get errorTasaDesgravamen(): string | null {
+    if (this.inputDTO.tasa_desgravamen <= 0) {
+      return 'La tasa de desgravamen debe ser mayor a 0';
+    }
+    if (this.inputDTO.tasa_desgravamen > 1) {
+      return 'La tasa de desgravamen no puede superar 1%';
+    }
+    return null;
+  }
+
+  get errorTasaVehicular(): string | null {
+    if (this.inputDTO.tasa_vehicular <= 0) {
+      return 'La tasa vehicular debe ser mayor a 0';
+    }
+    if (this.inputDTO.tasa_vehicular > 1) {
+      return 'La tasa vehicular no puede superar 1%';
+    }
+    return null;
+  }
+  //Para inputs validos
+  get formularioValido(): boolean {
+    const valido = !this.errorValorTasa
+        && !this.errorPlazoMeses
+        && !this.errorMesesGracia
+        && !this.errorPorcentajeInicial
+        && !this.errorPorcentajeBalon
+        && !this.errorTasaDesgravamen
+        && !this.errorTasaVehicular
+        && !this.errorClienteVehiculo
+        && !!this.previewData;
+
+    console.log('Formulario válido:', valido, {
+      cliente: this.errorClienteVehiculo,
+      tasa: this.errorValorTasa,
+      plazo: this.errorPlazoMeses,
+      gracia: this.errorMesesGracia,
+      inicial: this.errorPorcentajeInicial,
+      balon: this.errorPorcentajeBalon,
+      preview: !!this.previewData
+    });
+
+    return valido;
   }
 }

@@ -58,6 +58,9 @@
                     </div>
                 </div>
             </mat-card-content>
+            <small class="error-text-search" *ngIf="errorClienteVehiculo" style="padding: 0 16px 12px;">
+                {{ errorClienteVehiculo }}
+            </small>
         </mat-card>
 
         <mat-card class="section-card">
@@ -76,19 +79,27 @@
                            readonly>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Cuota Inicial (%)</mat-label>
-                    <input matInput type="number"
-                           [(ngModel)]="inputDTO.porcentaje_inicial"
-                           (ngModelChange)="recalcularMontos(); onCambioDatos()">
-                </mat-form-field>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Cuota Balón (%)</mat-label>
-                    <input matInput type="number"
-                           [(ngModel)]="inputDTO.porcentaje_balon"
-                           (ngModelChange)="recalcularMontos(); onCambioDatos()">
-                </mat-form-field>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Cuota Inicial (%)</mat-label>
+                        <input matInput type="number" step="0.0001"
+                               [(ngModel)]="inputDTO.porcentaje_inicial"
+                               (ngModelChange)="recalcularMontos(); onCambioDatos()">
+                    </mat-form-field>
+                    <small class="error-text" *ngIf="errorPorcentajeInicial">{{ errorPorcentajeInicial }}</small>
+                </div>
+
+                <div class="field-wrapper">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Cuota Balón (%)</mat-label>
+                        <input matInput type="number" step="0.0001"
+                               [(ngModel)]="inputDTO.porcentaje_balon"
+                               (ngModelChange)="recalcularMontos(); onCambioDatos()">
+                    </mat-form-field>
+                    <small class="error-text" *ngIf="errorPorcentajeBalon">{{ errorPorcentajeBalon }}</small>
+                </div>
+
 
                 <div class="moneda-toggle">
                     <label class="toggle-label">MONEDA</label>
@@ -117,16 +128,27 @@
                            [value]="cuotaBalonMoneda | number:'1.2-2'"
                            disabled>
                 </mat-form-field>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Tasa S. desgravamen (%)</mat-label>
+                        <input matInput type="number"
+                               step="0.0001"
+                               [(ngModel)]="inputDTO.tasa_desgravamen"
+                               (ngModelChange)="onCambioDatos()">
+                    </mat-form-field>
+                    <small class="error-text" *ngIf="errorTasaDesgravamen">{{ errorTasaDesgravamen }}</small>
+                </div>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Tasa S. desgravamen (%)</mat-label>
-                    <input matInput type="number" [(ngModel)]="inputDTO.tasa_desgravamen" (ngModelChange)="onCambioDatos()">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Tasa S. vehicular (%)</mat-label>
-                    <input matInput type="number" [(ngModel)]="inputDTO.tasa_vehicular" (ngModelChange)="onCambioDatos()">
-                </mat-form-field>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Tasa S. vehicular (%)</mat-label>
+                        <input matInput type="number"
+                               step="0.0001"
+                               [(ngModel)]="inputDTO.tasa_vehicular"
+                               (ngModelChange)="onCambioDatos()">
+                    </mat-form-field>
+                    <small class="error-text" *ngIf="errorTasaVehicular">{{ errorTasaVehicular }}</small>
+                </div>
 
             </mat-card-content>
         </mat-card>
@@ -138,7 +160,6 @@
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content class="grid-3-cols mt-3">
-
                 <mat-form-field appearance="outline">
                     <mat-label>Tipo de Tasa</mat-label>
                     <mat-select [(ngModel)]="inputDTO.tipo_tasa" (ngModelChange)="onCambioDatos()">
@@ -158,11 +179,15 @@
                         <mat-option value="SEMESTRAL">Semestral</mat-option>
                     </mat-select>
                 </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Valor Tasa (%)</mat-label>
-                    <input matInput type="number" [(ngModel)]="inputDTO.valor_tasa" (ngModelChange)="onCambioDatos()">
-                </mat-form-field>
+                <div class="field-wrapper">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Valor Tasa (%)</mat-label>
+                        <input matInput type="number" step="0.0001"
+                               [(ngModel)]="inputDTO.valor_tasa"
+                               (ngModelChange)="onCambioDatos()">
+                    </mat-form-field>
+                    <small class="error-text" *ngIf="errorValorTasa">{{ errorValorTasa }}</small>
+                </div>
 
             </mat-card-content>
         </mat-card>
@@ -179,25 +204,26 @@
                     <mat-label>Plazo (Meses)</mat-label>
                     <input matInput type="number" [(ngModel)]="inputDTO.plazo_meses" (ngModelChange)="onCambioDatos()">
                 </mat-form-field>
+                <small class="error-text" *ngIf="errorPlazoMeses">{{ errorPlazoMeses }}</small>
 
                 <mat-form-field appearance="outline">
                     <mat-label>Periodo Gracia</mat-label>
-                    <mat-select [(ngModel)]="inputDTO.tipo_gracia"
-                                (ngModelChange)="onTipoGraciaChange($event)">
+                    <mat-select [(ngModel)]="inputDTO.tipo_gracia" (ngModelChange)="onTipoGraciaChange($event)">
                         <mat-option value="SIN_GRACIA">Sin periodo de gracia</mat-option>
                         <mat-option value="TOTAL">Periodo de gracia Total</mat-option>
                         <mat-option value="PARCIAL">Periodo de gracia Parcial</mat-option>
                     </mat-select>
                 </mat-form-field>
-
-                <mat-form-field appearance="outline" [class.field-disabled]="inputDTO.tipo_gracia === 'SIN_GRACIA'">
-                    <mat-label>Meses de Gracia</mat-label>
-                    <input matInput type="number"
-                           [(ngModel)]="inputDTO.meses_gracia"
-                           [disabled]="inputDTO.tipo_gracia === 'SIN_GRACIA'"
-                           (ngModelChange)="onCambioDatos()">
-                </mat-form-field>
-
+                <div class="field-wrapper">
+                    <mat-form-field appearance="outline" [class.field-disabled]="inputDTO.tipo_gracia === 'SIN_GRACIA'">
+                        <mat-label>Meses de Gracia</mat-label>
+                        <input matInput type="number"
+                               [(ngModel)]="inputDTO.meses_gracia"
+                               [disabled]="inputDTO.tipo_gracia === 'SIN_GRACIA'"
+                               (ngModelChange)="onCambioDatos()">
+                    </mat-form-field>
+                    <small class="error-text" *ngIf="errorMesesGracia">{{ errorMesesGracia }}</small>
+                </div>
             </mat-card-content>
         </mat-card>
     </div>
@@ -255,9 +281,11 @@
 
         </mat-card-content>
         <mat-card-actions class="summary-actions">
-          <button mat-flat-button color="primary" class="btn-generar" (click)="calcular()" [disabled]="!previewData">
-            Generar Cronograma de Pagos
-          </button>
+            <button mat-flat-button color="primary" class="btn-generar"
+                    (click)="calcular()"
+                    [disabled]="!formularioValido">
+                Generar Cronograma de Pagos
+            </button>
         </mat-card-actions>
       </mat-card>
     </div>
