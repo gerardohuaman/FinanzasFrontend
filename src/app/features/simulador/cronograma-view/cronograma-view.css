@@ -32,7 +32,7 @@
 }
 .btn-exportar:hover { opacity: 0.9; }
 
-/* Tarjetas KPI (Diseño Blanco) */
+/* KPIs*/
 .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .kpi-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; }
 .kpi-title { font-size: 12px; font-weight: 600; color: #8fa0b4; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
@@ -50,9 +50,24 @@
 .banner-client .name { font-size: 16px; font-weight: 700; color: #0b192c; }
 .banner-client .dni { font-size: 13px; color: #8fa0b4; margin-top: 2px; }
 
-.banner-car { color: #0b192c; font-weight: 700; font-size: 15px; border-left: 1px solid #e2e8f0; padding-left: 24px; }
-.banner-car mat-icon { margin-right: 4px; }
-
+/*Para mi estimado el carro*/
+.banner-car {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.car-info {
+  display: flex;
+  flex-direction: column; /* Apila el nombre arriba y el precio abajo */
+}
+.car-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.car-price {
+  font-size: 0.85rem;
+  color: #666; /* Un gris para que el precio no destaque más que el nombre */
+}
 .banner-tags { display: flex; gap: 12px; border-left: 1px solid #e2e8f0; padding-left: 24px; }
 .tag-dark { background-color: #0b192c; color: #ffffff; font-size: 10px; font-weight: 600; text-transform: uppercase; padding: 8px 12px; border-radius: 8px; line-height: 1.3; text-align: left; }
 
