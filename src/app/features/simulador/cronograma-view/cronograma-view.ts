@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, inject, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
@@ -10,6 +10,7 @@ import {CronogramaService} from "../../../core/services/Cronograma-service";
 
 @Component({
   selector: "app-cronograma-view",
+  standalone: true,
   imports: [
     CommonModule,
     MatTableModule,
@@ -38,6 +39,7 @@ export class CronogramaViewComponent implements OnInit {
   private route             = inject(ActivatedRoute);
   private router            = inject(Router);
   private cronogramaService = inject(CronogramaService);
+  private cdr               = inject(ChangeDetectorRef);
 
   constructor() {
     const nav = this.router.getCurrentNavigation();
@@ -55,7 +57,7 @@ export class CronogramaViewComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const idStr = params.get('id');
-      if (idStr && !this.simulacionData) {
+      if (idStr) {
         this.cargarCronograma(Number(idStr));
       }
     });
@@ -63,7 +65,10 @@ export class CronogramaViewComponent implements OnInit {
 
   cargarCronograma(id: number): void {
     this.cronogramaService.obtenerPorSimulacion(id).subscribe({
-      next: (cuotas: any[]) => this.dataSource = cuotas,
+      next: (cuotas: any[]) => {
+        this.dataSource = cuotas
+        this.cdr.detectChanges()
+      },
       error: (err: any) => console.error('Error al cargar el cronograma:', err)
     });
   }
@@ -113,7 +118,13 @@ export class CronogramaViewComponent implements OnInit {
   }
 
   get montoFinanciado(): number {
-    return this.simulacionData?.monto_financiado || 0;
+    const vehiculo = this.vehiculoData || this.simulacionData?.vehiculo
+    if(vehiculo && this.simulacionData) {
+      const precio = vehiculo.precio_venta || 0
+      const porcentajeInicial = this.simulacionData.porcentaje_inicial || 0
+      return precio - (precio * (porcentajeInicial / 100))
+    }
+    return 0;
   }
 
   get totalCuota(): number {

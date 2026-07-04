@@ -81,8 +81,14 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  irAlCronograma(simulacionId: number): void{
-    this.router.navigate(['/cronograma', simulacionId])
+  irAlCronograma(element: any): void{
+    this.router.navigate(['/cronograma', element.id_simulacion],{
+      state: {
+        simulacion: element,
+        cliente: element.cliente,
+        vehiculo: element.vehiculo
+      }
+    })
   }
 
   getInitials(nombreCompleto: string): string {

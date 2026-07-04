@@ -1,3 +1,4 @@
+import { RecaptchaModule } from 'ng-recaptcha';
 import { Component } from "@angular/core";
 import { AuthService } from "../../../core/services/auth";
 import { Router } from "@angular/router";
@@ -21,7 +22,8 @@ import {MatCheckbox} from "@angular/material/checkbox";
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatCheckbox
+    MatCheckbox,
+    RecaptchaModule
   ],
   templateUrl: "./login.html",
   styleUrl: "./login.css",
@@ -33,10 +35,22 @@ export class LoginComponent {
   hasError: boolean = false
   errorMessage: string = ''
 
+  captchaResolved: boolean = false
+  captchaToken: string | null = null
+
   constructor(
     private authService: AuthService,
     private router: Router
   ){}
+
+  onCaptchaResolved(captchaResponse: string | null) {
+    this.captchaToken = captchaResponse
+    this.captchaResolved = (captchaResponse && captchaResponse.length > 0) ? true : false
+
+    if(this.captchaResolved && this.errorMessage === 'Por favor, resuelve el CAPTCHA para continuar.'){
+      this.hasError = false
+    }
+  }
 
   onLogin(){
     this.hasError = false
@@ -44,6 +58,12 @@ export class LoginComponent {
     if(!this.username || !this.password){
       this.hasError = true
       this.errorMessage = 'Por favor, completa todos los campos'
+      return
+    }
+
+    if(!this.captchaResolved){
+      this.hasError = true
+      this.errorMessage = 'Por favor, resuelve el CAPTCHA para continuar.'
       return
     }
 
