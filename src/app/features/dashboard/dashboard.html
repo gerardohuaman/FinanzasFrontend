@@ -71,7 +71,7 @@
         <th mat-header-cell *matHeaderCellDef class="text-right"> MONTO </th>
         <td mat-cell *matCellDef="let element">
           <div class="monto-stack">
-            <span class="monto-symbol">{{ getSimboloMoneda(element.vehiculo?.id_moneda) }}</span>
+            <span class="monto-symbol">{{ getSimboloMoneda(element) }}</span>
             <span class="monto-amount">{{ calcularMontoFinanciado(element) | number:'1.2-2' }}</span>
           </div>
         </td>

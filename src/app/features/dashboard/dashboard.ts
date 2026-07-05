@@ -129,8 +129,9 @@ export class DashboardComponent implements OnInit {
 
     return precio -(precio * (porcentajeInicial / 100))
   }
-
-  getSimboloMoneda(idMoneda: number): string {
-    return idMoneda === 2 ? '$' : 'S/'
+  getSimboloMoneda(simulacion: any): string {
+    const idMoneda = simulacion?.vehiculo?.moneda?.id_moneda
+        || simulacion?.vehiculo?.id_moneda;
+    return idMoneda === 2 ? '$' : 'S/';
   }
 }

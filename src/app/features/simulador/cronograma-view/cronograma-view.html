@@ -23,7 +23,7 @@
                         VAN (VALOR ACTUAL NETO) <mat-icon class="icon-small">info_outline</mat-icon>
                     </div>
                     <div class="kpi-value">{{ simboloMoneda }} {{ (simulacionData?.van || 0.0) | number:'1.2-2' }}</div>
-                    <div class="kpi-subtitle">COK utilizado: TEM =1.00%</div>
+                    <div class="kpi-subtitle">Utilizado COK = TEM = {{ temAprox | number:'1.4-4' }}%</div>
                     <div class="badge-light mt-3">PROYECCION A {{ plazoMeses }} MESES</div>
                 </div>
 
@@ -164,7 +164,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="saldo_final">
-                        <th mat-header-cell *matHeaderCellDef class="text-right"> SALDO FINAL </th>
+                        <th mat-header-cell *matHeaderCellDef class="text-right"> SALDO FINAL ({{ simboloMoneda }})  </th>
                         <td mat-cell *matCellDef="let element" class="text-right"> {{element.saldo_final | number:'1.2-2'}} </td>
                     </ng-container>
 

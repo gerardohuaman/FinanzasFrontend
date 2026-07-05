@@ -103,9 +103,17 @@ export class CronogramaViewComponent implements OnInit {
   }
 
   get simboloMoneda(): string {
-    return (this.simulacionData?.moneda_simulacion === 'USD'
-        || this.vehiculoData?.id_moneda === 2) ? '$' : 'S/';
+
+    if (this.vehiculoData?.id_moneda === 2) return '$';
+
+    if (this.simulacionData?.vehiculo?.moneda?.id_moneda === 2) return '$';
+    if (this.simulacionData?.vehiculo?.moneda?.codigo_iso === 'USD') return '$';
+
+    if (this.simulacionData?.moneda_simulacion === 'USD') return '$';
+
+    return 'S/';
   }
+
 
   get nombreMoneda(): string {
     return this.simboloMoneda === '$' ? 'USD' : 'PEN';
@@ -118,11 +126,16 @@ export class CronogramaViewComponent implements OnInit {
   }
 
   get montoFinanciado(): number {
-    const vehiculo = this.vehiculoData || this.simulacionData?.vehiculo
-    if(vehiculo && this.simulacionData) {
-      const precio = vehiculo.precio_venta || 0
-      const porcentajeInicial = this.simulacionData.porcentaje_inicial || 0
-      return precio - (precio * (porcentajeInicial / 100))
+    if (this.simulacionData?.monto_financiado) {
+      return this.simulacionData.monto_financiado;
+    }
+    const vehiculo = this.vehiculoData || this.simulacionData?.vehiculo;
+    const porcentajeInicial = this.inputDTOData?.porcentaje_inicial
+        || this.simulacionData?.porcentaje_inicial
+        || 0;
+    if (vehiculo) {
+      const precio = vehiculo.precio_venta || 0;
+      return precio - (precio * (porcentajeInicial / 100));
     }
     return 0;
   }
