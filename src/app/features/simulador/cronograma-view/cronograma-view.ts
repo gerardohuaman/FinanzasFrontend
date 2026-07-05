@@ -7,6 +7,10 @@ import { MatTableModule } from "@angular/material/table";
 import { ActivatedRoute, Router } from "@angular/router";
 import {CronogramaService} from "../../../core/services/Cronograma-service";
 
+import {ExportPdfDialogComponent} from '../export-pdf-dialog/export-pdf-dialog'
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: "app-cronograma-view",
@@ -16,7 +20,8 @@ import {CronogramaService} from "../../../core/services/Cronograma-service";
     MatTableModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    
   ],
   templateUrl: "./cronograma-view.html",
   styleUrl: "./cronograma-view.css",
@@ -40,6 +45,7 @@ export class CronogramaViewComponent implements OnInit {
   private router            = inject(Router);
   private cronogramaService = inject(CronogramaService);
   private cdr               = inject(ChangeDetectorRef);
+  private dialog            = inject(MatDialog)
 
   constructor() {
     const nav = this.router.getCurrentNavigation();
@@ -75,7 +81,93 @@ export class CronogramaViewComponent implements OnInit {
   }
 
   exportarPDF(): void {
-    window.print();
+    const dialogRef = this.dialog.open(ExportPdfDialogComponent, {
+      width: '1100px',
+      maxWidth: '95vw',
+      panelClass: 'custom-pdf-dialog',
+      data: {
+        clienteNombre: this.clienteNombre,
+        vehiculo: this.vehiculoNombre,
+        moneda: this.simboloMoneda,
+        monto: this.montoFinanciado,
+        plazo: this.plazoMeses,
+        cuotas: this.dataSource,
+        totalAmortizacion: this.totalAmortizacion,
+        sumInteres: this.sumInteres,
+        sumSeguroVehicular: this.sumSeguroVehicular,
+        sumSeguroDesgravamen: this.sumSeguroDesgravamen,
+        sumCuotaTotal: this.sumCuotaTotal
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.generarDocumentoFinal()
+      }
+    })
+  }
+
+  private generarDocumentoFinal(): void {
+    setTimeout(() => {
+      const element = document.getElementById('pdf-content');
+      if (!element) return;
+
+      const btn = document.querySelector('.btn-exportar') as HTMLButtonElement;
+      const textoOriginal = btn ? btn.innerHTML : '';
+      if (btn) btn.innerHTML = 'Generando documento...';
+
+      const originalWidth = element.style.width;
+      const originalMargin = element.style.margin;
+      
+      element.style.width = '1200px'; 
+      element.style.margin = '0 auto';
+
+      html2canvas(element, { 
+        scale: 2, 
+        useCORS: true,
+        backgroundColor: '#F8FAFC',
+        ignoreElements: (node) => node.classList && node.classList.contains('ignorar-pdf')
+      }).then((canvas) => {
+        
+        element.style.width = originalWidth;
+        element.style.margin = originalMargin;
+
+        const imgData = canvas.toDataURL('image/png');
+        
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = 210; 
+        const pageHeight = 297;
+        
+        const marginX = 12; 
+        const contentWidth = pdfWidth - (marginX * 2);
+        
+        const imgHeight = (canvas.height * contentWidth) / canvas.width;
+        
+        let heightLeft = imgHeight;
+        let position = 15; 
+
+        pdf.addImage(imgData, 'PNG', marginX, position, contentWidth, imgHeight);
+        heightLeft -= (pageHeight - position); 
+
+        while (heightLeft > 0) {
+          position = position - pageHeight; 
+          pdf.addPage(); 
+          pdf.addImage(imgData, 'PNG', marginX, position, contentWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
+        const nombreLimpio = this.clienteNombre ? this.clienteNombre.replace(/[^a-zA-Z0-9]/g, '_') : 'Cliente';
+        pdf.save(`Cronograma_${nombreLimpio}.pdf`);
+
+        if (btn) btn.innerHTML = textoOriginal;
+      }).catch(err => {
+         console.error('Error al generar PDF:', err);
+        
+         element.style.width = originalWidth;
+         element.style.margin = originalMargin;
+         if (btn) btn.innerHTML = textoOriginal;
+      });
+    }, 150);
   }
 
 
@@ -177,5 +269,12 @@ export class CronogramaViewComponent implements OnInit {
     const meses = this.inputDTOData?.meses_gracia || this.simulacionData?.meses_gracia || 0;
     return meses > 0 ? `${meses} meses` : 'Sin gracia';
   }
+
+  //Suma de la tabla
+  get totalAmortizacion(): number { return this.dataSource.reduce((acc, c) => acc + (c.amortizacion || 0), 0); }
+  get sumInteres(): number { return this.dataSource.reduce((acc, c) => acc + (c.interes || 0), 0); }
+  get sumSeguroVehicular(): number { return this.dataSource.reduce((acc, c) => acc + (c.seguro_vehicular || 0), 0); }
+  get sumSeguroDesgravamen(): number { return this.dataSource.reduce((acc, c) => acc + (c.seguro_desgravamen || 0), 0); }
+  get sumCuotaTotal(): number { return this.dataSource.reduce((acc, c) => acc + (c.cuota_total || c.cuotaTotal || 0), 0); }
 }
 

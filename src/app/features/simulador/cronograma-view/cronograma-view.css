@@ -119,3 +119,17 @@
   .resumen-content { flex-direction: column; }
   .resumen-dark-box { width: 100%; box-sizing: border-box; justify-content: space-between; }
 }
+
+.dark-header-table .mat-mdc-footer-row { 
+    background-color: #2563eb !important; 
+    min-height: 48px !important; 
+}
+
+.dark-header-table .mat-mdc-footer-cell { 
+    color: #ffffff !important; 
+    font-weight: 700 !important; 
+    font-size: 13px !important; 
+    padding: 10px 16px !important; 
+    border-top: 1px solid #1e40af !important; 
+    border-bottom: none !important; 
+}
