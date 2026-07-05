@@ -7,7 +7,6 @@
 
     <ng-container *ngIf="tieneDatos">
         <div class="cronograma-layout">
-
             <div class="header-actions">
                 <div>
                     <h1 class="main-title">Cronograma de Pagos Detallado</h1>
@@ -16,9 +15,7 @@
                     <mat-icon>picture_as_pdf</mat-icon> Exportar a PDF
                 </button>
             </div>
-
             <div id="pdf-content" style="background-color: #F8FAFC; padding: 10px;">
-
                 <div class="kpi-grid mt-4">
                     <div class="kpi-card">
                         <div class="kpi-title">
@@ -178,8 +175,11 @@
                         <td mat-footer-cell *matFooterCellDef class="text-right"> {{ simboloMoneda }} 0.00 </td>
                     </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="columnasMostradas"></tr>
-                    <tr mat-row *matRowDef="let row; columns: columnasMostradas;"></tr>
-                    <tr mat-footer-row *matFooterRowDef="columnasMostradas"></tr> 
-                </table>
+                        <tr mat-header-row *matHeaderRowDef="columnasMostradas"></tr>
+                        <tr mat-row *matRowDef="let row; columns: columnasMostradas;"></tr>
+                        <tr mat-footer-row *matFooterRowDef="columnasMostradas"></tr> 
+                    </table>
             </div>
+        </div>
+    </ng-container>
+</div>
