@@ -22,7 +22,7 @@
                     <div class="kpi-title">
                         VAN (VALOR ACTUAL NETO) <mat-icon class="icon-small">info_outline</mat-icon>
                     </div>
-                    <div class="kpi-value">{{ simboloMoneda }} {{ (-1*simulacionData?.van || 0.0) | number:'1.2-2' }}</div>
+                    <div class="kpi-value">{{ simboloMoneda }} {{ (simulacionData?.van || 0.0) | number:'1.2-2' }}</div>
                     <div class="kpi-subtitle">COK utilizado: TEM =1.00%</div>
                     <div class="badge-light mt-3">PROYECCION A {{ plazoMeses }} MESES</div>
                 </div>
