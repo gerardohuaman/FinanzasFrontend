@@ -60,6 +60,19 @@ export class ClienteListComponent implements OnInit{
     this.cargarClientes();
     this.cargarVehiculos();
     this.cargarMonedas();
+    // Filtro personalizado para Clientes ojito solo nombre y DNI
+    this.dataSourceClientes.filterPredicate = (data: Cliente, filter: string) => {
+      const nombre = (data.nombreCompleto || '').toLowerCase();
+      const dni = (data.dni || '').toString();
+      return nombre.includes(filter) || dni.startsWith(filter);
+    };
+
+    // Filtro personalizado para Vehículos, solo para marca y modelo
+    this.dataSourceVehiculos.filterPredicate = (data: any, filter: string) => {
+      const marca = (data.marca || '').toLowerCase();
+      const modelo = (data.modelo || '').toLowerCase();
+      return marca.includes(filter) || modelo.includes(filter);
+    };
   }
   ngAfterViewInit(): void {
     this.dataSourceClientes.paginator = this.paginatorClientes;

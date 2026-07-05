@@ -47,7 +47,7 @@
   border-bottom: 1px solid #f3f4f6;
 }
 
-.search-bar { width: 100%; margin-bottom: -1.25em; } /* Compensa el espacio del hint en material */
+.search-bar { width: 100%; margin-bottom: -1.25em; }
 
 .toolbar-actions { display: flex; gap: 12px; }
 

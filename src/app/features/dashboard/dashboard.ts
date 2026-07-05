@@ -9,6 +9,7 @@ import { VehiculoService } from "../../core/services/Vehiculo-service";
 import { SimulacionService } from "../../core/services/Simulacion-service";
 import { Router, RouterLink } from "@angular/router";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
+import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
 
 @Component({
   selector: "app-dashboard",
@@ -20,6 +21,9 @@ import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
     MatButtonModule,
     MatIconModule,
     MatPaginatorModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
   ],
   templateUrl: "./dashboard.html",
   styleUrl: "./dashboard.css",
@@ -27,8 +31,8 @@ import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 export class DashboardComponent implements OnInit {
   columnasRecientes: string[] = ['cliente', 'vehiculo', 'monto', 'cronograma']
   totalClientes: number = 0
-  totalVehiculos: number = 0
-  valorFlotaUSD: number = 0
+  totalVehiculos: number = 0;
+  totalSumaPrecios: number = 0;
 
   dataSource = new MatTableDataSource<any>([])
 
@@ -46,6 +50,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarMetricasSistema()
+    this.dataSource.filterPredicate = (data: any, filter: string) => {
+      const nombre = (data.cliente?.nombreCompleto || '').toLowerCase();
+      const dni = (data.cliente?.dni || '').toString();
+      const term = filter.toLowerCase();
+
+      return nombre.includes(term) || dni.startsWith(term);
+    };
   }
 
   ngAfterViewInit(){
@@ -63,12 +74,12 @@ export class DashboardComponent implements OnInit {
 
     this.vehiculoService.list().subscribe({
       next: (vehiculos) => {
-        this.totalVehiculos = vehiculos.length
-        this.valorFlotaUSD = vehiculos.reduce((acumulador, v) => acumulador + (v.precio_venta || 0), 0)
-        this.cdr.detectChanges()
+        this.totalVehiculos = vehiculos.length;
+        this.totalSumaPrecios = vehiculos.reduce((acumulador, v) => acumulador + (v.precio_venta || 0), 0);
+        this.cdr.detectChanges();
       },
-      error: (err) => console.error('Error al recuperar vehiculos para el dashboard', err)
-    })
+      error: (err) => console.error('Error al recuperar vehiculos', err)
+    });
 
     this.simulacionService.list().subscribe({
       next: (simulaciones) => {
@@ -79,7 +90,15 @@ export class DashboardComponent implements OnInit {
       error: (err) => console.error('Error al recuperar transacciones recientes', err)
     })
   }
+  aplicarFiltro(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
 
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   irAlCronograma(element: any): void{
     this.router.navigate(['/cronograma', element.id_simulacion],{
       state: {

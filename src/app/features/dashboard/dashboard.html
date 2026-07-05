@@ -4,24 +4,44 @@
     <p class="subtitle">Monitoreo de cartera y colocaciones en tiempo real.</p>
   </div>
 
-  <div class="kpi-container mt-4">
-    <div class="kpi-card single-kpi">
-      <div class="kpi-card-header">
-        <div class="kpi-icon-box kpi-blue"><mat-icon>people</mat-icon></div>
-      </div>
-      <div class="kpi-label">CLIENTES REGISTRADOS</div>
-      <div class="kpi-value">{{ totalClientes }}</div>
-      <div class="kpi-progress">
-        <div class="kpi-progress-fill bg-blue" style="width: 100%;"></div>
-      </div>
+    <div class="kpi-container mt-4">
+        <div class="kpi-card single-kpi">
+            <div class="kpi-icon-box kpi-blue"><mat-icon>people</mat-icon></div>
+            <div class="kpi-label">CLIENTES</div>
+            <div class="kpi-value">{{ totalClientes }}</div>
+            <div class="kpi-progress">
+                <div class="kpi-progress-fill bg-blue" style="width: 100%;"></div>
+            </div>
+        </div>
+        <div class="kpi-card single-kpi">
+            <div class="kpi-icon-box kpi-green"><mat-icon>directions_car</mat-icon></div>
+            <div class="kpi-label">VEHÍCULOS</div>
+            <div class="kpi-value">{{ totalVehiculos }}</div>
+            <div class="kpi-progress">
+                <div class="kpi-progress-fill bg-blue" style="width: 100%;"></div>
+            </div>
+        </div>
+        <div class="kpi-card single-kpi">
+            <div class="kpi-icon-box kpi-orange"><mat-icon>attach_money</mat-icon></div>
+            <div class="kpi-label">VALOR TOTAL INVENTARIO</div>
+            <div class="kpi-value">S/ {{ totalSumaPrecios | number:'1.2-2' }}</div>
+            <div class="kpi-progress">
+                <div class="kpi-progress-fill bg-blue" style="width: 100%;"></div>
+            </div>
+        </div>
     </div>
-  </div>
-
   <div class="table-card mt-4">
     <div class="table-header">
       <div class="header-titles">
         <h3>Historial de Planes Generados</h3>
         <p>Haga clic en ver para visualizar el cronograma de pago detallado</p>
+          <div class="toolbar">
+              <mat-form-field appearance="outline" class="search-bar">
+                  <mat-icon matPrefix>search</mat-icon>
+                  <mat-label>Buscar por nombre o DNI</mat-label>
+                  <input matInput (keyup)="aplicarFiltro($event)" placeholder="Ej. Carlos Ruiz">
+              </mat-form-field>
+          </div>
       </div>
     </div>
 
