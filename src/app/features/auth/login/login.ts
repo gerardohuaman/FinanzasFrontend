@@ -1,5 +1,5 @@
 
-import { Component } from "@angular/core";
+import { AfterViewInit, Component, NgZone } from "@angular/core";
 import { AuthService } from "../../../core/services/auth";
 import { Router } from "@angular/router";
 import { CommonModule } from "@angular/common";
@@ -10,6 +10,10 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import {MatCheckbox} from "@angular/material/checkbox";
+import { environment } from "../../../../environments/environment";
+
+declare var grecaptcha: any
+const siteKey = environment.recaptchaSiteKey
 
 @Component({
   selector: "app-login",
@@ -27,7 +31,7 @@ import {MatCheckbox} from "@angular/material/checkbox";
   templateUrl: "./login.html",
   styleUrl: "./login.css",
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit{
   username: string = ''
   password: string = ''
   rememberMe: boolean = false
@@ -37,11 +41,44 @@ export class LoginComponent {
   captchaResolved: boolean = false
   captchaToken: string | null = null
 
+  widgetId: number | null = null
+
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private ngZone: NgZone
   ){}
 
+  ngAfterViewInit(): void {
+    this.renderizarCaptcha()
+  }
+
+  renderizarCaptcha() {
+    if (typeof grecaptcha !== 'undefined' && grecaptcha.render) {
+      try {
+        this.widgetId = grecaptcha.render('recaptcha-container', {
+          'sitekey': siteKey, 
+          'callback': (token: string) => {
+            this.ngZone.run(() => {
+              this.captchaResolved = true;
+              this.captchaToken = token;
+              this.hasError = false;
+            });
+          },
+          'expired-callback': () => {
+            this.ngZone.run(() => {
+              this.captchaResolved = false;
+              this.captchaToken = null;
+            });
+          }
+        });
+      } catch (e) {
+        console.error('El captcha ya estaba renderizado o hubo un error', e);
+      }
+    } else {
+      setTimeout(() => this.renderizarCaptcha(), 100);
+    }
+  }
 
   onLogin(){
     this.hasError = false
@@ -52,7 +89,11 @@ export class LoginComponent {
       return
     }
 
-
+    if(!this.captchaResolved || !this.captchaToken) {
+      this.hasError = true
+      this.errorMessage = 'Por favor, verifica que no eres un robot.'
+      return
+    }
 
     const credentials = {username: this.username, password: this.password}
 
