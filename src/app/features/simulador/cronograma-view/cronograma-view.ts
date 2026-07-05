@@ -170,7 +170,6 @@ export class CronogramaViewComponent implements OnInit {
     }, 150);
   }
 
-
   get clienteNombre(): string {
     return this.clienteData?.nombreCompleto
         || this.simulacionData?.cliente?.nombreCompleto
@@ -196,9 +195,17 @@ export class CronogramaViewComponent implements OnInit {
   }
 
   get simboloMoneda(): string {
-    return (this.simulacionData?.moneda_simulacion === 'USD'
-        || this.vehiculoData?.id_moneda === 2) ? '$' : 'S/';
+
+    if (this.vehiculoData?.id_moneda === 2) return '$';
+
+    if (this.simulacionData?.vehiculo?.moneda?.id_moneda === 2) return '$';
+    if (this.simulacionData?.vehiculo?.moneda?.codigo_iso === 'USD') return '$';
+
+    if (this.simulacionData?.moneda_simulacion === 'USD') return '$';
+
+    return 'S/';
   }
+
 
   get nombreMoneda(): string {
     return this.simboloMoneda === '$' ? 'USD' : 'PEN';
@@ -211,11 +218,16 @@ export class CronogramaViewComponent implements OnInit {
   }
 
   get montoFinanciado(): number {
-    const vehiculo = this.vehiculoData || this.simulacionData?.vehiculo
-    if(vehiculo && this.simulacionData) {
-      const precio = vehiculo.precio_venta || 0
-      const porcentajeInicial = this.simulacionData.porcentaje_inicial || 0
-      return precio - (precio * (porcentajeInicial / 100))
+    if (this.simulacionData?.monto_financiado) {
+      return this.simulacionData.monto_financiado;
+    }
+    const vehiculo = this.vehiculoData || this.simulacionData?.vehiculo;
+    const porcentajeInicial = this.inputDTOData?.porcentaje_inicial
+        || this.simulacionData?.porcentaje_inicial
+        || 0;
+    if (vehiculo) {
+      const precio = vehiculo.precio_venta || 0;
+      return precio - (precio * (porcentajeInicial / 100));
     }
     return 0;
   }
@@ -224,12 +236,6 @@ export class CronogramaViewComponent implements OnInit {
     if (this.simulacionData?.total_cuota_final) return this.simulacionData.total_cuota_final;
     return this.dataSource.reduce((acc, c) => acc + (c.cuota_total || 0), 0);
   }
-
-  get interesTotal(): number {
-    if (this.simulacionData?.total_intereses) return this.simulacionData.total_intereses;
-    return this.dataSource.reduce((acc, c) => acc + (c.interes || 0), 0);
-  }
-
   get cuotaMensualFija(): number {
     if (!this.dataSource?.length) return 0;
     return this.dataSource[0].cuota_total;
@@ -245,6 +251,27 @@ export class CronogramaViewComponent implements OnInit {
     if (!valorTasa) return 0;
     return (Math.pow(1 + (valorTasa / 100), 1/12) - 1) * 100;
   }
+  get totalSeguroVehicular(): number {
+    if (this.simulacionData?.total_seguro_vehicular) {
+      return this.simulacionData.total_seguro_vehicular;
+    }
+    return this.dataSource.reduce((acc, c) => acc + (c.seguro_vehicular || 0), 0);
+  }
+
+  get totalSeguroDesgravamen(): number {
+    if (this.simulacionData?.total_seguro_desgravamen) {
+      return this.simulacionData.total_seguro_desgravamen;
+    }
+    return this.dataSource.reduce((acc, c) => acc + (c.seguro_desgravamen || 0), 0);
+  }
+
+  get interesTotal(): number {
+    if (this.simulacionData?.total_intereses) {
+      return this.simulacionData.total_intereses;
+    }
+    return this.dataSource.reduce((acc, c) => acc + (c.interes || 0), 0);
+  }
+
 //Las realaes mañas
 
   get tipoPeriodoGracia(): string {
@@ -253,15 +280,6 @@ export class CronogramaViewComponent implements OnInit {
       case 'TOTAL':   return 'TOTAL';
       case 'PARCIAL': return 'PARCIAL';
       default:        return 'SIN';
-    }
-  }
-
-  get tipoPeriodoGraciaTexto(): string {
-    const tipo = this.inputDTOData?.tipo_gracia || this.simulacionData?.tipo_gracia || 'SIN_GRACIA';
-    switch (tipo) {
-      case 'TOTAL':   return 'Periodo de gracia Total';
-      case 'PARCIAL': return 'Periodo de gracia Parcial';
-      default:        return 'Sin gracia';
     }
   }
 
