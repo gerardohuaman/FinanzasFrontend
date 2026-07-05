@@ -373,6 +373,7 @@ mat-label {
   cursor: not-allowed !important;
   opacity: 1 !important; /* evita el opacity tenue de Material */
 }
+
 @media (max-width: 1024px) {
   .main-grid {
     grid-template-columns: 1fr;

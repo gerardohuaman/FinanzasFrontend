@@ -35,7 +35,7 @@ export class CronogramaViewComponent implements OnInit {
   clienteData:    any = null;
   vehiculoData:   any = null;
   inputDTOData:   any = null;
-
+  tieneDatos: boolean = false;
   private route             = inject(ActivatedRoute);
   private router            = inject(Router);
   private cronogramaService = inject(CronogramaService);
@@ -51,6 +51,7 @@ export class CronogramaViewComponent implements OnInit {
       if (this.simulacionData?.cronograma) {
         this.dataSource = this.simulacionData.cronograma;
       }
+      this.tieneDatos = true;
     }
   }
 

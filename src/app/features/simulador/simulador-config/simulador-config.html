@@ -72,12 +72,13 @@
             <mat-card-content class="grid-3-cols mt-3">
 
                 <mat-form-field appearance="outline">
-                    <mat-label>
-                        Precio Vehículo
-                        <mat-icon class="info-icon" matTooltip="Precio de venta del vehículo seleccionado, en la moneda original registrada.">info</mat-icon>
-                    </mat-label>
-                    <span matPrefix class="currency-prefix">{{ monedaSeleccionada === 'USD' ? '$ ' : 'S/' }}&nbsp;</span>
-                    <input matInput type="number" [value]="vehiculoSeleccionado?.precio_venta ?? 0" readonly>
+                    <mat-label>Precio Vehículo</mat-label>
+                    <span matPrefix class="currency-prefix">
+        {{ monedaSeleccionada === 'USD' ? '$ ' : 'S/' }}&nbsp;
+    </span>
+                    <input matInput
+                           [value]="precioConvertido | number:'1.2-2'"
+                           readonly>
                 </mat-form-field>
 
                 <div class="field-wrapper">
@@ -325,6 +326,34 @@
             </button>
         </mat-card-actions>
       </mat-card>
+        <div class="conversion-card mt-3"
+             *ngIf="vehiculoSeleccionado && precioConvertido !== vehiculoSeleccionado.precio_venta">
+            <div class="conversion-header">
+                <mat-icon class="conversion-icon">currency_exchange</mat-icon>
+                <span class="conversion-titulo">Conversión aplicada</span>
+            </div>
+            <div class="conversion-body">
+                <div class="conversion-row">
+                    <span class="conversion-label">Precio original</span>
+                    <span class="conversion-valor">
+                {{ vehiculoSeleccionado.id_moneda === 2 ? '$' : 'S/' }}
+                        {{ vehiculoSeleccionado.precio_venta | number:'1.2-2' }}
+            </span>
+                </div>
+                <div class="conversion-arrow">
+                    <mat-icon>arrow_downward</mat-icon>
+                    <span class="tasa-label">{{ tasaAplicadaLabel }}</span>
+                </div>
+                <div class="conversion-row resultado">
+                    <span class="conversion-label">Precio convertido</span>
+                    <span class="conversion-valor destacado">
+                {{ monedaSeleccionada === 'USD' ? '$' : 'S/' }}
+                        {{ precioConvertido | number:'1.2-2' }}
+            </span>
+                </div>
+            </div>
+        </div>
     </div>
+
   </div>
 </div>

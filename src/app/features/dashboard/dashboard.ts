@@ -20,7 +20,6 @@ import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
     MatButtonModule,
     MatIconModule,
     MatPaginatorModule,
-    RouterLink
   ],
   templateUrl: "./dashboard.html",
   styleUrl: "./dashboard.css",

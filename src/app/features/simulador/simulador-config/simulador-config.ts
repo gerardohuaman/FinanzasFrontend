@@ -20,6 +20,7 @@ import { MonedaService } from "../../../core/services/Moneda-service";
 import { Router } from "@angular/router";
 import { Moneda } from "../../../models/Moneda";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {HistorialTipoCambioService} from "../../../core/services/HistorialTipoCambio-service";
 
 @Component({
   selector: "app-simulador-config",
@@ -65,8 +66,9 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
 
   cuotaInicialMoneda: number = 0;
   cuotaBalonMoneda:   number = 0;
+  //Para el historial tipo de cambio ojo
+  precioConvertido: number = 0;
   tipoCambio: any = null;
-
 
   respuestaSimulacion: SimulacionResponseDTO | null = null
   previewData: SimulacionResponseDTO | null = null
@@ -78,6 +80,7 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
   private vehiculoService = inject(VehiculoService)
   private monedaService = inject(MonedaService)
   private simulacionService = inject(SimulacionService)
+  private tipoCambioService = inject(HistorialTipoCambioService);
   private router = inject(Router)
   private cdr = inject(ChangeDetectorRef)
 
@@ -98,27 +101,31 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
     this.inputDTO.valor_tasa = 12.50
     this.inputDTO.cok = 1.0;
 
-    this.sub = this.inputSubject.pipe(
-      debounceTime(500)
-    ).subscribe(() => {
-      this.solicitarPreview()
-    })
-
     this.clienteService.list().subscribe({
-      next:  (data) => this.todosLosClientes = data,
-      error: (err)  => console.error('Error al cargar clientes', err)
+      next: (data) => { this.clientes = data; this.todosLosClientes = data; },
+      error: (err) => console.error('Error al cargar clientes', err)
     });
 
     this.vehiculoService.list().subscribe({
-      next:  (data) => this.todosLosVehiculos = data,
-      error: (err)  => console.error('Error al cargar vehículos', err)
+      next: (data) => { this.vehiculos = data; this.todosLosVehiculos = data; },
+      error: (err) => console.error('Error al cargar vehículos', err)
     });
-    
-    
 
     this.monedaService.list().subscribe({
-      next:  (data) => this.tipoCambio = data,
-      error: (err)  => console.error('Error al cargar tipo de cambio', err)
+      next: (data) => this.monedas = data,
+      error: (err) => console.error('Error al cargar monedas', err)
+    });
+
+    this.tipoCambioService.getUltimo().subscribe({
+      next: (data) => {
+        this.tipoCambio = data;
+        this.inputDTO.id_tipo_cambio = data.id_tipo_cambio;
+      },
+      error: (err) => console.error('Error al cargar tipo de cambio', err)
+    });
+
+    this.sub = this.inputSubject.pipe(debounceTime(500)).subscribe(() => {
+      this.solicitarPreview();
     });
   }
 
@@ -141,27 +148,26 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
     return Math.round(valor * 10000) / 10000;
   }
 
-  onVehiculoChange(vehiculoId: number): void {
-    const v = this.vehiculos.find(x => x.id_vehiculo === vehiculoId)
-    if(v){
-      this.precioVehiculoSeleccionado = v.precio_venta
-      const monedaVehiculo = this.monedas.find(m => m.id_moneda === v.id_moneda)
-      this.monedaSeleccionada = monedaVehiculo ? monedaVehiculo.codigo_iso : 'PEN'
-      this.onCambioDatos()
-    }
-  }
-
-  verCronograma(): void {
-    if(this.respuestaSimulacion && this.respuestaSimulacion.id_simulacion){
-      this.router.navigate(['/cronograma', this.respuestaSimulacion.id_simulacion])
-    }
-  }
-
   recalcularMontos(): void {
-    if(this.vehiculoSeleccionado){
-      this.cuotaInicialMoneda = this.vehiculoSeleccionado.precio_venta * (this.inputDTO.porcentaje_inicial / 100)
-      this.cuotaBalonMoneda = this.vehiculoSeleccionado.precio_venta * (this.inputDTO.porcentaje_balon / 100)
+    if (!this.vehiculoSeleccionado) return;
+    console.log('tipoCambio al recalcular:', this.tipoCambio);
+    const precioOriginal = this.vehiculoSeleccionado.precio_venta;
+    const monedaVehiculo = this.vehiculoSeleccionado.id_moneda;
+
+    if (monedaVehiculo === 2 && this.monedaSeleccionada === 'PEN') {
+      this.precioConvertido = this.tipoCambio
+          ? precioOriginal * this.tipoCambio.valor_venta
+          : precioOriginal;
+    } else if (monedaVehiculo === 1 && this.monedaSeleccionada === 'USD') {
+      this.precioConvertido = this.tipoCambio
+          ? precioOriginal / this.tipoCambio.valor_compra
+          : precioOriginal;
+    } else {
+      this.precioConvertido = precioOriginal; // misma moneda
     }
+
+    this.cuotaInicialMoneda = this.precioConvertido * (this.inputDTO.porcentaje_inicial / 100);
+    this.cuotaBalonMoneda   = this.precioConvertido * (this.inputDTO.porcentaje_balon   / 100);
   }
 
   // Para el filtro
@@ -274,7 +280,7 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
     });
   }
   get montoFinanciar(): number {
-    return this.previewData ? this.previewData.monto_financiado : 0;
+    return this.precioConvertido - this.cuotaInicialMoneda;
   }
 
   get cuotaMensual(): number {
@@ -303,7 +309,6 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
 
 
   //VAlidaciones
-  // ── VALIDACIONES ──────────────────────────────────
 
   get errorValorTasa(): string | null {
     if (this.inputDTO.valor_tasa > 113.16) {
@@ -391,5 +396,16 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
     });
 
     return valido;
+  }
+  get tasaAplicadaLabel(): string {
+    if (!this.tipoCambio || !this.vehiculoSeleccionado) return '';
+
+    if (this.vehiculoSeleccionado.id_moneda === 2 && this.monedaSeleccionada === 'PEN') {
+      return `Tipo venta: S/ ${this.tipoCambio.valor_venta}`;
+    }
+    if (this.vehiculoSeleccionado.id_moneda === 1 && this.monedaSeleccionada === 'USD') {
+      return `Tipo compra: S/ ${this.tipoCambio.valor_compra}`;
+    }
+    return '';
   }
 }

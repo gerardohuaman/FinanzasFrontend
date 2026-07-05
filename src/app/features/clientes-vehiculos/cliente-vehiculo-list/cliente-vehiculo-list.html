@@ -62,13 +62,11 @@
         <th mat-header-cell *matHeaderCellDef> INGRESOS MENSUALES </th>
         <td mat-cell *matCellDef="let element"> S/ {{element.ingresos_mensuales | number:'1.2-2'}} </td>
       </ng-container>
-        <!-- Teléfono Secundario -->
         <ng-container matColumnDef="telefonoSecundario">
             <th mat-header-cell *matHeaderCellDef> TELÉFONO SECUNDARIO </th>
             <td mat-cell *matCellDef="let c"> {{ c.telefonoSecundario || '—' }} </td>
         </ng-container>
 
-        <!-- Consentimiento -->
         <ng-container matColumnDef="aceptaTratamientoDatos">
             <th mat-header-cell *matHeaderCellDef> CONSENTIMIENTO </th>
             <td mat-cell *matCellDef="let c">

@@ -25,12 +25,6 @@
         </mat-form-field>
       </div>
 
-      <div class="form-group captcha-container" style="display: flex; justify-content: center; margin-bottom: 15px;">
-        <re-captcha 
-          (resolved)="onCaptchaResolved($event)" 
-          siteKey="6Le1zEMtAAAAAEkIiwZqJ13R9eGeWcjHGwLFgoEh">
-        </re-captcha>
-      </div>
 
       <div class="error-message" *ngIf="hasError">
         {{ errorMessage }}
