@@ -308,13 +308,44 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
 
   //VAlidaciones
 
-  get errorValorTasa(): string | null {
-    if (this.inputDTO.valor_tasa > 113.16) {
-      return 'La tasa no puede superar 113.16% (límite SBS)';
+  get teaEquivalente(): number {
+    const valor = this.inputDTO.valor_tasa / 100;
+
+    if (this.inputDTO.tipo_tasa === 'TEA') {
+      return this.inputDTO.valor_tasa;
     }
+
+    if (this.inputDTO.tipo_tasa === 'TNA') {
+      let m = 12;
+      switch (this.inputDTO.capitalizacion?.toUpperCase()) {
+        case 'DIARIA':      m = 360; break;
+        case 'MENSUAL':     m = 12;  break;
+        case 'TRIMESTRAL':  m = 4;   break;
+        case 'SEMESTRAL':   m = 2;   break;
+        default:            m = 12;
+      }
+      const tea = Math.pow(1 + (valor / m), m) - 1;
+      return tea * 100;
+    }
+
+    return this.inputDTO.valor_tasa;
+  }
+
+  get errorValorTasa(): string | null {
     if (this.inputDTO.valor_tasa <= 0) {
       return 'La tasa debe ser mayor a 0';
     }
+
+    const tea = this.teaEquivalente;
+
+    if (tea > 113.16) {
+      if (this.inputDTO.tipo_tasa === 'TNA') {
+        return `La TNA ingresada equivale a una TEA
+         de ${tea.toFixed(2)}%, superando el límite SBS de 113.16%`;
+      }
+      return 'La tasa no puede superar 113.16% (límite SBS)';
+    }
+
     return null;
   }
 
