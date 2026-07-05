@@ -81,7 +81,7 @@
                         </div>
                         <div class="r-item">
                             <span class="r-label">TOTAL SEG. VEHICULAR</span>
-                            <span class="r-value">{{ simboloMoneda }} {{ (simulacionData?.total_seguro_vehicular || 0) | number:'1.2-2' }}</span>
+                            <span class="r-value">{{ simboloMoneda }} {{ (totalSeguroVehicular || 0) | number:'1.2-2' }}</span>
                         </div>        <div class="r-item">
                         <span class="r-label">ULTIMA CUOTA DEL CRONOGRAMA</span>
                         <span class="r-value">{{ simboloMoneda }} {{ ultimaCuota | number:'1.2-2' }}</span>
@@ -90,11 +90,11 @@
 
                         <div class="r-item">
                             <span class="r-label">TOTAL SEG. DESGRAVAMEN</span>
-                            <span class="r-value">{{ simboloMoneda }} {{ (simulacionData?.total_seguro_desgravamen || 0) | number:'1.2-2' }}</span>
+                            <span class="r-value">{{ simboloMoneda }} {{ (totalSeguroDesgravamen|| 0) | number:'1.2-2' }}</span>
                         </div>
                         <div class="r-item">
                             <span class="r-label">TOTAL INTERESES</span>
-                            <span class="r-value">{{ simboloMoneda }} {{ (simulacionData?.total_intereses || 0) | number:'1.2-2' }}</span>
+                            <span class="r-value">{{ simboloMoneda }} {{ (interesTotal || 0) | number:'1.2-2' }}</span>
                         </div>
                         <div class="r-item">
                             <span class="r-label">PLAZO TOTAL</span>

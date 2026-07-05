@@ -60,7 +60,6 @@ export class LoginComponent {
       next: (response) => {
         if (response && response.jwttoken) {
           this.authService.guardarToken(response.jwttoken)
-          console.log ("Hola mundo");
           this.router.navigate(['/clientes'])
         }
       },

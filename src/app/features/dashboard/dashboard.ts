@@ -38,8 +38,6 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
 
-  actividadReciente: any[] = []
-
   constructor(
     private clienteService: ClienteService,
     private vehiculoService: VehiculoService,

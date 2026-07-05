@@ -78,7 +78,6 @@ export class CronogramaViewComponent implements OnInit {
     window.print();
   }
 
-
   get clienteNombre(): string {
     return this.clienteData?.nombreCompleto
         || this.simulacionData?.cliente?.nombreCompleto
@@ -132,12 +131,6 @@ export class CronogramaViewComponent implements OnInit {
     if (this.simulacionData?.total_cuota_final) return this.simulacionData.total_cuota_final;
     return this.dataSource.reduce((acc, c) => acc + (c.cuota_total || 0), 0);
   }
-
-  get interesTotal(): number {
-    if (this.simulacionData?.total_intereses) return this.simulacionData.total_intereses;
-    return this.dataSource.reduce((acc, c) => acc + (c.interes || 0), 0);
-  }
-
   get cuotaMensualFija(): number {
     if (!this.dataSource?.length) return 0;
     return this.dataSource[0].cuota_total;
@@ -153,6 +146,27 @@ export class CronogramaViewComponent implements OnInit {
     if (!valorTasa) return 0;
     return (Math.pow(1 + (valorTasa / 100), 1/12) - 1) * 100;
   }
+  get totalSeguroVehicular(): number {
+    if (this.simulacionData?.total_seguro_vehicular) {
+      return this.simulacionData.total_seguro_vehicular;
+    }
+    return this.dataSource.reduce((acc, c) => acc + (c.seguro_vehicular || 0), 0);
+  }
+
+  get totalSeguroDesgravamen(): number {
+    if (this.simulacionData?.total_seguro_desgravamen) {
+      return this.simulacionData.total_seguro_desgravamen;
+    }
+    return this.dataSource.reduce((acc, c) => acc + (c.seguro_desgravamen || 0), 0);
+  }
+
+  get interesTotal(): number {
+    if (this.simulacionData?.total_intereses) {
+      return this.simulacionData.total_intereses;
+    }
+    return this.dataSource.reduce((acc, c) => acc + (c.interes || 0), 0);
+  }
+
 //Las realaes mañas
 
   get tipoPeriodoGracia(): string {
@@ -161,15 +175,6 @@ export class CronogramaViewComponent implements OnInit {
       case 'TOTAL':   return 'TOTAL';
       case 'PARCIAL': return 'PARCIAL';
       default:        return 'SIN';
-    }
-  }
-
-  get tipoPeriodoGraciaTexto(): string {
-    const tipo = this.inputDTOData?.tipo_gracia || this.simulacionData?.tipo_gracia || 'SIN_GRACIA';
-    switch (tipo) {
-      case 'TOTAL':   return 'Periodo de gracia Total';
-      case 'PARCIAL': return 'Periodo de gracia Parcial';
-      default:        return 'Sin gracia';
     }
   }
 

@@ -150,7 +150,6 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
 
   recalcularMontos(): void {
     if (!this.vehiculoSeleccionado) return;
-    console.log('tipoCambio al recalcular:', this.tipoCambio);
     const precioOriginal = this.vehiculoSeleccionado.precio_venta;
     const monedaVehiculo = this.vehiculoSeleccionado.id_moneda;
 
@@ -251,8 +250,7 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
     this.simulacionService.previewSimulation(this.inputDTO).subscribe({
       next: (res: any) => {
         this.previewData = res;
-        this.cdr.detectChanges(); //
-        console.log('Preview response completo:', res);
+        this.cdr.detectChanges();
       },
       error: (err: any) => console.log('Faltan parametros para la proyeccion matematica', err)
     });
@@ -384,16 +382,6 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
         && !this.errorTasaVehicular
         && !this.errorClienteVehiculo
         && !!this.previewData;
-
-    console.log('Formulario válido:', valido, {
-      cliente: this.errorClienteVehiculo,
-      tasa: this.errorValorTasa,
-      plazo: this.errorPlazoMeses,
-      gracia: this.errorMesesGracia,
-      inicial: this.errorPorcentajeInicial,
-      balon: this.errorPorcentajeBalon,
-      preview: !!this.previewData
-    });
 
     return valido;
   }
