@@ -235,10 +235,8 @@ export class SimuladorConfigComponent implements OnInit, OnDestroy{
   setMoneda(moneda: string): void {
     this.monedaSeleccionada = moneda;
 
-    if (moneda === 'PEN') {
-      this.inputDTO.id_tipo_cambio = 1;
-    } else if (moneda === 'USD') {
-      this.inputDTO.id_tipo_cambio = 2;
+    if(this.tipoCambio){
+      this.inputDTO.id_tipo_cambio = this.tipoCambio.id_tipo_cambio
     }
 
     this.recalcularMontos();
