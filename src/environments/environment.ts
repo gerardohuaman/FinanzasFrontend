@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
-    base: 'http://localhost:8080',
+    base: 'https://finanzasbackend-production.up.railway.app',
     recaptchaSiteKey: '6LdYfEYtAAAAACR2r3ZChQOjhHGX9xrLeNjw7CE-'
 }

@@ -41,11 +41,21 @@ export class ClienteListComponent implements OnInit{
   //Clientes
   columnasClientes: string[] = ['dni', 'nombreCompleto', 'email', 'telefono', 'telefonoSecundario', 'aceptaTratamientoDatos', 'ingresos', 'acciones']
   dataSourceClientes = new MatTableDataSource<Cliente>([])
-  @ViewChild('paginatorClientes') paginatorClientes!: MatPaginator
+  @ViewChild('paginatorClientes') set matPaginatorClientes(paginator: MatPaginator) {
+    if(paginator){
+      this.dataSourceClientes.paginator = paginator
+    }
+  }
+
+
   //Vehiculos
   columnasVehiculos = ['id_vehiculo', 'marca', 'modelo', 'precio_venta', 'id_moneda', 'acciones'];
   dataSourceVehiculos = new MatTableDataSource<any>([]);
-  @ViewChild('paginatorVehiculos') paginatorVehiculos!: MatPaginator;
+  @ViewChild('paginatorVehiculos') set matPaginatorVehiculos(paginator: MatPaginator){
+    if(paginator){
+      this.dataSourceVehiculos.paginator = paginator
+    }
+  } 
 
   //Moneda
   private monedaService = inject(MonedaService);
@@ -74,10 +84,6 @@ export class ClienteListComponent implements OnInit{
       return marca.includes(filter) || modelo.includes(filter);
     };
   }
-  ngAfterViewInit(): void {
-    this.dataSourceClientes.paginator = this.paginatorClientes;
-    this.dataSourceVehiculos.paginator = this.paginatorVehiculos;
-  }
 
   //Monedas
   cargarMonedas(): void {
@@ -94,7 +100,7 @@ export class ClienteListComponent implements OnInit{
     this.clienteService.list().subscribe({
       next: (data) => {
         this.dataSourceClientes.data = data;
-        this.dataSourceClientes.paginator = this.paginatorClientes;
+        this.dataSourceClientes.paginator = this.matPaginatorClientes;
       },
       error: (err) => console.error('Error al cargar clientes', err)
     });
@@ -153,7 +159,7 @@ export class ClienteListComponent implements OnInit{
     this.vehiculoService.list().subscribe({
       next: (data) => {
         this.dataSourceVehiculos.data = data
-        this.dataSourceVehiculos.paginator = this.paginatorVehiculos
+        this.dataSourceVehiculos.paginator = this.matPaginatorVehiculos
       },
       error: (err) => console.error('Error al mapear base de datos de vehiculos', err)
     })
